@@ -27,12 +27,23 @@ export const metadata: Metadata = {
     title: site.title,
     description: site.description,
     locale: "en_US",
+    images: [
+      {
+        url: site.socialImage,
+        width: 1200,
+        height: 630,
+        alt: site.socialImageAlt,
+        type: "image/jpeg",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: site.title,
     description: site.description,
+    site: "@JHereM",
     creator: "@JHereM",
+    images: [{ url: site.socialImage, alt: site.socialImageAlt }],
   },
   robots: {
     index: true,
