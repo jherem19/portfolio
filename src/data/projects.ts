@@ -1,0 +1,30 @@
+export type Project = {
+  slug: string;
+  title: string;
+  discipline: string;
+  category: string;
+  year: string;
+  image: string;
+  alt: string;
+  intro: string;
+  overview: string;
+  services: string[];
+};
+
+export const projects: Project[] = [
+  { slug: "stratadex", title: "Stratadex", discipline: "Product Design · Web3", category: "Digital product", year: "2026", image: "/work/stratadex.png", alt: "Stratadex digital asset product experience", intro: "A clear product experience for navigating a complex digital-asset ecosystem.", overview: "The project explores how product structure, visual hierarchy, and a distinctive art direction can make infrastructure for digital assets feel understandable and trustworthy.", services: ["Product design", "UX direction", "Visual design"] },
+  { slug: "security-made-clear", title: "Security, made clear", discipline: "Motion Design · Product", category: "Product motion", year: "2026", image: "/work/security-flow.png", alt: "Soft purple product interface and security flow", intro: "A motion-led system that turns security flows into calm, legible moments.", overview: "A modular collection of interface scenes designed to explain identity, authentication, and protection without adding visual noise to the product experience.", services: ["Motion design", "Interaction", "Design system"] },
+  { slug: "minah", title: "Minah", discipline: "Brand Experience · Campaign", category: "Brand experience", year: "2025", image: "/work/minah.png", alt: "Minah impact investment campaign", intro: "An editorial campaign language built around purpose, warmth, and impact.", overview: "The visual direction combines bold typography, human imagery, and a warm palette to give an investment narrative a more direct and emotionally resonant presence.", services: ["Art direction", "Brand design", "Campaign"] },
+  { slug: "sound-reimagined", title: "Sound, reimagined", discipline: "Real-time 3D · Art Direction", category: "3D product study", year: "2025", image: "/work/audio-device.png", alt: "Conceptual 3D audio device", intro: "A tactile 3D product study where industrial detail meets playful color.", overview: "This exploration focuses on material, lighting, and composition to present a familiar audio object as a collectible digital product with a strong visual identity.", services: ["3D design", "Look development", "Art direction"] },
+  { slug: "rdon", title: "rdon", discipline: "Product Design · E-commerce", category: "Commerce experience", year: "2025", image: "/work/rdon.png", alt: "Rdon bike light product experience", intro: "A focused commerce experience for a high-performance cycling product.", overview: "The interface uses contrast, product storytelling, and close-up imagery to communicate technical value while keeping the path from discovery to purchase simple.", services: ["Product design", "E-commerce", "UI direction"] },
+  { slug: "digital-matter-01", title: "Digital matter 01", discipline: "3D Exploration", category: "Visual experiment", year: "2024", image: "/work/blue-form.png", alt: "Blue textured abstract 3D form", intro: "An abstract study of texture, depth, and light in a digital material.", overview: "A compact real-time experiment created to test how a single form can carry character through surface detail, color, shadow, and scale.", services: ["3D exploration", "Materials", "Lighting"] },
+  { slug: "sustainable-systems", title: "Sustainable systems", discipline: "Digital Product · Web", category: "Web experience", year: "2024", image: "/work/green-product.png", alt: "Green digital product website", intro: "A digital experience that makes sustainability feel active and contemporary.", overview: "The project brings together editorial layouts, a fresh color system, and product-focused storytelling to create an approachable web presence.", services: ["Web design", "Visual system", "Art direction"] },
+  { slug: "digital-matter-02", title: "Digital matter 02", discipline: "3D Exploration", category: "Visual experiment", year: "2024", image: "/work/green-form.png", alt: "Green textured abstract 3D form", intro: "A second material study exploring organic volume and saturated color.", overview: "This piece continues a series of real-time experiments focused on expressive surfaces, sculptural silhouettes, and controlled studio lighting.", services: ["3D exploration", "Materials", "Composition"] },
+  { slug: "interface-studies", title: "Interface studies", discipline: "Product Design · Fintech", category: "Product interface", year: "2023", image: "/work/game-console.png", alt: "Light product dashboard interface", intro: "A modular dashboard concept designed to make complex information scannable.", overview: "The study investigates density, navigation, and visual rhythm across a set of financial product screens while maintaining a calm, accessible interface.", services: ["Product design", "UX structure", "UI system"] },
+  { slug: "pocket-worlds", title: "Pocket worlds", discipline: "3D Design · Product", category: "3D product study", year: "2023", image: "/work/dashboard.png", alt: "Yellow handheld game console rendering", intro: "A nostalgic handheld object reinterpreted through contemporary 3D craft.", overview: "The piece balances recognizable industrial details with a stylized palette and soft lighting to create an image that feels familiar and new at once.", services: ["3D design", "Product visualization", "Lighting"] },
+  { slug: "control", title: "Control", discipline: "Real-time 3D", category: "Product visualization", year: "2022", image: "/work/game-controller.png", alt: "Black game controller rendering", intro: "A cinematic real-time study of form, material, and controlled light.", overview: "This product visualization uses restrained lighting and a dark environment to emphasize silhouette, tactile surfaces, and small industrial details.", services: ["Real-time 3D", "Look development", "Rendering"] },
+];
+
+export function getProject(slug: string) {
+  return projects.find((project) => project.slug === slug);
+}
