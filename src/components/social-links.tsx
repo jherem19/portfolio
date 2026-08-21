@@ -1,8 +1,10 @@
+import { site } from "@/data/site";
+
 const socialLinks = [
-  { label: "X", href: "https://x.com/JHereM", mark: "X" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/3d-visual-designer-jherem/", mark: "in" },
-  { label: "Behance", href: "https://www.behance.net/jherem", mark: "Bē" },
-  { label: "Instagram", href: "https://www.instagram.com/jherem19/", mark: "◎" },
+  { label: "X", href: site.socials[0], mark: "X" },
+  { label: "LinkedIn", href: site.socials[1], mark: "in" },
+  { label: "Behance", href: site.socials[2], mark: "Bē" },
+  { label: "Instagram", href: site.socials[3], mark: "◎" },
 ];
 
 export function SocialLinks({ compact = false }: { compact?: boolean }) {

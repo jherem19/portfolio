@@ -6,6 +6,8 @@ import { notFound } from "next/navigation";
 
 import { SiteSidebar } from "@/components/site-sidebar";
 import { getProject, projects } from "@/data/projects";
+import { site } from "@/data/site";
+import { jsonLd } from "@/lib/json-ld";
 
 export const dynamicParams = false;
 
@@ -17,7 +19,28 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const project = getProject(slug);
   if (!project) return {};
-  return { title: `${project.title} — Hector Heredia`, description: project.intro };
+  const url = `${site.url}/work/${project.slug}`;
+  const image = `${site.url}${project.image}`;
+
+  return {
+    title: project.title,
+    description: project.intro,
+    keywords: [project.category, project.discipline, ...project.services, site.name],
+    alternates: { canonical: url },
+    openGraph: {
+      type: "article",
+      url,
+      title: `${project.title} | ${site.name}`,
+      description: project.intro,
+      images: [{ url: image, alt: project.alt }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} | ${site.name}`,
+      description: project.intro,
+      images: [image],
+    },
+  };
 }
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -27,9 +50,31 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
   const projectIndex = projects.findIndex((item) => item.slug === project.slug);
   const nextProject = projects[(projectIndex + 1) % projects.length];
+  const projectUrl = `${site.url}/work/${project.slug}`;
 
   return (
     <main className="site-shell project-shell">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: jsonLd({
+            "@context": "https://schema.org",
+            "@type": "CreativeWork",
+            "@id": `${projectUrl}/#creative-work`,
+            url: projectUrl,
+            name: project.title,
+            description: project.intro,
+            abstract: project.overview,
+            image: `${site.url}${project.image}`,
+            dateCreated: project.year,
+            genre: project.category,
+            keywords: [project.discipline, ...project.services].join(", "),
+            inLanguage: "en",
+            creator: { "@id": `${site.url}/#person` },
+            isPartOf: { "@id": `${site.url}/#website` },
+          }),
+        }}
+      />
       <SiteSidebar active="work" />
       <article className="page-content project-page">
         <header className="project-hero">
