@@ -77,6 +77,55 @@ const projects = [
   },
 ];
 
+const socialLinks = [
+  { label: "X", href: "https://x.com/JHereM", icon: "x" },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/3d-visual-designer-jherem/",
+    icon: "linkedin",
+  },
+  { label: "Behance", href: "https://www.behance.net/jherem", icon: "behance" },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/jherem19/",
+    icon: "instagram",
+  },
+];
+
+function SocialIcon({ name }: { name: string }) {
+  if (name === "x") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M18.9 2H22l-6.78 7.75L23.2 22h-6.25l-4.9-6.4L6.45 22H3.34l7.25-8.29L2.94 2H9.35l4.43 5.86L18.9 2Zm-1.1 17.84h1.72L8.41 4.05H6.56L17.8 19.84Z" />
+      </svg>
+    );
+  }
+
+  if (name === "linkedin") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M5.34 7.87A2.34 2.34 0 1 0 5.34 3.2a2.34 2.34 0 0 0 0 4.67ZM3.32 20.8h4.04V9.52H3.32V20.8ZM9.66 9.52h3.87v1.54h.06c.54-1.02 1.86-2.1 3.82-2.1 4.08 0 4.84 2.69 4.84 6.18v5.66h-4.04v-5.02c0-1.2-.02-2.74-1.67-2.74-1.68 0-1.94 1.31-1.94 2.65v5.11h-4.04V9.52Z" />
+      </svg>
+    );
+  }
+
+  if (name === "behance") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3 5.5h7.1c3.14 0 5.28 1.08 5.28 4.02 0 1.55-.78 2.64-2.16 3.3 1.94.56 2.92 2.05 2.92 4.03 0 3.23-2.74 4.61-5.61 4.61H3V5.5Zm3.5 6.45h3.35c1.27 0 2.22-.58 2.22-1.97 0-1.56-1.2-1.9-2.48-1.9H6.5v3.87Zm0 6.93h3.54c1.43 0 2.68-.46 2.68-2.17 0-1.68-1.05-2.35-2.61-2.35H6.5v4.52ZM17.5 6.42H22V8h-4.5V6.42Z" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" strokeWidth="2" />
+      <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" strokeWidth="2" />
+      <circle cx="17.4" cy="6.8" r="1.15" />
+    </svg>
+  );
+}
+
 export default function Home() {
   return (
     <main>
@@ -170,8 +219,8 @@ export default function Home() {
           <Image
             src="/profile.png"
             alt="Portrait of Hector Heredia"
-            width={958}
-            height={963}
+            width={1254}
+            height={1254}
             sizes="(max-width: 767px) 100vw, 38vw"
             className="portrait"
           />
@@ -197,6 +246,27 @@ export default function Home() {
           >
             View experience <ArrowUpRight aria-hidden="true" />
           </a>
+        </div>
+      </section>
+
+      <section className="social-section" aria-labelledby="social-title">
+        <div>
+          <p className="eyebrow">Elsewhere</p>
+          <h2 id="social-title">Follow the work.</h2>
+        </div>
+        <div className="social-links" aria-label="Social profiles">
+          {socialLinks.map((social) => (
+            <a
+              key={social.label}
+              href={social.href}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={social.label}
+              title={social.label}
+            >
+              <SocialIcon name={social.icon} />
+            </a>
+          ))}
         </div>
       </section>
 
