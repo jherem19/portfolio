@@ -4,9 +4,12 @@ import { ArrowDown, ArrowUpRight, Mail } from "lucide-react";
 
 import { SiteSidebar } from "@/components/site-sidebar";
 import { SocialLinks } from "@/components/social-links";
-import { projects } from "@/data/projects";
+import { getPublishedProjects } from "@/lib/cms/projects";
 
-export default function Home() {
+export const revalidate = 60;
+
+export default async function Home() {
+  const projects = await getPublishedProjects();
   return (
     <main className="site-shell">
       <SiteSidebar />
@@ -37,12 +40,12 @@ export default function Home() {
             {projects.map((project, index) => (
               <Link className="work-card" href={`/work/${project.slug}`} key={project.slug}>
                 <div className="work-image">
-                  <Image src={project.image} alt={project.alt} fill priority={index < 2} sizes="(max-width: 760px) 100vw, (max-width: 1100px) 70vw, 42vw" />
+                  <Image src={project.cover_image} alt={`${project.title} project cover`} fill priority={index < 2} sizes="(max-width: 760px) 100vw, (max-width: 1100px) 70vw, 42vw" unoptimized={project.cover_image.startsWith("http")} />
                   <span className="work-open"><ArrowUpRight aria-hidden="true" /></span>
                 </div>
                 <div className="work-meta">
                   <div><span>{project.category}</span><h3>{project.title}</h3></div>
-                  <p>{project.discipline}<br />{project.year}</p>
+                  <p>{project.tags.slice(0, 2).join(" · ")}<br />{project.project_date.slice(0, 4)}</p>
                 </div>
               </Link>
             ))}

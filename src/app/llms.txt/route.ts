@@ -1,13 +1,12 @@
-import { projects } from "@/data/projects";
 import { site } from "@/data/site";
+import { getPublishedProjects } from "@/lib/cms/projects";
 
-export const dynamic = "force-static";
-
-export function GET() {
+export async function GET() {
+  const projects = await getPublishedProjects();
   const projectList = projects
     .map(
       (project) =>
-        `- [${project.title}](${site.url}/work/${project.slug}): ${project.intro} Discipline: ${project.discipline}. Year: ${project.year}.`,
+        `- [${project.title}](${site.url}/work/${project.slug}): ${project.short_description} Category: ${project.category}. Tags: ${project.tags.join(", ")}. Year: ${project.project_date.slice(0, 4)}.`,
     )
     .join("\n");
 
