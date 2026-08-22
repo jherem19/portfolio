@@ -47,10 +47,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const project = await getPublishedProject(slug);
+  const [project, projects] = await Promise.all([
+    getPublishedProject(slug),
+    getPublishedProjects(),
+  ]);
   if (!project) notFound();
 
-  const projects = await getPublishedProjects();
   const projectIndex = projects.findIndex((item) => item.slug === project.slug);
   const nextProject = projects[(projectIndex + 1) % projects.length];
   const projectUrl = `${site.url}/work/${project.slug}`;
@@ -93,7 +95,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         </header>
 
         <div className="project-cover">
-          {project.cover_video ? <video autoPlay loop muted playsInline poster={project.cover_image} src={project.cover_video} style={{ objectPosition: `${project.cover_position_x}% ${project.cover_position_y}%`, transform: `scale(${project.cover_zoom / 100})` }} /> : <Image src={project.cover_image} alt={`${project.title} project cover`} fill priority sizes="(max-width: 900px) 100vw, 78vw" style={{ objectPosition: `${project.cover_position_x}% ${project.cover_position_y}%`, transform: `scale(${project.cover_zoom / 100})` }} unoptimized={project.cover_image.startsWith("http")} />}
+          {project.cover_video ? <video autoPlay loop muted playsInline poster={project.cover_image} src={project.cover_video} style={{ objectPosition: `${project.cover_position_x}% ${project.cover_position_y}%`, transform: `scale(${project.cover_zoom / 100})` }} /> : <Image src={project.cover_image} alt={`${project.title} project cover`} fill priority sizes="(max-width: 900px) 100vw, 78vw" style={{ objectPosition: `${project.cover_position_x}% ${project.cover_position_y}%`, transform: `scale(${project.cover_zoom / 100})` }} />}
         </div>
 
         <ProjectBlocks blocks={project.blocks} />

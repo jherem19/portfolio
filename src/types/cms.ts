@@ -50,6 +50,26 @@ export type CMSProject = {
   blocks: ProjectBlock[];
 };
 
+export type ProjectSummary = Pick<
+  CMSProject,
+  | "id"
+  | "title"
+  | "slug"
+  | "short_description"
+  | "cover_image"
+  | "cover_position_x"
+  | "cover_position_y"
+  | "cover_zoom"
+  | "category"
+  | "tags"
+  | "project_date"
+  | "featured"
+  | "status"
+  | "published_at"
+  | "created_at"
+  | "updated_at"
+>;
+
 export type ProjectInput = Omit<CMSProject, "id" | "created_at" | "updated_at" | "published_at"> & {
   id?: string;
 };

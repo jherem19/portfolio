@@ -1,8 +1,12 @@
+import { cache } from "react";
+
 import { projects as legacyProjects } from "@/data/projects";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { createPublicClient } from "@/lib/supabase/public";
 import { createClient } from "@/lib/supabase/server";
-import type { CMSProject, ProjectBlock } from "@/types/cms";
+import type { CMSProject, ProjectBlock, ProjectSummary } from "@/types/cms";
+
+const PROJECT_SUMMARY_FIELDS = "id,title,slug,short_description,cover_image,cover_position_x,cover_position_y,cover_zoom,category,tags,project_date,featured,status,published_at,created_at,updated_at" as const;
 
 function legacyToCMS(): CMSProject[] {
   return legacyProjects.map((project, index) => ({
@@ -34,7 +38,7 @@ function legacyToCMS(): CMSProject[] {
 
 function normalizeProject(row: Record<string, unknown>): CMSProject {
   const blocks = Array.isArray(row.project_blocks)
-    ? (row.project_blocks as ProjectBlock[]).sort((a, b) => a.position - b.position)
+    ? (row.project_blocks as ProjectBlock[]).toSorted((a, b) => a.position - b.position)
     : [];
 
   return {
@@ -47,26 +51,42 @@ function normalizeProject(row: Record<string, unknown>): CMSProject {
   };
 }
 
-export async function getPublishedProjects(): Promise<CMSProject[]> {
-  if (!isSupabaseConfigured()) return legacyToCMS();
+function normalizeProjectSummary(row: Record<string, unknown>): ProjectSummary {
+  return {
+    ...(row as unknown as ProjectSummary),
+    tags: Array.isArray(row.tags) ? (row.tags as string[]) : [],
+    cover_position_x: Number(row.cover_position_x ?? 50),
+    cover_position_y: Number(row.cover_position_y ?? 50),
+    cover_zoom: Number(row.cover_zoom ?? 100),
+  };
+}
+
+function legacyProjectSummaries(): ProjectSummary[] {
+  return legacyToCMS().map((project) =>
+    normalizeProjectSummary(project as unknown as Record<string, unknown>),
+  );
+}
+
+export const getPublishedProjects = cache(async (): Promise<ProjectSummary[]> => {
+  if (!isSupabaseConfigured()) return legacyProjectSummaries();
 
   try {
     const supabase = createPublicClient();
     const { data, error } = await supabase
       .from("projects")
-      .select("*, project_blocks(*)")
+      .select(PROJECT_SUMMARY_FIELDS)
       .eq("status", "published")
       .order("published_at", { ascending: false, nullsFirst: false })
       .order("project_date", { ascending: false });
 
     if (error) throw error;
-    return (data ?? []).map((row) => normalizeProject(row));
+    return (data ?? []).map((row) => normalizeProjectSummary(row));
   } catch {
-    return legacyToCMS();
+    return legacyProjectSummaries();
   }
-}
+});
 
-export async function getPublishedProject(slug: string): Promise<CMSProject | null> {
+export const getPublishedProject = cache(async (slug: string): Promise<CMSProject | null> => {
   if (!isSupabaseConfigured()) return legacyToCMS().find((project) => project.slug === slug) ?? null;
 
   try {
@@ -83,17 +103,17 @@ export async function getPublishedProject(slug: string): Promise<CMSProject | nu
   } catch {
     return legacyToCMS().find((project) => project.slug === slug) ?? null;
   }
-}
+});
 
-export async function getAdminProjects(): Promise<CMSProject[]> {
+export async function getAdminProjects(): Promise<ProjectSummary[]> {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("projects")
-    .select("*, project_blocks(*)")
+    .select(PROJECT_SUMMARY_FIELDS)
     .order("updated_at", { ascending: false });
 
   if (error) throw new Error(error.message);
-  return (data ?? []).map((row) => normalizeProject(row));
+  return (data ?? []).map((row) => normalizeProjectSummary(row));
 }
 
 export async function getAdminProject(id: string): Promise<CMSProject | null> {

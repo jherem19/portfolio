@@ -38,12 +38,12 @@ export function ProjectBlocks({ blocks }: { blocks: ProjectBlock[] }) {
         }
 
         if (block.type === "image" && block.data.url) {
-          return <figure className="case-image" key={block.id ?? index}><Image alt={block.data.alt || "Project image"} height={1350} src={block.data.url} unoptimized width={2400} />{block.data.caption ? <figcaption>{block.data.caption}</figcaption> : null}</figure>;
+          return <figure className="case-image" key={block.id ?? index}><Image alt={block.data.alt || "Project image"} height={1350} sizes="(max-width: 900px) 100vw, 78vw" src={block.data.url} width={2400} />{block.data.caption ? <figcaption>{block.data.caption}</figcaption> : null}</figure>;
         }
 
         if (block.type === "gallery") {
           const items = block.data.items ?? [];
-          return <section className="case-gallery" key={block.id ?? index}>{items.map((item, itemIndex) => <figure key={`${item.url}-${itemIndex}`}><Image alt={item.alt || `Project gallery image ${itemIndex + 1}`} height={1200} src={item.url} unoptimized width={1600} />{item.caption ? <figcaption>{item.caption}</figcaption> : null}</figure>)}</section>;
+          return <section className="case-gallery" key={block.id ?? index}>{items.map((item, itemIndex) => <figure key={`${item.url}-${itemIndex}`}><Image alt={item.alt || `Project gallery image ${itemIndex + 1}`} height={1200} sizes="(max-width: 900px) 100vw, 39vw" src={item.url} width={1600} />{item.caption ? <figcaption>{item.caption}</figcaption> : null}</figure>)}</section>;
         }
 
         if (block.type === "video" && block.data.url) {

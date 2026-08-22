@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { ArrowDown, ArrowUp, ExternalLink, Plus, Save, Trash2 } from "lucide-react";
@@ -8,9 +9,12 @@ import { ArrowDown, ArrowUp, ExternalLink, Plus, Save, Trash2 } from "lucide-rea
 import { deleteProjectAction, saveProjectAction } from "@/app/admin/actions";
 import { CoverCropper } from "@/components/admin/cover-cropper";
 import { MediaUploader } from "@/components/admin/media-uploader";
-import { RichTextEditor } from "@/components/admin/rich-text-editor";
 import { TagInput } from "@/components/admin/tag-input";
 import type { BlockType, CMSProject, MediaAsset, ProjectBlock, ProjectInput } from "@/types/cms";
+
+const RichTextEditor = dynamic(() =>
+  import("@/components/admin/rich-text-editor").then((module) => module.RichTextEditor),
+);
 
 const blockLabels: Record<BlockType, string> = {
   rich_text: "Rich text",
