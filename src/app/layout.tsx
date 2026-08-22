@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Geist } from "next/font/google";
+import { Archivo, Geist, IBM_Plex_Mono } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { jsonLd } from "@/lib/json-ld";
 import { site } from "@/data/site";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
+const archivo = Archivo({ subsets: ["latin"], variable: "--font-archivo" });
+const plexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  variable: "--font-plex-mono",
+  weight: ["400", "500"],
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -64,7 +70,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("font-sans", geist.variable)}>
+    <html lang="en" className={cn("font-sans", geist.variable, archivo.variable, plexMono.variable)}>
       <body>
         <script
           type="application/ld+json"

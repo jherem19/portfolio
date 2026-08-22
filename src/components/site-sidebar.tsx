@@ -19,7 +19,7 @@ export function SiteSidebar({ active = "home" }: { active?: "home" | "work" }) {
         {items.map((item) => {
           const Icon = item.icon;
           return (
-            <Link className={item.key === active ? "sidebar-link is-active" : "sidebar-link"} href={item.href} key={item.key}>
+            <Link aria-label={item.label} className={item.key === active ? "sidebar-link is-active" : "sidebar-link"} href={item.href} key={item.key}>
               <Icon aria-hidden="true" />
               <span>{item.label}</span>
             </Link>
