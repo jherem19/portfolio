@@ -32,6 +32,9 @@ export type CMSProject = {
   short_description: string;
   cover_image: string;
   cover_image_path?: string | null;
+  cover_position_x: number;
+  cover_position_y: number;
+  cover_zoom: number;
   cover_video?: string | null;
   cover_video_path?: string | null;
   category: string;

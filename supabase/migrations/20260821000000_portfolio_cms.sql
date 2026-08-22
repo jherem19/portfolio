@@ -17,6 +17,9 @@ create table if not exists public.projects (
   short_description text not null default '',
   cover_image text not null default '',
   cover_image_path text,
+  cover_position_x smallint not null default 50 check (cover_position_x between 0 and 100),
+  cover_position_y smallint not null default 50 check (cover_position_y between 0 and 100),
+  cover_zoom smallint not null default 100 check (cover_zoom between 100 and 180),
   cover_video text,
   cover_video_path text,
   category text not null default '',
@@ -183,12 +186,17 @@ begin
   if p_project_id is null then
     insert into public.projects (
       created_by, title, slug, short_description, cover_image, cover_image_path,
+      cover_position_x, cover_position_y, cover_zoom,
       cover_video, cover_video_path, category, tags, project_date, client,
       external_url, featured, status, published_at
     ) values (
       (select auth.uid()), trim(p_project ->> 'title'), lower(trim(p_project ->> 'slug')),
       coalesce(p_project ->> 'short_description', ''), coalesce(p_project ->> 'cover_image', ''),
-      nullif(p_project ->> 'cover_image_path', ''), nullif(p_project ->> 'cover_video', ''),
+      nullif(p_project ->> 'cover_image_path', ''),
+      coalesce((p_project ->> 'cover_position_x')::smallint, 50),
+      coalesce((p_project ->> 'cover_position_y')::smallint, 50),
+      coalesce((p_project ->> 'cover_zoom')::smallint, 100),
+      nullif(p_project ->> 'cover_video', ''),
       nullif(p_project ->> 'cover_video_path', ''), coalesce(p_project ->> 'category', ''),
       coalesce(array(select jsonb_array_elements_text(coalesce(p_project -> 'tags', '[]'::jsonb))), '{}'),
       coalesce((p_project ->> 'project_date')::date, current_date), nullif(p_project ->> 'client', ''),
@@ -202,6 +210,9 @@ begin
       short_description = coalesce(p_project ->> 'short_description', ''),
       cover_image = coalesce(p_project ->> 'cover_image', ''),
       cover_image_path = nullif(p_project ->> 'cover_image_path', ''),
+      cover_position_x = coalesce((p_project ->> 'cover_position_x')::smallint, 50),
+      cover_position_y = coalesce((p_project ->> 'cover_position_y')::smallint, 50),
+      cover_zoom = coalesce((p_project ->> 'cover_zoom')::smallint, 100),
       cover_video = nullif(p_project ->> 'cover_video', ''),
       cover_video_path = nullif(p_project ->> 'cover_video_path', ''),
       category = coalesce(p_project ->> 'category', ''),

@@ -11,6 +11,9 @@ function legacyToCMS(): CMSProject[] {
     slug: project.slug,
     short_description: project.intro,
     cover_image: project.image,
+    cover_position_x: 50,
+    cover_position_y: 50,
+    cover_zoom: 100,
     category: project.category,
     tags: project.discipline.split(" · "),
     project_date: `${project.year}-01-01`,
@@ -37,6 +40,9 @@ function normalizeProject(row: Record<string, unknown>): CMSProject {
   return {
     ...(row as unknown as Omit<CMSProject, "blocks">),
     tags: Array.isArray(row.tags) ? (row.tags as string[]) : [],
+    cover_position_x: Number(row.cover_position_x ?? 50),
+    cover_position_y: Number(row.cover_position_y ?? 50),
+    cover_zoom: Number(row.cover_zoom ?? 100),
     blocks,
   };
 }

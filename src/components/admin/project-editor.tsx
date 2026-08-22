@@ -6,6 +6,7 @@ import { useState, useTransition } from "react";
 import { ArrowDown, ArrowUp, ExternalLink, Plus, Save, Trash2 } from "lucide-react";
 
 import { deleteProjectAction, saveProjectAction } from "@/app/admin/actions";
+import { CoverCropper } from "@/components/admin/cover-cropper";
 import { MarkdownEditor } from "@/components/admin/markdown-editor";
 import { MediaUploader } from "@/components/admin/media-uploader";
 import type { BlockType, CMSProject, MediaAsset, ProjectBlock, ProjectInput } from "@/types/cms";
@@ -40,6 +41,9 @@ function emptyProject(project?: CMSProject | null): ProjectInput {
         short_description: "",
         cover_image: "",
         cover_image_path: null,
+        cover_position_x: 50,
+        cover_position_y: 50,
+        cover_zoom: 100,
         cover_video: null,
         cover_video_path: null,
         category: "",
@@ -199,11 +203,15 @@ export function ProjectEditor({ project }: { project?: CMSProject | null }) {
           <div>
             <p className="admin-label">Cover image *</p>
             {form.cover_image ? (
-              <div className="admin-cover-preview">
-                <Image alt="Project cover preview" fill sizes="600px" src={form.cover_image} unoptimized />
-              </div>
+              <CoverCropper
+                image={form.cover_image}
+                onChange={({ x, y, zoom }) => setForm((current) => ({ ...current, cover_position_x: x, cover_position_y: y, cover_zoom: zoom }))}
+                x={form.cover_position_x}
+                y={form.cover_position_y}
+                zoom={form.cover_zoom}
+              />
             ) : <div className="admin-empty-media">No cover image selected</div>}
-            <MediaUploader label="Upload cover image" onUploaded={([asset]) => setForm((current) => ({ ...current, cover_image: asset.url, cover_image_path: asset.path }))} />
+            <MediaUploader label="Upload cover image" onUploaded={([asset]) => setForm((current) => ({ ...current, cover_image: asset.url, cover_image_path: asset.path, cover_position_x: 50, cover_position_y: 50, cover_zoom: 100 }))} />
           </div>
           <div>
             <p className="admin-label">Cover video (optional)</p>

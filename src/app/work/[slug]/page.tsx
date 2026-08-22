@@ -93,7 +93,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         </header>
 
         <div className="project-cover">
-          {project.cover_video ? <video autoPlay loop muted playsInline poster={project.cover_image} src={project.cover_video} /> : <Image src={project.cover_image} alt={`${project.title} project cover`} fill priority sizes="(max-width: 900px) 100vw, 78vw" unoptimized={project.cover_image.startsWith("http")} />}
+          {project.cover_video ? <video autoPlay loop muted playsInline poster={project.cover_image} src={project.cover_video} style={{ objectPosition: `${project.cover_position_x}% ${project.cover_position_y}%`, transform: `scale(${project.cover_zoom / 100})` }} /> : <Image src={project.cover_image} alt={`${project.title} project cover`} fill priority sizes="(max-width: 900px) 100vw, 78vw" style={{ objectPosition: `${project.cover_position_x}% ${project.cover_position_y}%`, transform: `scale(${project.cover_zoom / 100})` }} unoptimized={project.cover_image.startsWith("http")} />}
         </div>
 
         <ProjectBlocks blocks={project.blocks} />

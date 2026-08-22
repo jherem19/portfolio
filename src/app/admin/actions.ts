@@ -14,6 +14,11 @@ function clean(value: unknown, maxLength = 5000) {
   return typeof value === "string" ? value.trim().slice(0, maxLength) : "";
 }
 
+function clampNumber(value: unknown, min: number, max: number, fallback: number) {
+  const number = Number(value);
+  return Number.isFinite(number) ? Math.min(max, Math.max(min, Math.round(number))) : fallback;
+}
+
 function validateProject(input: ProjectInput) {
   const title = clean(input.title, 160);
   const slug = clean(input.slug, 160).toLowerCase();
@@ -38,6 +43,9 @@ function validateProject(input: ProjectInput) {
     short_description: shortDescription,
     cover_image: clean(input.cover_image, 2000),
     cover_image_path: clean(input.cover_image_path, 1000) || null,
+    cover_position_x: clampNumber(input.cover_position_x, 0, 100, 50),
+    cover_position_y: clampNumber(input.cover_position_y, 0, 100, 50),
+    cover_zoom: clampNumber(input.cover_zoom, 100, 180, 100),
     cover_video: clean(input.cover_video, 2000) || null,
     cover_video_path: clean(input.cover_video_path, 1000) || null,
     category: clean(input.category, 120),
