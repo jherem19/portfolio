@@ -50,7 +50,7 @@ export async function getPublishedProjects(): Promise<CMSProject[]> {
       .from("projects")
       .select("*, project_blocks(*)")
       .eq("status", "published")
-      .order("featured", { ascending: false })
+      .order("published_at", { ascending: false, nullsFirst: false })
       .order("project_date", { ascending: false });
 
     if (error) throw error;

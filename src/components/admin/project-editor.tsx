@@ -6,6 +6,7 @@ import { useState, useTransition } from "react";
 import { ArrowDown, ArrowUp, ExternalLink, Plus, Save, Trash2 } from "lucide-react";
 
 import { deleteProjectAction, saveProjectAction } from "@/app/admin/actions";
+import { MarkdownEditor } from "@/components/admin/markdown-editor";
 import { MediaUploader } from "@/components/admin/media-uploader";
 import type { BlockType, CMSProject, MediaAsset, ProjectBlock, ProjectInput } from "@/types/cms";
 
@@ -248,11 +249,11 @@ function BlockEditor({ block, onChange }: { block: ProjectBlock; onChange: (bloc
   const setData = (data: ProjectBlock["data"]) => onChange({ ...block, data: { ...block.data, ...data } });
 
   if (block.type === "rich_text") {
-    return <label className="admin-field"><span>Markdown content</span><textarea onChange={(event) => setData({ markdown: event.target.value })} placeholder="Write paragraphs, **bold text**, lists, and links…" rows={8} value={block.data.markdown ?? ""} /></label>;
+    return <MarkdownEditor label="Rich text content" onChange={(markdown) => setData({ markdown })} placeholder="Write and format the project story…" rows={10} value={block.data.markdown ?? ""} />;
   }
 
   if (block.type === "section") {
-    return <div className="admin-form-grid"><label className="admin-field admin-field-wide"><span>Section title</span><input onChange={(event) => setData({ title: event.target.value })} value={block.data.title ?? ""} /></label><label className="admin-field admin-field-wide"><span>Description (Markdown)</span><textarea onChange={(event) => setData({ markdown: event.target.value })} rows={6} value={block.data.markdown ?? ""} /></label></div>;
+    return <div className="admin-form-grid"><label className="admin-field admin-field-wide"><span>Section title</span><input onChange={(event) => setData({ title: event.target.value })} value={block.data.title ?? ""} /></label><div className="admin-field-wide"><MarkdownEditor label="Section description" onChange={(markdown) => setData({ markdown })} rows={7} value={block.data.markdown ?? ""} /></div></div>;
   }
 
   if (block.type === "image") {

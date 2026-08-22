@@ -1,7 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
 import { ArrowDown, ArrowUpRight, Mail } from "lucide-react";
 
+import { FeaturedProjects } from "@/components/featured-projects";
 import { SiteSidebar } from "@/components/site-sidebar";
 import { SocialLinks } from "@/components/social-links";
 import { getPublishedProjects } from "@/lib/cms/projects";
@@ -36,20 +36,7 @@ export default async function Home() {
             <div><p className="section-kicker">Selected projects</p><h2 id="work-title">Featured Work</h2></div>
             <span>{projects.length} projects · 2022—2026</span>
           </header>
-          <div className="work-grid">
-            {projects.map((project, index) => (
-              <Link className="work-card" href={`/work/${project.slug}`} key={project.slug}>
-                <div className="work-image">
-                  <Image src={project.cover_image} alt={`${project.title} project cover`} fill priority={index < 2} sizes="(max-width: 760px) 100vw, (max-width: 1100px) 70vw, 42vw" unoptimized={project.cover_image.startsWith("http")} />
-                  <span className="work-open"><ArrowUpRight aria-hidden="true" /></span>
-                </div>
-                <div className="work-meta">
-                  <div><span>{project.category}</span><h3>{project.title}</h3></div>
-                  <p>{project.tags.slice(0, 2).join(" · ")}<br />{project.project_date.slice(0, 4)}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <FeaturedProjects projects={projects} />
         </section>
 
         <section className="about-panel" id="about" aria-labelledby="about-title">
