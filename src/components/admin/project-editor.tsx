@@ -7,8 +7,8 @@ import { ArrowDown, ArrowUp, ExternalLink, Plus, Save, Trash2 } from "lucide-rea
 
 import { deleteProjectAction, saveProjectAction } from "@/app/admin/actions";
 import { CoverCropper } from "@/components/admin/cover-cropper";
-import { MarkdownEditor } from "@/components/admin/markdown-editor";
 import { MediaUploader } from "@/components/admin/media-uploader";
+import { RichTextEditor } from "@/components/admin/rich-text-editor";
 import { TagInput } from "@/components/admin/tag-input";
 import type { BlockType, CMSProject, MediaAsset, ProjectBlock, ProjectInput } from "@/types/cms";
 
@@ -258,11 +258,11 @@ function BlockEditor({ block, onChange }: { block: ProjectBlock; onChange: (bloc
   const setData = (data: ProjectBlock["data"]) => onChange({ ...block, data: { ...block.data, ...data } });
 
   if (block.type === "rich_text") {
-    return <MarkdownEditor label="Rich text content" onChange={(markdown) => setData({ markdown })} placeholder="Write and format the project story…" rows={10} value={block.data.markdown ?? ""} />;
+    return <RichTextEditor label="Rich text content" onChange={(markdown) => setData({ markdown })} placeholder="Write and format the project story…" value={block.data.markdown ?? ""} />;
   }
 
   if (block.type === "section") {
-    return <div className="admin-form-grid"><label className="admin-field admin-field-wide"><span>Section title</span><input onChange={(event) => setData({ title: event.target.value })} value={block.data.title ?? ""} /></label><div className="admin-field-wide"><MarkdownEditor label="Section description" onChange={(markdown) => setData({ markdown })} rows={7} value={block.data.markdown ?? ""} /></div></div>;
+    return <div className="admin-form-grid"><label className="admin-field admin-field-wide"><span>Section title</span><input onChange={(event) => setData({ title: event.target.value })} value={block.data.title ?? ""} /></label><div className="admin-field-wide"><RichTextEditor label="Section description" onChange={(markdown) => setData({ markdown })} value={block.data.markdown ?? ""} /></div></div>;
   }
 
   if (block.type === "image") {
