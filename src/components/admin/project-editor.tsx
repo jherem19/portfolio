@@ -9,6 +9,7 @@ import { deleteProjectAction, saveProjectAction } from "@/app/admin/actions";
 import { CoverCropper } from "@/components/admin/cover-cropper";
 import { MarkdownEditor } from "@/components/admin/markdown-editor";
 import { MediaUploader } from "@/components/admin/media-uploader";
+import { TagInput } from "@/components/admin/tag-input";
 import type { BlockType, CMSProject, MediaAsset, ProjectBlock, ProjectInput } from "@/types/cms";
 
 const blockLabels: Record<BlockType, string> = {
@@ -178,10 +179,10 @@ export function ProjectEditor({ project }: { project?: CMSProject | null }) {
             <span>Category</span>
             <input onChange={(event) => update("category", event.target.value)} placeholder="Product motion" value={form.category} />
           </label>
-          <label className="admin-field">
+          <div className="admin-field">
             <span>Tags</span>
-            <input onChange={(event) => update("tags", event.target.value.split(",").map((tag) => tag.trim()).filter(Boolean))} placeholder="Motion Design, SaaS, 3D" value={form.tags.join(", ")} />
-          </label>
+            <TagInput onChange={(tags) => update("tags", tags)} value={form.tags} />
+          </div>
           <label className="admin-field">
             <span>Client</span>
             <input onChange={(event) => update("client", event.target.value)} placeholder="Optional" value={form.client ?? ""} />

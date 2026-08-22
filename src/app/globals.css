@@ -271,6 +271,16 @@ a { color: inherit; text-decoration: none; }
 .admin-field input, .admin-field textarea, .admin-gallery-preview input { width: 100%; border: 1px solid #303030; border-radius: 8px; outline: none; background: #0d0d0d; padding: 12px 13px; color: var(--foreground); font: inherit; font-size: .88rem; }
 .admin-field input:focus, .admin-field textarea:focus, .admin-gallery-preview input:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgb(22 230 122 / 8%); }
 .admin-field textarea { resize: vertical; line-height: 1.6; }
+.admin-tag-input { display: flex; min-height: 45px; align-items: center; flex-wrap: wrap; gap: 7px; border: 1px solid #303030; border-radius: 8px; background: #0d0d0d; padding: 6px 8px; cursor: text; }
+.admin-tag-input:focus-within { border-color: var(--green); box-shadow: 0 0 0 3px rgb(22 230 122 / 8%); }
+.admin-field .admin-tag-input input { width: auto; min-width: 150px; flex: 1; border: 0; border-radius: 0; background: transparent; padding: 5px 4px; box-shadow: none; }
+.admin-field .admin-tag-input input:focus { border: 0; box-shadow: none; }
+.admin-field .admin-tag-input input:disabled { cursor: not-allowed; opacity: .45; }
+.admin-tag-chip { display: inline-flex; min-height: 29px; align-items: center; gap: 5px; border: 1px solid #28513d; border-radius: 6px; background: #10271c; padding: 3px 5px 3px 9px; color: #b9e9d0; font-size: .76rem; line-height: 1; }
+.admin-tag-chip button { display: grid; width: 22px; height: 22px; border: 0; border-radius: 4px; background: transparent; padding: 0; color: #79b99a; cursor: pointer; place-items: center; }
+.admin-tag-chip button:hover { background: rgb(255 255 255 / 7%); color: var(--green); }
+.admin-tag-chip svg { width: 13px; }
+.admin-tag-help { margin: 7px 0 0; color: #686865; font-size: .67rem; }
 .admin-markdown-editor { overflow: hidden; border: 1px solid #303030; border-radius: 9px; background: #0d0d0d; }
 .admin-markdown-heading { display: flex; min-height: 42px; align-items: center; justify-content: space-between; gap: 16px; border-bottom: 1px solid #292929; padding: 0 12px 0 14px; color: #9c9c97; font-size: .72rem; letter-spacing: .04em; }
 .admin-markdown-heading span:last-child { color: var(--green); }
