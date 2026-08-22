@@ -39,7 +39,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: site.socialImageAlt,
-        type: "image/jpeg",
+        type: "image/png",
       },
     ],
   },
