@@ -17,7 +17,14 @@ export default async function Home() {
         <section className="intro-section" id="home">
           <div className="intro-topline">
             <div className="intro-profile">
-              <Image src="/profile.png" alt="Portrait of Hector Heredia" width={1254} height={1254} priority />
+              <Image
+                src="/profile.png"
+                alt="Portrait of Hector Heredia"
+                width={1254}
+                height={1254}
+                sizes="(max-width: 760px) 70px, 112px"
+                priority
+              />
               <div><strong>Hector Heredia</strong><span>Senior Product &amp; Motion Designer</span></div>
             </div>
             <div className="open-badge"><span /> Open to work</div>
