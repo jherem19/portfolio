@@ -2,6 +2,7 @@ import Image from "next/image";
 import { ArrowDown, ArrowUpRight, Mail } from "lucide-react";
 
 import { FeaturedProjects } from "@/components/featured-projects";
+import { HeroMotionBackground } from "@/components/hero-motion-background";
 import { SiteSidebar } from "@/components/site-sidebar";
 import { SocialLinks } from "@/components/social-links";
 import { getPublishedProjects } from "@/lib/cms/projects";
@@ -15,6 +16,7 @@ export default async function Home() {
       <SiteSidebar />
       <div className="page-content">
         <section className="intro-section" id="home">
+          <HeroMotionBackground />
           <div className="intro-topline">
             <div className="intro-profile">
               <Image

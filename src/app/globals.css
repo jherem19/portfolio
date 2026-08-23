@@ -108,12 +108,40 @@ a { color: inherit; text-decoration: none; }
 
 .intro-section {
   position: relative;
+  isolation: isolate;
   display: flex;
   min-height: 100vh;
   border-bottom: 1px solid var(--line);
   padding: 58px clamp(40px, 7vw, 120px) 52px;
   flex-direction: column;
 }
+
+.hero-motion {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-motion::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgb(11 12 12 / 12%) 0%, rgb(11 12 12 / 25%) 42%, var(--background) 94%);
+  content: "";
+}
+
+.hero-motion-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: .5;
+  filter: saturate(.92) contrast(.96);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 52%, transparent 96%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 52%, transparent 96%);
+}
+
+.intro-topline, .intro-copy, .scroll-link { position: relative; z-index: 1; }
 
 .intro-topline { display: flex; align-items: flex-start; justify-content: space-between; gap: 32px; }
 .intro-profile { display: flex; align-items: center; gap: 18px; }
@@ -499,5 +527,6 @@ a { color: inherit; text-decoration: none; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .hero-motion { display: none; }
   *, *::before, *::after { animation-delay: 0ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
