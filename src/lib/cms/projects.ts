@@ -6,7 +6,7 @@ import { createPublicClient } from "@/lib/supabase/public";
 import { createClient } from "@/lib/supabase/server";
 import type { CMSProject, ProjectBlock, ProjectSummary } from "@/types/cms";
 
-const PROJECT_SUMMARY_FIELDS = "id,title,slug,short_description,cover_image,cover_position_x,cover_position_y,cover_zoom,category,tags,project_date,featured,status,published_at,created_at,updated_at" as const;
+const PROJECT_SUMMARY_FIELDS = "id,title,slug,short_description,cover_image,cover_position_x,cover_position_y,cover_zoom,cover_video,category,tags,project_date,featured,status,published_at,created_at,updated_at" as const;
 
 function legacyToCMS(): CMSProject[] {
   return legacyProjects.map((project, index) => ({

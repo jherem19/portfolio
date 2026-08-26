@@ -197,10 +197,13 @@ a { color: inherit; text-decoration: none; }
 .work-card { display: block; min-width: 0; }
 .work-image { position: relative; overflow: hidden; aspect-ratio: 4 / 3; border: 1px solid #2e3330; border-radius: 10px; background: var(--panel-soft); transition: border-color 260ms ease, box-shadow 400ms ease; }
 .work-image::after { position: absolute; right: 0; bottom: 0; left: 0; height: 2px; background: var(--green); content: ""; transform: scaleX(0); transform-origin: left; transition: transform 520ms cubic-bezier(.2,.7,.2,1); }
-.work-image img { object-fit: cover; transform: scale(var(--cover-scale, 1)); transition: transform 650ms cubic-bezier(.2,.65,.25,1), filter 300ms ease; }
+.work-image img, .work-preview-video { object-fit: cover; transform: scale(var(--cover-scale, 1)); transition: opacity 180ms ease, transform 650ms cubic-bezier(.2,.65,.25,1), filter 300ms ease; }
+.work-preview-video { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; pointer-events: none; }
+.work-image.is-preview-playing img { opacity: 0; }
+.work-image.is-preview-playing .work-preview-video { opacity: 1; }
 .work-card:hover .work-image { border-color: #48504b; box-shadow: 0 22px 54px rgb(0 0 0 / 18%); }
 .work-card:hover .work-image::after { transform: scaleX(1); }
-.work-card:hover .work-image img { transform: scale(calc(var(--cover-scale, 1) + .025)); filter: brightness(.86) saturate(.96); }
+.work-card:hover .work-image img, .work-card:hover .work-preview-video { transform: scale(calc(var(--cover-scale, 1) + .025)); filter: brightness(.86) saturate(.96); }
 .work-open { position: absolute; top: 14px; right: 14px; display: grid; width: 44px; height: 44px; border: 1px solid rgb(241 242 238 / 30%); border-radius: 6px; background: rgb(11 12 12 / 72%); color: var(--foreground); opacity: 0; backdrop-filter: blur(8px); place-items: center; transform: translateY(7px); transition: opacity 220ms ease, transform 260ms cubic-bezier(.2,.7,.2,1), border-color 220ms ease; }
 .work-open svg { width: 18px; transition: transform 260ms cubic-bezier(.2,.7,.2,1); }
 .work-card:hover .work-open { opacity: 1; transform: translateY(0); }
@@ -532,5 +535,6 @@ a { color: inherit; text-decoration: none; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .hero-motion { display: none; }
+  .work-preview-video { display: none; }
   *, *::before, *::after { animation-delay: 0ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }

@@ -60,6 +60,7 @@ export type ProjectSummary = Pick<
   | "cover_position_x"
   | "cover_position_y"
   | "cover_zoom"
+  | "cover_video"
   | "category"
   | "tags"
   | "project_date"
