@@ -4,13 +4,15 @@ import { ArrowDown, ArrowUpRight, Mail } from "lucide-react";
 import { FeaturedProjects } from "@/components/featured-projects";
 import { HeroMotionBackground } from "@/components/hero-motion-background";
 import { SiteSidebar } from "@/components/site-sidebar";
+import { SideProjects } from "@/components/side-projects";
 import { SocialLinks } from "@/components/social-links";
 import { getPublishedProjects } from "@/lib/cms/projects";
+import { getSideProjects } from "@/lib/cms/side-projects";
 
 export const revalidate = 60;
 
 export default async function Home() {
-  const projects = await getPublishedProjects();
+  const [projects, sideProjects] = await Promise.all([getPublishedProjects(), getSideProjects()]);
   return (
     <main className="site-shell">
       <SiteSidebar />
@@ -47,6 +49,8 @@ export default async function Home() {
           </header>
           <FeaturedProjects projects={projects} />
         </section>
+
+        <SideProjects projects={sideProjects} />
 
         <section className="about-panel" id="about" aria-labelledby="about-title">
           <p className="section-kicker">About</p>

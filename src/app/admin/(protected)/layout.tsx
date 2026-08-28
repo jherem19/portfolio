@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { FolderKanban, LogOut, Plus } from "lucide-react";
+import { FolderKanban, LogOut, Orbit, Plus } from "lucide-react";
 
 import { logoutAction } from "@/app/admin/actions";
 import { requireAdmin } from "@/lib/supabase/auth";
@@ -20,6 +20,7 @@ export default async function ProtectedAdminLayout({ children }: { children: Rea
         <nav>
           <Link href="/admin/projects"><FolderKanban aria-hidden="true" /> Projects</Link>
           <Link href="/admin/projects/new"><Plus aria-hidden="true" /> New project</Link>
+          <Link href="/admin/side-projects"><Orbit aria-hidden="true" /> Side projects</Link>
         </nav>
         <div className="admin-profile"><span>{admin.email ?? admin.display_name ?? "Administrator"}</span><form action={logoutAction}><button type="submit"><LogOut aria-hidden="true" /> Log out</button></form></div>
       </aside>

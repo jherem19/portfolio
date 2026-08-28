@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import { getAdmin } from "@/lib/supabase/auth";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { createClient } from "@/lib/supabase/server";
-import { blockTypes, type ProjectInput } from "@/types/cms";
+import { blockTypes, type ProjectInput, type SideProjectInput } from "@/types/cms";
 
 export type AdminActionResult = { ok: boolean; error?: string; id?: string };
 
@@ -55,6 +55,27 @@ function validateProject(input: ProjectInput) {
     external_url: clean(input.external_url, 2000) || null,
     featured: Boolean(input.featured),
     status: input.status === "published" ? "published" : "draft",
+  };
+}
+
+function validateSideProject(input: SideProjectInput) {
+  const url = clean(input.url, 2000);
+  const thumbnail = clean(input.thumbnail, 2000);
+
+  try {
+    const parsed = new URL(url);
+    if (!["http:", "https:"].includes(parsed.protocol)) throw new Error();
+  } catch {
+    throw new Error("Enter a valid public URL beginning with http:// or https://.");
+  }
+
+  if (!thumbnail) throw new Error("A thumbnail is required.");
+
+  return {
+    url,
+    thumbnail,
+    thumbnail_path: clean(input.thumbnail_path, 1000) || null,
+    tools: input.tools.map((tool) => clean(tool, 60)).filter(Boolean).slice(0, 12),
   };
 }
 
@@ -178,5 +199,67 @@ export async function deleteProjectAction(id: string): Promise<AdminActionResult
     return { ok: true };
   } catch (error) {
     return { ok: false, error: error instanceof Error ? error.message : "Unable to delete the project." };
+  }
+}
+
+export async function saveSideProjectAction(input: SideProjectInput): Promise<AdminActionResult> {
+  try {
+    if (!(await getAdmin())) throw new Error("Your administrator session is not valid.");
+    const sideProject = validateSideProject(input);
+    const supabase = await createClient();
+    let savedId = input.id;
+
+    if (input.id) {
+      const { data: existing, error: readError } = await supabase
+        .from("side_projects")
+        .select("thumbnail_path")
+        .eq("id", input.id)
+        .single();
+      if (readError) throw readError;
+
+      const { error } = await supabase.from("side_projects").update(sideProject).eq("id", input.id);
+      if (error) throw error;
+      if (existing.thumbnail_path && existing.thumbnail_path !== sideProject.thumbnail_path) {
+        await supabase.storage.from("portfolio-media").remove([existing.thumbnail_path]);
+      }
+    } else {
+      const { data: claims } = await supabase.auth.getClaims();
+      const { data, error } = await supabase
+        .from("side_projects")
+        .insert({ ...sideProject, created_by: claims?.claims?.sub ?? null })
+        .select("id")
+        .single();
+      if (error) throw error;
+      savedId = data.id;
+    }
+
+    revalidatePath("/");
+    revalidatePath("/admin/side-projects");
+    return { ok: true, id: savedId };
+  } catch (error) {
+    return { ok: false, error: error instanceof Error ? error.message : "Unable to save the side project." };
+  }
+}
+
+export async function deleteSideProjectAction(id: string): Promise<AdminActionResult> {
+  try {
+    if (!(await getAdmin())) throw new Error("Your administrator session is not valid.");
+    const supabase = await createClient();
+    const { data, error: readError } = await supabase
+      .from("side_projects")
+      .select("thumbnail_path")
+      .eq("id", id)
+      .single();
+    if (readError) throw readError;
+
+    const { error } = await supabase.from("side_projects").delete().eq("id", id);
+    if (error) throw error;
+    if (data.thumbnail_path) await supabase.storage.from("portfolio-media").remove([data.thumbnail_path]);
+
+    revalidatePath("/");
+    revalidatePath("/admin/side-projects");
+    return { ok: true };
+  } catch (error) {
+    return { ok: false, error: error instanceof Error ? error.message : "Unable to delete the side project." };
   }
 }

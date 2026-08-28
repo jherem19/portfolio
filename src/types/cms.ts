@@ -74,3 +74,17 @@ export type ProjectSummary = Pick<
 export type ProjectInput = Omit<CMSProject, "id" | "created_at" | "updated_at" | "published_at"> & {
   id?: string;
 };
+
+export type SideProject = {
+  id: string;
+  url: string;
+  thumbnail: string;
+  thumbnail_path?: string | null;
+  tools: string[];
+  created_at?: string;
+  updated_at?: string;
+};
+
+export type SideProjectInput = Omit<SideProject, "id" | "created_at" | "updated_at"> & {
+  id?: string;
+};
