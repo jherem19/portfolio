@@ -8,6 +8,7 @@ import type { MediaAsset } from "@/types/cms";
 
 type Props = {
   accept?: string;
+  maxSizeMb?: number;
   multiple?: boolean;
   label?: string;
   onUploaded: (assets: MediaAsset[]) => void;
@@ -29,7 +30,7 @@ function safeFileName(name: string) {
   return `${stem || "asset"}${extension}`;
 }
 
-export function MediaUploader({ accept = "image/*", multiple = false, label = "Upload media", onUploaded }: Props) {
+export function MediaUploader({ accept = "image/*", maxSizeMb, multiple = false, label = "Upload media", onUploaded }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -47,9 +48,9 @@ export function MediaUploader({ accept = "image/*", multiple = false, label = "U
       const uploaded: MediaAsset[] = [];
       for (const file of Array.from(files)) {
         const isVideo = file.type.startsWith("video/");
-        const maxSize = isVideo ? VIDEO_LIMIT : IMAGE_LIMIT;
+        const maxSize = maxSizeMb ? maxSizeMb * 1024 * 1024 : isVideo ? VIDEO_LIMIT : IMAGE_LIMIT;
         if (file.size > maxSize) {
-          throw new Error(`${file.name} exceeds the ${isVideo ? "100 MB" : "10 MB"} limit.`);
+          throw new Error(`${file.name} exceeds the ${maxSizeMb ?? (isVideo ? 100 : 10)} MB limit.`);
         }
 
         const path = `${auth.user.id}/${crypto.randomUUID()}-${safeFileName(file.name)}`;

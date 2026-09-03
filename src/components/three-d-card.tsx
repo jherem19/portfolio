@@ -17,11 +17,7 @@ export function ThreeDCard({ project, compact = false }: { project: ProjectSumma
         <span className="three-d-card-open"><ArrowUpRight aria-hidden="true" /></span>
       </div>
       <div className="three-d-card-meta">
-        <div>
-          <span>{project.category}</span>
-          <h3>{project.title}</h3>
-        </div>
-        <p>{(project.tags ?? []).slice(0, 2).join(" · ")}</p>
+        <h3>{project.title}</h3>
       </div>
     </>
   );

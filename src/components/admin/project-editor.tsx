@@ -208,10 +208,14 @@ export function ProjectEditor({ project }: { project?: CMSProject | null }) {
       </section>
 
       <section className="admin-card">
-        <div className="admin-card-heading"><h2>Cover media</h2><span>Images up to 10 MB · videos up to 100 MB</span></div>
+        <div className="admin-card-heading"><h2>Cover media</h2><span>Optimized media keeps the portfolio fast</span></div>
         <div className="admin-cover-grid">
           <div>
             <p className="admin-label">Cover image *</p>
+            <div className="admin-media-guidance">
+              <p><strong>Recommended</strong> 1600 × 1200 px · 4:3 · WebP or JPG</p>
+              <p><strong>Maximum</strong> 5 MB · ideally under 1 MB</p>
+            </div>
             {form.cover_image ? (
               <CoverCropper
                 image={form.cover_image}
@@ -221,12 +225,16 @@ export function ProjectEditor({ project }: { project?: CMSProject | null }) {
                 zoom={form.cover_zoom}
               />
             ) : <div className="admin-empty-media">No cover image selected</div>}
-            <MediaUploader label="Upload cover image" onUploaded={([asset]) => setForm((current) => ({ ...current, cover_image: asset.url, cover_image_path: asset.path, cover_position_x: 50, cover_position_y: 50, cover_zoom: 100 }))} />
+            <MediaUploader label="Upload cover image" maxSizeMb={5} onUploaded={([asset]) => setForm((current) => ({ ...current, cover_image: asset.url, cover_image_path: asset.path, cover_position_x: 50, cover_position_y: 50, cover_zoom: 100 }))} />
           </div>
           <div>
             <p className="admin-label">Cover video (optional)</p>
+            <div className="admin-media-guidance">
+              <p><strong>Recommended</strong> 1600 × 1200 px · 4:3 · WebM or MP4</p>
+              <p><strong>Maximum</strong> 25 MB · short, muted loop</p>
+            </div>
             {form.cover_video ? <video className="admin-video-preview" controls playsInline src={form.cover_video} /> : <div className="admin-empty-media">No cover video selected</div>}
-            <MediaUploader accept="video/mp4,video/webm,video/quicktime" label="Upload cover video" onUploaded={([asset]) => setForm((current) => ({ ...current, cover_video: asset.url, cover_video_path: asset.path }))} />
+            <MediaUploader accept="video/mp4,video/webm,video/quicktime" label="Upload cover video" maxSizeMb={25} onUploaded={([asset]) => setForm((current) => ({ ...current, cover_video: asset.url, cover_video_path: asset.path }))} />
           </div>
         </div>
       </section>
