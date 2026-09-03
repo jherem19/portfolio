@@ -6,7 +6,11 @@ import { redirect } from "next/navigation";
 import { getAdmin } from "@/lib/supabase/auth";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { createClient } from "@/lib/supabase/server";
-import { blockTypes, type ProjectInput, type SideProjectInput } from "@/types/cms";
+import {
+  blockTypes,
+  type ProjectInput,
+  type SideProjectInput,
+} from "@/types/cms";
 
 export type AdminActionResult = { ok: boolean; error?: string; id?: string };
 
@@ -54,6 +58,7 @@ function validateProject(input: ProjectInput) {
     client: clean(input.client, 160) || null,
     external_url: clean(input.external_url, 2000) || null,
     featured: Boolean(input.featured),
+    show_in_3d_archive: Boolean(input.show_in_3d_archive),
     status: input.status === "published" ? "published" : "draft",
   };
 }
@@ -78,6 +83,7 @@ function validateSideProject(input: SideProjectInput) {
     tools: input.tools.map((tool) => clean(tool, 60)).filter(Boolean).slice(0, 12),
   };
 }
+
 
 export async function loginAction(formData: FormData) {
   if (!isSupabaseConfigured()) redirect("/admin/login?error=Supabase+is+not+configured+yet");
@@ -132,6 +138,7 @@ export async function saveProjectAction(input: ProjectInput): Promise<AdminActio
 
     if (error) throw error;
     revalidatePath("/");
+    revalidatePath("/3d");
     revalidatePath("/work", "layout");
     revalidatePath("/sitemap.xml");
     revalidatePath("/llms.txt");
@@ -155,6 +162,7 @@ export async function setProjectStatusAction(
       .eq("id", id);
     if (error) throw error;
     revalidatePath("/");
+    revalidatePath("/3d");
     revalidatePath("/sitemap.xml");
     revalidatePath("/llms.txt");
     revalidatePath("/admin/projects");
@@ -193,6 +201,7 @@ export async function deleteProjectAction(id: string): Promise<AdminActionResult
     if (paths.size) await supabase.storage.from("portfolio-media").remove([...paths]);
 
     revalidatePath("/");
+    revalidatePath("/3d");
     revalidatePath("/sitemap.xml");
     revalidatePath("/llms.txt");
     revalidatePath("/admin/projects");

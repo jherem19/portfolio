@@ -8,11 +8,17 @@ import { SideProjects } from "@/components/side-projects";
 import { SocialLinks } from "@/components/social-links";
 import { getPublishedProjects } from "@/lib/cms/projects";
 import { getSideProjects } from "@/lib/cms/side-projects";
+import { ThreeDShowcase } from "@/components/three-d-showcase";
 
 export const revalidate = 60;
 
 export default async function Home() {
-  const [projects, sideProjects] = await Promise.all([getPublishedProjects(), getSideProjects()]);
+  const [projects, sideProjects] = await Promise.all([
+    getPublishedProjects(),
+    getSideProjects(),
+  ]);
+  const featuredProjects = projects.filter((project) => project.featured);
+  const threeDProjects = projects.filter((project) => project.show_in_3d_archive);
   return (
     <main className="site-shell">
       <SiteSidebar />
@@ -45,9 +51,10 @@ export default async function Home() {
         <section className="featured-section" id="work" aria-labelledby="work-title">
           <header className="content-heading">
             <div><p className="section-kicker">Selected projects</p><h2 id="work-title">Featured Work</h2></div>
-            <span>{projects.length} projects · 2022—2026</span>
+            <span>{featuredProjects.length} projects · 2022—2026</span>
           </header>
-          <FeaturedProjects projects={projects} />
+          <FeaturedProjects projects={featuredProjects} />
+          <ThreeDShowcase projects={threeDProjects} />
         </section>
 
         <SideProjects projects={sideProjects} />

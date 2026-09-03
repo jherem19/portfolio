@@ -19,7 +19,7 @@ export default async function AdminProjectsPage() {
             <div>
               <span className={`admin-status admin-status-${project.status}`}>{project.status}</span>
               <h2><Link href={`/admin/projects/${project.id}`}>{project.title}</Link></h2>
-              <p>{project.category || "Uncategorized"} · {project.project_date.slice(0, 4)}</p>
+              <p>{project.category || "Uncategorized"} · {project.project_date.slice(0, 4)}{project.featured ? " · Featured Work" : ""}{project.show_in_3d_archive ? " · 3D Archive" : ""}</p>
             </div>
             <div className="admin-project-row-links">
               {project.status === "published" ? <a href={`/work/${project.slug}`} target="_blank" title="View public page"><ArrowUpRight aria-hidden="true" /></a> : null}

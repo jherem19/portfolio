@@ -43,6 +43,7 @@ export type CMSProject = {
   client?: string | null;
   external_url?: string | null;
   featured: boolean;
+  show_in_3d_archive: boolean;
   status: "draft" | "published";
   published_at?: string | null;
   created_at?: string;
@@ -65,6 +66,7 @@ export type ProjectSummary = Pick<
   | "tags"
   | "project_date"
   | "featured"
+  | "show_in_3d_archive"
   | "status"
   | "published_at"
   | "created_at"

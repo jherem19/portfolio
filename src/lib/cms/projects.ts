@@ -6,7 +6,8 @@ import { createPublicClient } from "@/lib/supabase/public";
 import { createClient } from "@/lib/supabase/server";
 import type { CMSProject, ProjectBlock, ProjectSummary } from "@/types/cms";
 
-const PROJECT_SUMMARY_FIELDS = "id,title,slug,short_description,cover_image,cover_position_x,cover_position_y,cover_zoom,cover_video,category,tags,project_date,featured,status,published_at,created_at,updated_at" as const;
+const PROJECT_SUMMARY_FIELDS = "id,title,slug,short_description,cover_image,cover_position_x,cover_position_y,cover_zoom,cover_video,category,tags,project_date,featured,show_in_3d_archive,status,published_at,created_at,updated_at" as const;
+const LEGACY_PROJECT_SUMMARY_FIELDS = "id,title,slug,short_description,cover_image,cover_position_x,cover_position_y,cover_zoom,cover_video,category,tags,project_date,featured,status,published_at,created_at,updated_at" as const;
 
 function legacyToCMS(): CMSProject[] {
   return legacyProjects.map((project, index) => ({
@@ -22,6 +23,7 @@ function legacyToCMS(): CMSProject[] {
     tags: project.discipline.split(" · "),
     project_date: `${project.year}-01-01`,
     featured: index < 6,
+    show_in_3d_archive: /3d/i.test(`${project.category} ${project.discipline}`),
     status: "published",
     blocks: [
       {
@@ -47,6 +49,9 @@ function normalizeProject(row: Record<string, unknown>): CMSProject {
     cover_position_x: Number(row.cover_position_x ?? 50),
     cover_position_y: Number(row.cover_position_y ?? 50),
     cover_zoom: Number(row.cover_zoom ?? 100),
+    show_in_3d_archive: row.show_in_3d_archive == null
+      ? /3d/i.test(`${String(row.category ?? "")} ${(Array.isArray(row.tags) ? row.tags : []).join(" ")}`)
+      : Boolean(row.show_in_3d_archive),
     blocks,
   };
 }
@@ -58,6 +63,9 @@ function normalizeProjectSummary(row: Record<string, unknown>): ProjectSummary {
     cover_position_x: Number(row.cover_position_x ?? 50),
     cover_position_y: Number(row.cover_position_y ?? 50),
     cover_zoom: Number(row.cover_zoom ?? 100),
+    show_in_3d_archive: row.show_in_3d_archive == null
+      ? /3d/i.test(`${String(row.category ?? "")} ${(Array.isArray(row.tags) ? row.tags : []).join(" ")}`)
+      : Boolean(row.show_in_3d_archive),
   };
 }
 
@@ -79,8 +87,16 @@ export const getPublishedProjects = cache(async (): Promise<ProjectSummary[]> =>
       .order("published_at", { ascending: false, nullsFirst: false })
       .order("project_date", { ascending: false });
 
-    if (error) throw error;
-    return (data ?? []).map((row) => normalizeProjectSummary(row));
+    if (!error) return (data ?? []).map((row) => normalizeProjectSummary(row));
+
+    const fallback = await supabase
+      .from("projects")
+      .select(LEGACY_PROJECT_SUMMARY_FIELDS)
+      .eq("status", "published")
+      .order("published_at", { ascending: false, nullsFirst: false })
+      .order("project_date", { ascending: false });
+    if (fallback.error) throw fallback.error;
+    return (fallback.data ?? []).map((row) => normalizeProjectSummary(row));
   } catch {
     return legacyProjectSummaries();
   }
@@ -112,8 +128,14 @@ export async function getAdminProjects(): Promise<ProjectSummary[]> {
     .select(PROJECT_SUMMARY_FIELDS)
     .order("updated_at", { ascending: false });
 
-  if (error) throw new Error(error.message);
-  return (data ?? []).map((row) => normalizeProjectSummary(row));
+  if (!error) return (data ?? []).map((row) => normalizeProjectSummary(row));
+
+  const fallback = await supabase
+    .from("projects")
+    .select(LEGACY_PROJECT_SUMMARY_FIELDS)
+    .order("updated_at", { ascending: false });
+  if (fallback.error) throw new Error(fallback.error.message);
+  return (fallback.data ?? []).map((row) => normalizeProjectSummary(row));
 }
 
 export async function getAdminProject(id: string): Promise<CMSProject | null> {

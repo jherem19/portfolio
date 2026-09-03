@@ -1,22 +1,25 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { BriefcaseBusiness, Home, Mail, UserRound } from "lucide-react";
+import { Box, BriefcaseBusiness, Home, Mail, UserRound } from "lucide-react";
 import Link from "next/link";
 
-type NavigationKey = "home" | "work" | "about" | "contact";
+type NavigationKey = "home" | "work" | "3d" | "about" | "contact";
 
-export function SiteSidebar({ active = "home" }: { active?: "home" | "work" }) {
+export function SiteSidebar({ active = "home" }: { active?: NavigationKey }) {
   const [current, setCurrent] = useState<NavigationKey>(active);
   const items = [
     { label: "Home", href: "/", icon: Home, key: "home" },
     { label: "Work", href: "/#work", icon: BriefcaseBusiness, key: "work" },
+    { label: "3D", href: "/3d", icon: Box, key: "3d" },
     { label: "About", href: "/#about", icon: UserRound, key: "about" },
     { label: "Contact", href: "/#contact", icon: Mail, key: "contact" },
   ] as const;
 
   useEffect(() => {
-    if (window.location.pathname !== "/") return;
+    if (window.location.pathname !== "/") {
+      return;
+    }
 
     const sectionKeys: NavigationKey[] = ["home", "work", "about", "contact"];
     let frame = 0;

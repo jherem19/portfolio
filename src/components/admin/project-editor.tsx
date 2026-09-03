@@ -57,6 +57,7 @@ function emptyProject(project?: CMSProject | null): ProjectInput {
         client: null,
         external_url: null,
         featured: false,
+        show_in_3d_archive: false,
         status: "draft",
         blocks: [],
       };
@@ -197,7 +198,11 @@ export function ProjectEditor({ project }: { project?: CMSProject | null }) {
           </label>
           <label className="admin-check admin-field-wide">
             <input checked={form.featured} onChange={(event) => update("featured", event.target.checked)} type="checkbox" />
-            <span>Feature this project on the homepage</span>
+            <span><strong>Featured Work</strong> · Show this project in the highlighted homepage portfolio</span>
+          </label>
+          <label className="admin-check admin-field-wide">
+            <input checked={form.show_in_3d_archive} onChange={(event) => update("show_in_3d_archive", event.target.checked)} type="checkbox" />
+            <span><strong>3D Archive</strong> · Include this project in the dedicated 3D library</span>
           </label>
         </div>
       </section>
