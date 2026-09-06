@@ -15,6 +15,7 @@ export const site = {
     "https://www.linkedin.com/in/3d-visual-designer-jherem/",
     "https://www.behance.net/jherem",
     "https://www.instagram.com/jherem19/",
+    "https://github.com/jherem19",
   ],
   expertise: [
     "Motion design",

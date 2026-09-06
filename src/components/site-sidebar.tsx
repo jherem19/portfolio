@@ -1,13 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Box, BriefcaseBusiness, Home, Mail, UserRound } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Box, BriefcaseBusiness, Home, Mail, Menu, UserRound, X } from "lucide-react";
 import Link from "next/link";
 
 type NavigationKey = "home" | "work" | "3d" | "about" | "contact";
 
 export function SiteSidebar({ active = "home" }: { active?: NavigationKey }) {
   const [current, setCurrent] = useState<NavigationKey>(active);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const sidebarRef = useRef<HTMLElement>(null);
   const items = [
     { label: "Home", href: "/", icon: Home, key: "home" },
     { label: "Work", href: "/#work", icon: BriefcaseBusiness, key: "work" },
@@ -51,13 +54,45 @@ export function SiteSidebar({ active = "home" }: { active?: NavigationKey }) {
     };
   }, [active]);
 
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    const closeOnOutsideClick = (event: PointerEvent) => {
+      if (!sidebarRef.current?.contains(event.target as Node)) setMenuOpen(false);
+    };
+
+    document.addEventListener("keydown", closeOnEscape);
+    document.addEventListener("pointerdown", closeOnOutsideClick);
+    return () => {
+      document.removeEventListener("keydown", closeOnEscape);
+      document.removeEventListener("pointerdown", closeOnOutsideClick);
+    };
+  }, [menuOpen]);
+
   return (
-    <aside className="sidebar">
-      <Link className="sidebar-brand" href="/">
+    <aside className="sidebar" ref={sidebarRef}>
+      <Link className="sidebar-brand" href="/" onClick={() => setMenuOpen(false)}>
         <strong>Hector Heredia</strong>
         <span>Product &amp; Motion Designer</span>
       </Link>
-      <nav aria-label="Primary navigation">
+      <button
+        aria-controls="primary-navigation"
+        aria-expanded={menuOpen}
+        aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+        className="sidebar-menu-toggle"
+        onClick={() => setMenuOpen((open) => !open)}
+        ref={menuButtonRef}
+        type="button"
+      >
+        {menuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+      </button>
+      <nav aria-label="Primary navigation" className={menuOpen ? "is-open" : undefined} id="primary-navigation">
         {items.map((item) => {
           const Icon = item.icon;
           return (
@@ -67,6 +102,7 @@ export function SiteSidebar({ active = "home" }: { active?: NavigationKey }) {
               className={item.key === current ? "sidebar-link is-active" : "sidebar-link"}
               href={item.href}
               key={item.key}
+              onClick={() => setMenuOpen(false)}
             >
               <Icon aria-hidden="true" />
               <span>{item.label}</span>

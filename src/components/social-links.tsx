@@ -1,5 +1,6 @@
 import {
   IconBrandBehance,
+  IconBrandGithub,
   IconBrandInstagram,
   IconBrandLinkedin,
   IconBrandX,
@@ -12,6 +13,7 @@ const socialLinks = [
   { label: "LinkedIn", href: site.socials[1], Icon: IconBrandLinkedin },
   { label: "Behance", href: site.socials[2], Icon: IconBrandBehance },
   { label: "Instagram", href: site.socials[3], Icon: IconBrandInstagram },
+  { label: "GitHub", href: site.socials[4], Icon: IconBrandGithub },
 ];
 
 export function SocialLinks({ compact = false }: { compact?: boolean }) {
