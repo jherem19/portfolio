@@ -13,7 +13,7 @@ import {
 
 const TRAIL_SIZE = 48;
 const TRAIL_SPACING = 56;
-const TRAIL_DURATION = 800;
+const TRAIL_DURATION = 1800;
 const MAX_TRAIL_ICONS = 18;
 
 const trailIcons = [
@@ -56,27 +56,49 @@ export function HeroCursorTrail() {
         {
           opacity: 0,
           transform:
-            "translate(-50%, -50%) translateY(8px) scale(.62) rotate(-8deg)",
+            "translate(-50%, -50%) translateY(10px) scale(.3, .5) rotate(-16deg)",
+          offset: 0,
+          easing: "cubic-bezier(.16, 1, .3, 1)",
+        },
+        {
+          opacity: 1,
+          transform: "translate(-50%, -50%) translateY(-3px) scale(1.2, 1.12) rotate(7deg)",
+          offset: 0.1,
+          easing: "ease-in-out",
+        },
+        {
+          opacity: 1,
+          transform: "translate(-50%, -50%) translateY(2px) scale(.92, .96) rotate(-4deg)",
+          offset: 0.18,
+          easing: "ease-in-out",
+        },
+        {
+          opacity: 1,
+          transform: "translate(-50%, -50%) scale(1.04, 1.02) rotate(2deg)",
+          offset: 0.26,
+          easing: "ease-in-out",
         },
         {
           opacity: 1,
           transform: "translate(-50%, -50%) scale(1) rotate(0deg)",
-          offset: 0.2,
+          offset: 0.34,
         },
         {
           opacity: 1,
-          transform: "translate(-50%, -50%) scale(.96) rotate(0deg)",
-          offset: 0.68,
+          transform: "translate(-50%, -50%) scale(1) rotate(0deg)",
+          offset: 0.72,
+          easing: "cubic-bezier(.4, 0, .6, 1)",
         },
         {
           opacity: 0,
           transform:
-            "translate(-50%, -50%) translateY(-10px) scale(.74) rotate(6deg)",
+            "translate(-50%, -50%) translateY(-16px) scale(.45) rotate(10deg)",
+          offset: 1,
         },
       ],
       {
         duration: TRAIL_DURATION,
-        easing: "cubic-bezier(.2, .7, .2, 1)",
+        easing: "linear",
       },
     );
 
@@ -162,7 +184,7 @@ export function HeroCursorTrail() {
     finePointer.addEventListener("change", updateEnabled);
     reducedMotion.addEventListener("change", updateEnabled);
     hero.addEventListener("pointermove", handlePointerMove);
-    hero.addEventListener("pointerleave", hideTrail);
+    hero.addEventListener("pointerleave", resetPosition);
     window.addEventListener("resize", resetPosition);
     window.addEventListener("scroll", resetPosition, { passive: true });
 
@@ -170,7 +192,7 @@ export function HeroCursorTrail() {
       finePointer.removeEventListener("change", updateEnabled);
       reducedMotion.removeEventListener("change", updateEnabled);
       hero.removeEventListener("pointermove", handlePointerMove);
-      hero.removeEventListener("pointerleave", hideTrail);
+      hero.removeEventListener("pointerleave", resetPosition);
       window.removeEventListener("resize", resetPosition);
       window.removeEventListener("scroll", resetPosition);
       hideTrail();
