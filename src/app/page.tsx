@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ArrowDown, ArrowUpRight, Mail } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Download, FileText, Mail } from "lucide-react";
 
 import { FeaturedProjects } from "@/components/featured-projects";
 import { HeroCursorTrail } from "@/components/hero-cursor-trail";
@@ -45,7 +45,17 @@ export default async function Home() {
             <p className="section-kicker">Hello, I&apos;m Hector</p>
             <h1>I turn complex ideas into clear, memorable digital experiences.</h1>
             <p className="intro-lede">I help SaaS, AI, Web3, fintech, and digital-product teams through product design, motion, and real-time 3D.</p>
-            <SocialLinks />
+            <div className="intro-actions">
+              <SocialLinks />
+              <div className="resume-actions" aria-label="Resume options">
+                <a href="/hector-heredia-resume.pdf" target="_blank" rel="noreferrer">
+                  <FileText aria-hidden="true" /> View resume
+                </a>
+                <a href="/hector-heredia-resume.pdf" download="Hector-Heredia-Resume.pdf">
+                  <Download aria-hidden="true" /> Download PDF
+                </a>
+              </div>
+            </div>
           </div>
           <a className="scroll-link" href="#work">Explore selected work <ArrowDown aria-hidden="true" /></a>
         </section>
@@ -68,7 +78,10 @@ export default async function Home() {
             <div className="about-text">
               <p>I&apos;m Hector Heredia, a Senior Product &amp; Motion Designer. I help ambitious teams shape products that feel simple, expressive, and human.</p>
               <p>My practice combines product thinking, interaction, motion, and real-time 3D to turn early ideas into experiences people remember.</p>
-              <a href="https://www.linkedin.com/in/3d-visual-designer-jherem/" target="_blank" rel="noreferrer">View my experience <ArrowUpRight aria-hidden="true" /></a>
+              <div className="about-links">
+                <a href="https://www.linkedin.com/in/3d-visual-designer-jherem/" target="_blank" rel="noreferrer">View my experience <ArrowUpRight aria-hidden="true" /></a>
+                <a href="/hector-heredia-resume.pdf" download="Hector-Heredia-Resume.pdf">Download resume <Download aria-hidden="true" /></a>
+              </div>
             </div>
           </div>
         </section>
