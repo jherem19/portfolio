@@ -4,6 +4,7 @@ import { Archivo, Geist, IBM_Plex_Mono } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { jsonLd } from "@/lib/json-ld";
 import { site } from "@/data/site";
+import { SiteCursor } from "@/components/site-cursor";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
 const archivo = Archivo({ subsets: ["latin"], variable: "--font-archivo" });
@@ -72,6 +73,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={cn("font-sans", geist.variable, archivo.variable, plexMono.variable)}>
       <body>
+        <SiteCursor />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
