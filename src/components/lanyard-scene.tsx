@@ -66,9 +66,9 @@ function Band({ impulse, onReady }: { impulse: number; onReady: () => void }) {
   const [curve] = useState(() => new THREE.CatmullRomCurve3(Array.from({ length: 4 }, () => new THREE.Vector3()), false, "chordal"));
   const mathRef = useRef({ point: new THREE.Vector3(), tangent: new THREE.Vector3(), side: new THREE.Vector3(), target: new THREE.Vector3(), direction: new THREE.Vector3(), smooth1: new THREE.Vector3(.08, 2.95, 0), smooth2: new THREE.Vector3(.15, 2.25, 0) });
 
-  useRopeJoint(fixed, first, [[0, 0, 0], [0, 0, 0], .7]);
-  useRopeJoint(first, second, [[0, 0, 0], [0, 0, 0], .7]);
-  useRopeJoint(second, third, [[0, 0, 0], [0, 0, 0], .7]);
+  useRopeJoint(fixed, first, [[0, 0, 0], [0, 0, 0], .5]);
+  useRopeJoint(first, second, [[0, 0, 0], [0, 0, 0], .5]);
+  useRopeJoint(second, third, [[0, 0, 0], [0, 0, 0], .5]);
   useSphericalJoint(third, card, [[0, 0, 0], [0, ATTACH, 0]]);
 
   useEffect(() => { onReady(); }, [onReady]);
