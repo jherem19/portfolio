@@ -73,7 +73,7 @@ function Band({ impulse, onReady }: { impulse: number; onReady: () => void }) {
 
   useEffect(() => { onReady(); }, [onReady]);
   useEffect(() => {
-    if (impulse) card.current?.applyImpulse({ x: 2.8, y: .7, z: .4 }, true);
+    if (impulse) card.current?.applyImpulse({ x: 2.8, y: .5, z: .4 }, true);
   }, [impulse]);
   useEffect(() => {
     const hero = gl.domElement.closest(".intro-section");
