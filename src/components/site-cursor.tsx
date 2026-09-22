@@ -3,17 +3,10 @@
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 
-const FOLLOW_EASE = 0.2;
-
-type Point = { x: number; y: number };
-
 export function SiteCursor() {
   const pathname = usePathname();
   const layerRef = useRef<HTMLDivElement>(null);
   const dotRef = useRef<HTMLSpanElement>(null);
-  const currentRef = useRef<Point>({ x: 0, y: 0 });
-  const targetRef = useRef<Point>({ x: 0, y: 0 });
-  const frameRef = useRef(0);
   const visibleRef = useRef(false);
   const isAdmin = pathname.startsWith("/admin");
 
@@ -27,15 +20,6 @@ export function SiteCursor() {
     );
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-    const renderFrame = () => {
-      const current = currentRef.current;
-      const target = targetRef.current;
-      current.x += (target.x - current.x) * FOLLOW_EASE;
-      current.y += (target.y - current.y) * FOLLOW_EASE;
-      dot.style.transform = `translate3d(${current.x}px, ${current.y}px, 0) translate(-50%, -50%)`;
-      frameRef.current = requestAnimationFrame(renderFrame);
-    };
-
     const setVisible = (visible: boolean) => {
       visibleRef.current = visible;
       layer.classList.toggle("is-visible", visible);
@@ -46,12 +30,9 @@ export function SiteCursor() {
         return;
       }
 
-      const next = { x: event.clientX, y: event.clientY };
-      targetRef.current = next;
-      if (!visibleRef.current) {
-        currentRef.current = next;
-        setVisible(true);
-      }
+      // Match the pointer directly; easing made the cursor feel delayed.
+      dot.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0) translate(-50%, -50%)`;
+      if (!visibleRef.current) setVisible(true);
 
       const target = event.target as Element | null;
       layer.classList.toggle(
@@ -73,7 +54,6 @@ export function SiteCursor() {
     };
 
     updateEnabled();
-    frameRef.current = requestAnimationFrame(renderFrame);
     finePointer.addEventListener("change", updateEnabled);
     reducedMotion.addEventListener("change", updateEnabled);
     document.addEventListener("pointermove", updatePointer);
@@ -84,7 +64,6 @@ export function SiteCursor() {
     window.addEventListener("blur", hide);
 
     return () => {
-      cancelAnimationFrame(frameRef.current);
       finePointer.removeEventListener("change", updateEnabled);
       reducedMotion.removeEventListener("change", updateEnabled);
       document.removeEventListener("pointermove", updatePointer);

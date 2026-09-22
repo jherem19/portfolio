@@ -1,7 +1,8 @@
 import Image from "next/image";
-import { ArrowDown, ArrowUpRight, Download, FileText, Mail } from "lucide-react";
+import { ArrowUpRight, Download, FileText, Mail } from "lucide-react";
 
 import { FeaturedProjects } from "@/components/featured-projects";
+import { LanyardBadge } from "@/components/lanyard-badge";
 import { HeroMotionBackground } from "@/components/hero-motion-background";
 import { SiteSidebar } from "@/components/site-sidebar";
 import { SideProjects } from "@/components/side-projects";
@@ -20,27 +21,16 @@ export default async function Home() {
   const featuredProjects = projects.filter((project) => project.featured);
   const threeDProjects = projects.filter((project) => project.show_in_3d_archive);
   return (
-    <main className="site-shell">
-      <SiteSidebar />
+    <main className="site-shell portfolio-home">
+      <SiteSidebar horizontal />
       <div className="page-content">
         <section className="intro-section" id="home">
           <HeroMotionBackground />
-          <div className="intro-topline">
-            <div className="intro-profile">
-              <Image
-                src="/profile.png"
-                alt="Portrait of Hector Heredia"
-                width={1254}
-                height={1254}
-                sizes="(max-width: 760px) 70px, 112px"
-                priority
-              />
-              <div><strong>Hector Heredia</strong><span>Senior Product &amp; Motion Designer</span></div>
-            </div>
-            <div className="open-badge"><span /> Open to work</div>
+          <div className="mobile-hero-profile">
+            <Image src="/profile.png" alt="Hector Heredia" width={112} height={112} sizes="72px" />
+            <div><strong>Hector Heredia</strong><span>Senior Product &amp; Motion Designer</span></div>
           </div>
           <div className="intro-copy">
-            <p className="section-kicker">Hello, I&apos;m Hector</p>
             <h1>I turn complex ideas into clear, memorable digital experiences.</h1>
             <p className="intro-lede">I help SaaS, AI, Web3, fintech, and digital-product teams through product design, motion, and real-time 3D.</p>
             <div className="intro-actions">
@@ -55,7 +45,7 @@ export default async function Home() {
               </div>
             </div>
           </div>
-          <a className="scroll-link" href="#work">Explore selected work <ArrowDown aria-hidden="true" /></a>
+          <LanyardBadge />
         </section>
 
         <section className="featured-section" id="work" aria-labelledby="work-title">

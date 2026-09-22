@@ -6,7 +6,7 @@ import Link from "next/link";
 
 type NavigationKey = "home" | "work" | "3d" | "about" | "contact";
 
-export function SiteSidebar({ active = "home" }: { active?: NavigationKey }) {
+export function SiteSidebar({ active = "home", horizontal = false }: { active?: NavigationKey; horizontal?: boolean }) {
   const [current, setCurrent] = useState<NavigationKey>(active);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
@@ -76,9 +76,9 @@ export function SiteSidebar({ active = "home" }: { active?: NavigationKey }) {
   }, [menuOpen]);
 
   return (
-    <aside className="sidebar" ref={sidebarRef}>
+    <aside className={horizontal ? "sidebar sidebar-horizontal" : "sidebar"} ref={sidebarRef}>
       <Link className="sidebar-brand" href="/" onClick={() => setMenuOpen(false)}>
-        <strong>Hector Heredia</strong>
+        <strong>{horizontal ? "@JHEREM" : "Hector Heredia"}</strong>
         <span>Product &amp; Motion Designer</span>
       </Link>
       <button
