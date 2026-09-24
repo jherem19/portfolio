@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { Archivo, Geist, IBM_Plex_Mono } from "next/font/google";
 import { cn } from "@/lib/utils";
@@ -115,6 +116,7 @@ export default function RootLayout({
           }}
         />
         {children}
+        <Analytics />
       </body>
     </html>
   );
