@@ -28,5 +28,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
       images: [project.cover_image.startsWith("http") ? project.cover_image : `${site.url}${project.cover_image}`],
     })),
+    ...["/resources", "/resources/ae-bridge"].map((path) => ({
+      url: `${site.url}${path}`,
+      lastModified: new Date("2026-10-13T00:00:00.000Z"),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
   ];
 }

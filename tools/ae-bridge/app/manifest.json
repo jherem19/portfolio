@@ -1,0 +1,47 @@
+{
+  "name": "AE Bridge — Beta",
+  "id": "1690443548274107140",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html",
+  "editorType": [
+    "figma"
+  ],
+  "documentAccess": "dynamic-page",
+  "networkAccess": {
+    "allowedDomains": [
+      "http://localhost:38473",
+      "http://localhost:38474",
+      "http://localhost:38475",
+      "http://localhost:38476",
+      "http://localhost:38477",
+      "http://localhost:38478",
+      "http://localhost:38479",
+      "http://localhost:38480",
+      "http://localhost:38481",
+      "http://localhost:38482",
+      "http://localhost:38483",
+      "http://localhost:38484",
+      "http://localhost:38485",
+      "http://localhost:38486",
+      "http://localhost:38487",
+      "http://localhost:38488",
+      "http://localhost:38489",
+      "http://localhost:38490",
+      "http://localhost:38491",
+      "http://localhost:38492",
+      "http://localhost:38493",
+      "http://localhost:38494",
+      "http://localhost:38495",
+      "http://localhost:38496",
+      "http://localhost:38497",
+      "http://localhost:38498",
+      "http://localhost:38499",
+      "http://localhost:38500",
+      "http://localhost:38501",
+      "http://localhost:38502",
+      "http://localhost:38503"
+    ],
+    "reasoning": "Transfers the selected design only to the authenticated AE Bridge companion running on your own computer. No remote design upload or analytics."
+  }
+}
