@@ -10,8 +10,8 @@ using System.Text;
 
 [assembly: AssemblyTitle("AE Bridge — Instalador")]
 [assembly: AssemblyDescription("Instalador local de Figma a After Effects")]
-[assembly: AssemblyVersion("0.4.16.0")]
-[assembly: AssemblyFileVersion("0.4.16.0")]
+[assembly: AssemblyVersion("0.4.17.0")]
+[assembly: AssemblyFileVersion("0.4.17.0")]
 
 internal static class Setup {
     internal static string PayloadSha256 = "__PAYLOAD_SHA256__";
@@ -102,7 +102,7 @@ internal sealed class SetupForm : Form {
     private readonly ProgressBar progress=new ProgressBar();
     private bool busy;
     internal SetupForm() {
-        Text="AE Bridge · Instalador 0.4.16"; ClientSize=new Size(590,465);
+        Text="AE Bridge · Instalador 0.4.17"; ClientSize=new Size(590,465);
         FormBorderStyle=FormBorderStyle.FixedDialog; MaximizeBox=false;StartPosition=FormStartPosition.CenterScreen;
         Font=new Font("Segoe UI",10);BackColor=Color.White;
         Label title=new Label{Text="Figma → After Effects",Font=new Font("Segoe UI",21,FontStyle.Bold),Location=new Point(28,26),Size=new Size(530,44)};

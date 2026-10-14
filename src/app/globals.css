@@ -780,3 +780,6 @@ body.has-custom-cursor, body.has-custom-cursor :is(a, button, summary, [role="bu
 @media (min-width: 761px) { .sidebar:not(.sidebar-horizontal) nav { min-height: 0; overflow-y: auto; } .sidebar-horizontal nav { gap: clamp(12px, 2.3vw, 34px); } }
 @media (max-width: 760px) { .resources-page { padding: 48px 24px; } .resources-hero { margin-bottom: 40px; } .resource-card { grid-template-columns: 1fr; gap: 24px; } .resource-art { min-height: 200px; } .resource-feature-grid { grid-template-columns: 1fr; } .resource-detail > .resource-text-link { margin-bottom: 36px; } .resource-demo { padding: 32px 16px; gap: 22px; } }
 
+
+.resource-art img { object-fit: contain; }
+.resource-detail-icon { display: block; margin-bottom: 24px; object-fit: contain; }

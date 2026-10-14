@@ -7,6 +7,7 @@ export type Resource = {
   description: string;
   platform: string;
   downloadUrl: string;
+  previewImage?: string;
 };
 
 export const resources: Resource[] = [
@@ -15,11 +16,12 @@ export const resources: Resource[] = [
     name: "AE Bridge",
     category: "Figma plugin",
     status: "Beta",
-    version: "0.4.16",
+    version: "0.4.17",
     description:
       "Send your Figma selection to After Effects as editable layers, a precomp, or one raster image. A small bridge between design and motion.",
     platform: "Windows x64",
+    previewImage: "/resources/ae-bridge/icon.webp",
     downloadUrl:
-      "https://github.com/jherem19/portfolio/releases/download/ae-bridge-v0.4.16/AE-Bridge-Setup-0.4.16.exe",
+      "https://github.com/jherem19/portfolio/releases/download/ae-bridge-v0.4.17/AE-Bridge-Setup-0.4.17.exe",
   },
 ];

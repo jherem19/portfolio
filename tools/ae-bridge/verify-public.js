@@ -4,7 +4,7 @@ assert(code.includes('"token":""'));assert.equal(manifest.networkAccess.allowedD
 for(const text of [code,html,JSON.stringify(manifest)])assert(!/C:[\\/]Users[\\/]/i.test(text));
 const messages=[],requests=[],storage=new Map(),fakeToken='a'.repeat(64),page={type:'PAGE',selection:[]};let offline=false,badKey=false;
 const figma={currentPage:page,ui:{postMessage(m){messages.push(m);}},showUI(){},on(){},clientStorage:{async getAsync(k){return storage.get(k);},async setAsync(k,v){storage.set(k,v);},async deleteAsync(k){storage.delete(k);}}};
-const context=vm.createContext({figma,__html__:'',console,async fetch(url,options){requests.push({url,options});if(offline)throw Error('Network failed');return {ok:!badKey,async json(){return {ok:!badKey,version:'0.4.16'};}};}});vm.runInContext(code,context);
+const context=vm.createContext({figma,__html__:'',console,async fetch(url,options){requests.push({url,options});if(offline)throw Error('Network failed');return {ok:!badKey,async json(){return {ok:!badKey,version:'0.4.17'};}};}});vm.runInContext(code,context);
 (async()=>{
  await figma.ui.onmessage({type:'bridge-check'});assert.equal(messages.at(-1).configured,false);assert.equal(requests.length,0);
  await figma.ui.onmessage({type:'export',direct:true});assert.equal(messages.at(-1).type,'error');assert(messages.at(-1).message.includes('Connect your local'));assert.equal(requests.length,0);

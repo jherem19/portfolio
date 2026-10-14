@@ -51,7 +51,7 @@ function Start-Bridge($appPath, $config) {
     for ($attempt=0; $attempt -lt 60; $attempt++) {
         try {
             $answer = Invoke-RestMethod -Uri ('http://127.0.0.1:'+$config.port+'/health') -Headers @{'X-Bridge-Token'=$config.token} -TimeoutSec 1
-            if ($answer.ok -and $answer.version -eq '0.4.16') { return }
+            if ($answer.ok -and $answer.version -eq '0.4.17') { return }
         } catch {}
         Start-Sleep -Milliseconds 200
     }
@@ -164,7 +164,7 @@ try {
     Write-Text $guidePath ($template.Replace('__MANIFEST_PATH__',$manifestHtml).Replace('__AE_PATH__',[Net.WebUtility]::HtmlEncode($AfterEffectsPath)).Replace('__PAIRING_CODE__',('AEBridge:'+$chosenPort+':'+$token)))
     $uninstaller=Join-Path $appPath 'uninstall.vbs'
     $uninstallLink=Join-Path $menu 'Desinstalar AE Bridge.lnk'
-    $record=[ordered]@{product='AEBridge';version='0.4.16';root=$installPath;links=@($linkPaths)+@($pluginLink,$guideLink,$uninstallLink);testMode=[bool]$IntegrationRoot}
+    $record=[ordered]@{product='AEBridge';version='0.4.17';root=$installPath;links=@($linkPaths)+@($pluginLink,$guideLink,$uninstallLink);testMode=[bool]$IntegrationRoot}
     Write-Text $markerPath ($record | ConvertTo-Json -Depth 5)
     $committed=$true
     try {
@@ -176,7 +176,7 @@ try {
         if (!$IntegrationRoot) {
         $registry='HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\AEBridge'
         New-Item -Path $registry -Force | Out-Null
-        $values=@{DisplayName='AE Bridge';DisplayVersion='0.4.16';InstallLocation=$installPath;UninstallString=('"'+$wscript+'" "'+$uninstaller+'"');NoModify=1;NoRepair=1}
+        $values=@{DisplayName='AE Bridge';DisplayVersion='0.4.17';InstallLocation=$installPath;UninstallString=('"'+$wscript+'" "'+$uninstaller+'"');NoModify=1;NoRepair=1}
         foreach($entry in $values.GetEnumerator()){ New-ItemProperty -Path $registry -Name $entry.Key -Value $entry.Value -PropertyType $(if($entry.Value -is [int]){'DWord'}else{'String'}) -Force | Out-Null }
         }
     } catch {

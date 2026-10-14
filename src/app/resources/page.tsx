@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, ArrowRightLeft, Download } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight, Download } from "lucide-react";
 
 import { SiteSidebar } from "@/components/site-sidebar";
 import { resources } from "@/data/resources";
@@ -25,7 +26,7 @@ export default function ResourcesPage() {
           <div className="resource-library-heading"><span>Available now</span><span>{String(resources.length).padStart(2, "0")} resources</span></div>
           {resources.map((resource) => (
             <article className="resource-card" key={resource.slug}>
-              <div className="resource-art" aria-hidden="true"><ArrowRightLeft /><span>Design → Motion</span></div>
+              <div className="resource-art" aria-hidden="true">{resource.previewImage ? <Image src={resource.previewImage} width={190} height={190} alt="" unoptimized /> : <Download />}<span>{resource.category}</span></div>
               <div className="resource-card-copy">
                 <div className="resource-meta"><span>{resource.category}</span><span className="resource-badge">{resource.status}</span></div>
                 <h2><Link href={`/resources/${resource.slug}`}>{resource.name}</Link></h2>

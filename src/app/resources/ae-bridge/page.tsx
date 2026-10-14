@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft, ArrowRightLeft, Download, Mail } from "lucide-react";
 
 import { SiteSidebar } from "@/components/site-sidebar";
@@ -19,6 +20,7 @@ export default function AEBridgePage() {
       <div className="page-content resources-page resource-detail">
         <Link href="/resources" className="resource-text-link"><ArrowLeft aria-hidden="true" /> All resources</Link>
         <header className="resources-hero">
+          <Image className="resource-detail-icon" src="/resources/ae-bridge/icon.webp" width={96} height={96} alt="AE Bridge purple 3D exchange symbol" unoptimized />
           <div className="resource-meta"><span className="section-kicker">Design → Motion</span><span className="resource-badge">Beta · v{resource.version}</span></div>
           <h1>AE Bridge</h1>
           <p>Your Figma selection, ready for motion in After Effects.</p>
