@@ -17,7 +17,7 @@ export default async function ThreeDArchivePage() {
 
   return (
     <main className="site-shell">
-      <SiteSidebar active="3d" />
+      <SiteSidebar active="3d" horizontal />
       <div className="page-content three-d-page">
         <header className="three-d-page-hero">
           <p className="section-kicker">A focused collection</p>

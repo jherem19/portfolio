@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function ResourcesPage() {
   return (
     <main className="site-shell">
-      <SiteSidebar active="resources" />
+      <SiteSidebar active="resources" horizontal />
       <div className="page-content resources-page">
         <header className="resources-hero">
           <p className="section-kicker">Made to be used</p>

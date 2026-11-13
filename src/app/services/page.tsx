@@ -92,7 +92,7 @@ export default function ServicesPage() {
           }),
         }}
       />
-      <SiteSidebar active="services" />
+      <SiteSidebar active="services" horizontal />
       <article className="page-content agency-page">
         <header className="agency-hero">
           <Link className="back-link" href="/#services"><ArrowLeft aria-hidden="true" /> Back to portfolio</Link>

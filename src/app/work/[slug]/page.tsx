@@ -111,7 +111,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           }),
         }}
       />
-      <SiteSidebar active="work" />
+      <SiteSidebar active="work" horizontal />
       <article className="page-content project-page">
         <header className="project-hero">
           <Link className="back-link" href="/#work"><ArrowLeft aria-hidden="true" /> Back to work</Link>

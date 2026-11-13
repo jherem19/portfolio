@@ -36,7 +36,7 @@ const inquiries = [
 export default function ContactPage() {
   return (
     <main className="site-shell contact-shell">
-      <SiteSidebar active="contact" />
+      <SiteSidebar active="contact" horizontal />
       <article className="page-content inquiry-page">
         <header className="inquiry-hero">
           <Link className="back-link" href="/"><ArrowLeft aria-hidden="true" /> Back to portfolio</Link>

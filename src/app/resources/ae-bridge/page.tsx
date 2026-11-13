@@ -16,7 +16,7 @@ export default function AEBridgePage() {
   const resource = resources.find((item) => item.slug === "ae-bridge")!;
   return (
     <main className="site-shell">
-      <SiteSidebar active="resources" />
+      <SiteSidebar active="resources" horizontal />
       <div className="page-content resources-page resource-detail">
         <Link href="/resources" className="resource-text-link"><ArrowLeft aria-hidden="true" /> All resources</Link>
         <header className="resources-hero">
