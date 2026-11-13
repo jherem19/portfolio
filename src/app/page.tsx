@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Download, Mail } from "lucide-react";
 
-import { FeaturedProjects } from "@/components/featured-projects";
+import { FeaturedShowcase } from "@/components/featured-showcase";
 import { LanyardBadge } from "@/components/lanyard-badge";
 import { HeroMotionBackground } from "@/components/hero-motion-background";
 import { SiteSidebar } from "@/components/site-sidebar";
@@ -76,12 +76,18 @@ export default async function Home() {
           </aside>
         </section>
 
-        <section className="featured-section" id="work" aria-labelledby="work-title">
-          <header className="content-heading">
-            <div><p className="section-kicker">Selected projects</p><h2 id="work-title">Featured Work</h2></div>
-            <Link className="archive-link" href="/work">View all projects <ArrowRight aria-hidden="true" /></Link>
-          </header>
-          <FeaturedProjects projects={featuredProjects} />
+        <section className="featured-section featured-showcase" id="work" aria-labelledby="work-title">
+          <div className="showcase-layout">
+            <div className="showcase-copy">
+              <h2 id="work-title">Featured work.<br />Built to ship.</h2>
+              <p>Product interfaces, websites, visual systems, motion, and interactive 3D made for launches, releases, and evolving products.</p>
+              <div className="showcase-actions">
+                <Link className="hero-cta hero-cta-primary" href="/work">See all work</Link>
+                <Link className="hero-cta" href="/contact">Start a project</Link>
+              </div>
+            </div>
+            <FeaturedShowcase projects={featuredProjects} />
+          </div>
           <nav className="portfolio-paths" aria-label="More work">
             <Link href="/3d"><span>Dimensional work</span><strong>Explore the 3D archive</strong><ArrowUpRight aria-hidden="true" /></Link>
             <Link href="/experiments"><span>Personal practice</span><strong>Browse experiments</strong><ArrowUpRight aria-hidden="true" /></Link>

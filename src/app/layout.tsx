@@ -77,8 +77,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("font-sans", geist.variable, archivo.variable, fraunces.variable)}>
+    <html lang="en" suppressHydrationWarning className={cn("font-sans", geist.variable, archivo.variable, fraunces.variable)}>
       <body>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(localStorage.getItem("theme")==="light")document.documentElement.dataset.theme="light"}catch(e){}`,
+          }}
+        />
         <SiteCursor />
         <script
           type="application/ld+json"

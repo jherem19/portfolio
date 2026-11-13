@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { BriefcaseBusiness, Download, Mail, Menu, PanelsTopLeft, X } from "lucide-react";
+import { BriefcaseBusiness, Download, Menu, PanelsTopLeft, X } from "lucide-react";
 import Link from "next/link";
 
 type NavigationKey = "home" | "services" | "work" | "3d" | "resources" | "about" | "contact";
@@ -11,11 +11,26 @@ export function SiteSidebar({ active = "home", horizontal = false }: { active?: 
   const [menuOpen, setMenuOpen] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const sidebarRef = useRef<HTMLElement>(null);
+  const [lightTheme, setLightTheme] = useState(false);
+
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => setLightTheme(document.documentElement.dataset.theme === "light"));
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
+  const toggleTheme = () => {
+    const next = document.documentElement.dataset.theme === "light" ? "dark" : "light";
+    if (next === "light") document.documentElement.dataset.theme = "light";
+    else delete document.documentElement.dataset.theme;
+    try {
+      localStorage.setItem("theme", next);
+    } catch {}
+    setLightTheme(next === "light");
+  };
   const items = [
     { label: "Work", href: "/work", icon: BriefcaseBusiness, key: "work" },
     { label: "Services", href: "/services", icon: PanelsTopLeft, key: "services" },
     { label: "Resources", href: "/resources", icon: Download, key: "resources" },
-    { label: "Contact", href: "/contact", icon: Mail, key: "contact" },
   ] as const;
 
   useEffect(() => {
@@ -108,7 +123,25 @@ export function SiteSidebar({ active = "home", horizontal = false }: { active?: 
             </Link>
           );
         })}
+        {horizontal ? (
+          <Link className="sidebar-cta sidebar-cta-menu" href="/contact" onClick={() => setMenuOpen(false)}>Start a project</Link>
+        ) : null}
       </nav>
+      {horizontal ? (
+        <div className="sidebar-actions">
+          <button
+            aria-checked={lightTheme}
+            aria-label="Light mode"
+            className="theme-toggle"
+            onClick={toggleTheme}
+            role="switch"
+            type="button"
+          >
+            <span aria-hidden="true" />
+          </button>
+          <Link className="sidebar-cta" href="/contact">Start a project</Link>
+        </div>
+      ) : null}
       <p className="sidebar-foot">Based in Chile · Working worldwide</p>
     </aside>
   );
