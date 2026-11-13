@@ -34,7 +34,7 @@ export default function ServicesPage() {
         <header className="agency-hero">
           <Link className="back-link" href="/#services"><ArrowLeft aria-hidden="true" /> Back to portfolio</Link>
           <p className="section-kicker">Freelance design services</p>
-          <h1>A direct creative partnership for the product you are building.</h1>
+          <h1>Design support built around your product.</h1>
           <div className="agency-hero-bottom">
             <p>I work directly with the person responsible for the product—founder, owner, or product lead—to take a concrete project from visual direction through production, launch, and continued growth.</p>
             <Link className="hero-cta hero-cta-primary" href="/contact"><Mail aria-hidden="true" /> Discuss a project</Link>
@@ -50,7 +50,7 @@ export default function ServicesPage() {
         <section className="agency-section" aria-labelledby="project-fit">
           <div className="agency-section-heading">
             <p className="section-kicker">A good reason to talk</p>
-            <h2 id="project-fit">You have a product to launch, improve, or keep growing.</h2>
+            <h2 id="project-fit">Launch it. Improve it. Keep it moving.</h2>
           </div>
           <div className="agency-capability-grid">
             {needs.map((need) => (
@@ -65,7 +65,7 @@ export default function ServicesPage() {
         <section className="agency-section agency-terms" aria-labelledby="engagement-options">
           <div className="agency-section-heading">
             <p className="section-kicker">Engagement options</p>
-            <h2 id="engagement-options">Choose the relationship that fits the product right now.</h2>
+            <h2 id="engagement-options">Choose how we work together.</h2>
           </div>
           <div className="agency-engagements service-page-engagements">
             {services.map((service) => (
@@ -84,7 +84,7 @@ export default function ServicesPage() {
           <aside className="custom-engagement-note">
             <div>
               <p className="section-kicker">Something different?</p>
-              <h3>Custom scopes and hourly collaboration are welcome.</h3>
+              <h3>Need a different setup?</h3>
             </div>
             <p>The options above are useful starting points, not fixed packages. If your project needs a different mix of design, motion, 3D, or ongoing support, we can define the scope and working model together.</p>
           </aside>
@@ -93,7 +93,7 @@ export default function ServicesPage() {
         <section className="agency-section agency-rhythm" aria-labelledby="working-process">
           <div className="agency-section-heading">
             <p className="section-kicker">Working process</p>
-            <h2 id="working-process">Clear decisions from first conversation to final delivery.</h2>
+            <h2 id="working-process">A clear path from brief to delivery.</h2>
           </div>
           <ol>
             {process.map(([title, copy], index) => (
@@ -108,7 +108,7 @@ export default function ServicesPage() {
         <section className="agency-work" aria-labelledby="relevant-work">
           <div>
             <p className="section-kicker">Selected work</p>
-            <h2 id="relevant-work">From useful interfaces to immersive product worlds.</h2>
+            <h2 id="relevant-work">Product, motion, and 3D in practice.</h2>
           </div>
           <nav aria-label="Relevant case studies">
             <Link href="/work/seshy-ai-3d-music-studios"><span>Interactive 3D</span><strong>Seshy AI Studios</strong><ArrowRight aria-hidden="true" /></Link>

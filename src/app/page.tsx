@@ -34,7 +34,7 @@ export default async function Home() {
           </div>
           <div className="intro-copy">
             <p className="hero-availability"><span aria-hidden="true" /> Available for select freelance projects</p>
-            <h1>I help founders build and grow products and experiences people remember.</h1>
+            <h1>I design products people remember.</h1>
             <p className="intro-lede">I partner directly with founders and product owners across product UI, websites, visual identity, motion, ads, and interactive 3D—from one focused build to ongoing support.</p>
             <div className="intro-actions">
               <Link className="hero-cta hero-cta-primary" href="/contact"><Mail aria-hidden="true" /> Discuss a project</Link>
@@ -53,7 +53,7 @@ export default async function Home() {
           <header className="services-heading">
             <div>
               <p className="section-kicker">Ways to work together</p>
-              <h2 id="services-title">A complete project—or the creative partner who stays with it.</h2>
+              <h2 id="services-title">From launch to what comes next.</h2>
             </div>
             <p>I work best with people responsible for a real product and a concrete outcome: launch it, improve it, or give it a stronger visual world.</p>
           </header>
@@ -80,7 +80,7 @@ export default async function Home() {
           <aside className="agency-callout direct-callout">
             <div>
               <p className="section-kicker">Already have a roadmap?</p>
-              <h3>Your product can keep one creative partner as it evolves.</h3>
+              <h3>One creative partner. Every next release.</h3>
             </div>
             <div className="agency-callout-copy">
               <p>I can support redesigns, new pages, product releases, launch videos, ads, graphic assets, motion, and 3D without restarting the relationship for every deliverable.</p>
@@ -103,7 +103,7 @@ export default async function Home() {
         <section className="about-panel" id="about" aria-labelledby="about-title">
           <p className="section-kicker">About</p>
           <div className="about-layout">
-            <h2 id="about-title">A senior design partner for ideas that need clarity and dimension.</h2>
+            <h2 id="about-title">A senior design partner, end to end.</h2>
             <div className="about-text">
               <p>I&apos;m Hector Heredia, a freelance Senior Product &amp; Motion Designer based in Chile and working remotely worldwide.</p>
               <p>Across 10 years of experience, I&apos;ve worked directly with founders and product owners to connect product thinking, web design, visual identity, motion, and real-time 3D in one coherent experience.</p>
