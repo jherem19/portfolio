@@ -240,7 +240,26 @@ body.has-custom-cursor, body.has-custom-cursor :is(a, button, summary, [role="bu
 .services-heading h2, .agency-section-heading h2, .agency-work h2 { max-width: 900px; margin: 0; font-family: var(--font-archivo), sans-serif; font-size: clamp(2.8rem, 4.8vw, 5.6rem); font-weight: 400; letter-spacing: var(--tracking-archivo); line-height: .98; }
 .services-heading > p { margin: 0 0 4px; color: var(--muted); font-size: 1rem; line-height: 1.7; }
 .services-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid #353a37; border-left: 1px solid #353a37; }
-.service-brief { display: flex; min-height: 460px; flex-direction: column; gap: 28px; border-right: 1px solid #353a37; border-bottom: 1px solid #353a37; padding: clamp(30px, 3vw, 46px); }
+@property --service-shine-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.service-brief { position: relative; isolation: isolate; display: flex; min-height: 460px; overflow: hidden; flex-direction: column; gap: 28px; border-right: 1px solid #353a37; border-bottom: 1px solid #353a37; background: #0b0d0c; padding: clamp(30px, 3vw, 46px); transition: background-color 240ms ease, box-shadow 240ms ease; }
+.service-brief::before { position: absolute; z-index: 2; inset: 0; border-radius: inherit; padding: 1px; background: conic-gradient(from var(--service-shine-angle), transparent 0deg 42deg, rgb(73 205 160 / 0) 58deg, #59cda6 76deg, #eafff7 88deg, #59cda6 100deg, rgb(73 205 160 / 0) 118deg, transparent 138deg 222deg, rgb(73 205 160 / 0) 242deg, #3a9979 260deg, #b9ffe6 270deg, #3a9979 282deg, rgb(73 205 160 / 0) 302deg, transparent 320deg 360deg); content: ""; opacity: 0; pointer-events: none; transition: opacity 180ms ease; -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+.service-brief::after { position: absolute; z-index: 0; inset: 0; background: radial-gradient(circle at 50% 0%, rgb(89 205 166 / 10%), transparent 42%); content: ""; opacity: 0; pointer-events: none; transition: opacity 260ms ease; }
+.service-brief > * { position: relative; z-index: 1; }
+
+@media (hover: hover) and (pointer: fine) {
+  .service-brief:hover { background: #0d110f; box-shadow: inset 0 0 42px rgb(89 205 166 / 3%); }
+  .service-brief:hover::before { animation: service-border-shine 2.8s linear infinite; opacity: 1; }
+  .service-brief:hover::after { opacity: 1; }
+}
+
+@keyframes service-border-shine {
+  to { --service-shine-angle: 360deg; }
+}
 .service-brief-title > p, .agency-engagements article > p:first-child { margin: 0 0 12px; color: var(--green); font-family: var(--font-plex-mono), monospace; font-size: .62rem; letter-spacing: var(--tracking-mono-wide); text-transform: uppercase; }
 .service-brief h3 { margin: 0; font-family: var(--font-archivo), sans-serif; font-size: clamp(1.55rem, 2.2vw, 2.35rem); font-weight: 400; letter-spacing: var(--tracking-archivo); line-height: 1.05; }
 .service-description { margin: 0; color: #a0a49e; font-size: .95rem; line-height: 1.7; }
