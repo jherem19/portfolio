@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Box, BriefcaseBusiness, Download, Home, Mail, Menu, PanelsTopLeft, UserRound, X } from "lucide-react";
+import { BriefcaseBusiness, Download, Mail, Menu, PanelsTopLeft, X } from "lucide-react";
 import Link from "next/link";
 
 type NavigationKey = "home" | "services" | "work" | "3d" | "resources" | "about" | "contact";
@@ -12,12 +12,9 @@ export function SiteSidebar({ active = "home", horizontal = false }: { active?: 
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const sidebarRef = useRef<HTMLElement>(null);
   const items = [
-    { label: "Home", href: "/", icon: Home, key: "home" },
-    { label: "Services", href: "/services", icon: PanelsTopLeft, key: "services" },
     { label: "Work", href: "/#work", icon: BriefcaseBusiness, key: "work" },
-    { label: "3D", href: "/3d", icon: Box, key: "3d" },
+    { label: "Services", href: "/services", icon: PanelsTopLeft, key: "services" },
     { label: "Resources", href: "/resources", icon: Download, key: "resources" },
-    { label: "About", href: "/#about", icon: UserRound, key: "about" },
     { label: "Contact", href: "/contact", icon: Mail, key: "contact" },
   ] as const;
 
@@ -26,7 +23,7 @@ export function SiteSidebar({ active = "home", horizontal = false }: { active?: 
       return;
     }
 
-    const sectionKeys: NavigationKey[] = ["home", "services", "work", "about", "contact"];
+    const sectionKeys: NavigationKey[] = ["home", "services", "work", "contact"];
     let frame = 0;
 
     const updateCurrentSection = () => {
