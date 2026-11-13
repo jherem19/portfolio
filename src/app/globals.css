@@ -1017,7 +1017,7 @@ body { background: #050606; }
 .portfolio-home .lanyard-stage { z-index: 2; opacity: .55; filter: saturate(.75); }
 .portfolio-home .lanyard-hint { display: none; }
 
-.sidebar-horizontal { position: absolute; z-index: 50; inset: 22px 50% auto auto; display: flex; width: min(calc(100% - 48px), 1200px); max-width: none; height: 64px; border: 1px solid rgb(255 255 255 / 12%); border-radius: 18px; background: rgb(5 7 7 / 72%); box-shadow: 0 18px 60px rgb(0 0 0 / 28%); padding: 8px 10px 8px 20px; flex-direction: row; align-items: center; transform: translateX(50%); backdrop-filter: blur(20px); }
+.sidebar-horizontal { position: fixed; z-index: 50; inset: 22px 50% auto auto; display: flex; width: min(calc(100% - 48px), 1200px); max-width: none; height: 64px; border: 1px solid rgb(255 255 255 / 12%); border-radius: 18px; background: rgb(5 7 7 / 72%); box-shadow: 0 18px 60px rgb(0 0 0 / 28%); padding: 8px 10px 8px 20px; flex-direction: row; align-items: center; transform: translateX(50%); backdrop-filter: blur(20px); }
 .sidebar-horizontal .sidebar-brand { display: flex; min-height: 0; border: 0; padding: 0; }
 .sidebar-horizontal .sidebar-brand strong { font-family: var(--font-geist), sans-serif; font-size: 16px; font-weight: 650; letter-spacing: -.03em; }
 .sidebar-horizontal .sidebar-brand span { display: none; }
@@ -1057,7 +1057,7 @@ body { background: #050606; }
 .sidebar:not(.sidebar-horizontal) .sidebar-link:hover, .sidebar:not(.sidebar-horizontal) .sidebar-link.is-active { background: rgb(255 255 255 / 5%); }
 
 @media (max-width: 760px) {
-  .sidebar-horizontal { position: relative; inset: auto; width: calc(100% - 28px); height: 62px; margin: 14px; border-radius: 16px; padding: 8px 10px 8px 16px; transform: none; }
+  .sidebar-horizontal { position: fixed; inset: 14px auto auto 14px; width: calc(100% - 28px); height: 62px; margin: 0; border-radius: 16px; padding: 8px 10px 8px 16px; transform: none; }
   .sidebar-horizontal .sidebar-brand { display: flex; }
   .sidebar-horizontal nav { top: calc(100% + 8px); border: 1px solid rgb(255 255 255 / 12%); border-radius: 14px; background: rgb(7 9 8 / 96%); padding: 8px; }
   .sidebar-horizontal .sidebar-link, .sidebar-horizontal .sidebar-link:is(:hover, .is-active) { padding: 0 14px; }
