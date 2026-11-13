@@ -34,7 +34,7 @@ export default async function Home() {
           </div>
           <div className="intro-copy">
             <p className="hero-availability"><span aria-hidden="true" /> Available for select freelance projects</p>
-            <h1>I design products people remember.</h1>
+            <h1>I design products<br /><em>people remember.</em></h1>
             <p className="intro-lede">I partner directly with founders and product owners across product UI, websites, visual identity, motion, ads, and interactive 3D—from one focused build to ongoing support.</p>
             <div className="intro-actions">
               <Link className="hero-cta hero-cta-primary" href="/contact"><Mail aria-hidden="true" /> Discuss a project</Link>

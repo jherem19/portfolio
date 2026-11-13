@@ -982,3 +982,93 @@ body.has-custom-cursor, body.has-custom-cursor :is(a, button, summary, [role="bu
 
 .resource-art img { object-fit: contain; }
 .resource-detail-icon { display: block; margin-bottom: 24px; object-fit: contain; }
+
+/* 2026 visual direction: editorial scale, deep glass and dimensional light. */
+:root {
+  --background: #050606;
+  --foreground: #f4f6f3;
+  --panel: #0a0d0c;
+  --panel-soft: #0d1110;
+  --muted: #929895;
+  --muted-accessible: #9ba19e;
+  --line: rgb(255 255 255 / 11%);
+  --green: #66ddb3;
+  --cyan: #32b6ff;
+  --border: rgb(255 255 255 / 11%);
+  --ring: #66ddb3;
+}
+
+body { background: #050606; }
+.portfolio-home { --background: #050606; background: #050606; }
+.portfolio-home .intro-section { min-height: max(760px, 100svh); padding: clamp(150px, 19vh, 205px) 5vw 90px; align-items: center; justify-content: flex-start; text-align: center; }
+.portfolio-home .intro-section::before { position: absolute; z-index: 0; inset: 0; background: radial-gradient(ellipse at 50% 82%, rgb(28 143 214 / 26%), transparent 43%), radial-gradient(circle at 16% 56%, rgb(102 221 179 / 10%), transparent 28%), repeating-linear-gradient(90deg, transparent 0 calc(8.333% - 1px), rgb(255 255 255 / 2.5%) calc(8.333% - 1px) 8.333%); content: ""; pointer-events: none; -webkit-mask-image: linear-gradient(#000, #000 72%, transparent 98%); mask-image: linear-gradient(#000, #000 72%, transparent 98%); }
+.portfolio-home .hero-motion { opacity: .32; mix-blend-mode: screen; }
+.portfolio-home .hero-motion::after { background: linear-gradient(180deg, #050606 0%, rgb(5 6 6 / 30%) 42%, #050606 98%); }
+.portfolio-home .intro-copy { z-index: 5; width: min(100%, 1180px); max-width: none; margin: 0 auto; }
+.portfolio-home .hero-availability { width: fit-content; margin: 0 auto 28px; border: 1px solid rgb(255 255 255 / 12%); border-radius: 999px; background: rgb(9 12 11 / 64%); padding: 10px 15px; backdrop-filter: blur(16px); }
+.portfolio-home .intro-copy h1 { max-width: 1180px; margin-inline: auto; font-family: var(--font-geist), Arial, sans-serif; font-size: clamp(58px, 8vw, 128px); font-weight: 500; letter-spacing: -.07em; line-height: .82; text-wrap: balance; }
+.portfolio-home .intro-copy h1 em { font-family: Georgia, "Times New Roman", serif; font-weight: 400; letter-spacing: -.065em; }
+.portfolio-home .intro-lede { max-width: 680px; margin: 36px auto 0; color: #a7adaa; font-size: clamp(17px, 1.45vw, 22px); line-height: 1.5; letter-spacing: -.025em; }
+.portfolio-home .intro-actions { justify-content: center; margin-top: 34px; }
+.hero-cta { border-radius: 999px; padding-inline: 22px; backdrop-filter: blur(12px); }
+.hero-cta-primary { background: #f4f6f3; color: #050606; box-shadow: 0 10px 36px rgb(0 0 0 / 30%); }
+.portfolio-home .hero-proof { width: fit-content; margin: 54px auto 0; border: 1px solid rgb(255 255 255 / 10%); border-radius: 14px; background: rgb(8 10 9 / 58%); padding: 16px 8px; backdrop-filter: blur(18px); }
+.portfolio-home .hero-proof li { min-width: 150px; }
+.portfolio-home .lanyard-stage { z-index: 2; opacity: .55; filter: saturate(.75); }
+.portfolio-home .lanyard-hint { display: none; }
+
+.sidebar-horizontal { position: absolute; z-index: 50; inset: 22px 50% auto auto; display: flex; width: min(calc(100% - 48px), 1200px); max-width: none; height: 64px; border: 1px solid rgb(255 255 255 / 12%); border-radius: 18px; background: rgb(5 7 7 / 72%); box-shadow: 0 18px 60px rgb(0 0 0 / 28%); padding: 8px 10px 8px 20px; flex-direction: row; align-items: center; transform: translateX(50%); backdrop-filter: blur(20px); }
+.sidebar-horizontal .sidebar-brand { display: flex; min-height: 0; border: 0; padding: 0; }
+.sidebar-horizontal .sidebar-brand strong { font-family: var(--font-geist), sans-serif; font-size: 16px; font-weight: 650; letter-spacing: -.03em; }
+.sidebar-horizontal .sidebar-brand span { display: none; }
+.sidebar-horizontal nav { margin-left: auto; gap: 4px; }
+.sidebar-horizontal .sidebar-link { min-height: 44px; border-radius: 11px; padding: 0 14px; color: #969b98; font-size: 13px; }
+.sidebar-horizontal .sidebar-link svg { display: none; }
+.sidebar-horizontal .sidebar-link:is(:hover, .is-active) { padding: 0 14px; background: rgb(255 255 255 / 6%); color: #f4f6f3; }
+
+.services-section, .featured-section, .side-projects-section, .about-panel { border-color: rgb(255 255 255 / 9%); background: #050606; padding: clamp(105px, 10vw, 160px) clamp(24px, 6vw, 96px); }
+.services-heading, .content-heading { margin-bottom: clamp(48px, 6vw, 82px); }
+.services-heading h2, .content-heading h2, .side-projects-heading h2, .about-panel h2 { font-size: clamp(3.5rem, 6vw, 7rem); line-height: .9; letter-spacing: -.065em; }
+.section-kicker { color: #9ba19e; }
+.services-list { gap: 18px; border: 0; }
+.service-brief { min-height: 510px; border: 1px solid rgb(255 255 255 / 14%); border-radius: 16px; background: linear-gradient(145deg, rgb(255 255 255 / 3.5%), transparent 36%), rgb(8 10 9 / 76%); box-shadow: inset 0 1px rgb(255 255 255 / 3%); backdrop-filter: blur(16px); }
+.service-brief h3 { font-size: clamp(2rem, 2.4vw, 3rem); letter-spacing: -.045em; }
+.service-description { color: #a5aaa7; }
+.service-brief li { border-color: rgb(255 255 255 / 13%); background: rgb(255 255 255 / 2%); }
+.agency-callout { border-color: rgb(102 221 179 / 26%); border-radius: 18px; background: radial-gradient(circle at 82% 10%, rgb(50 182 255 / 13%), transparent 35%), linear-gradient(135deg, rgb(102 221 179 / 8%), transparent 40%), #080b0a; }
+
+.work-grid { gap: 72px 22px; }
+.work-image, .three-d-card-image { border-color: rgb(255 255 255 / 13%); border-radius: 16px; background: #090b0a; }
+.work-meta h3 { font-size: clamp(1.65rem, 2vw, 2.2rem); letter-spacing: -.045em; }
+.three-d-showcase { border-color: rgb(255 255 255 / 9%); }
+.side-project-card, .agency-engagements article, .inquiry-grid > a { border-color: rgb(255 255 255 / 13%); border-radius: 16px; background: linear-gradient(145deg, rgb(255 255 255 / 3%), transparent 40%), #090b0a; }
+.side-project-card:hover, .inquiry-grid > a:hover { background: #0b100e; }
+
+.about-panel { background: radial-gradient(ellipse at 80% 45%, rgb(50 182 255 / 10%), transparent 38%), #070908; }
+.contact-panel { background: #f1f4f1; color: #070908; padding: clamp(90px, 10vw, 150px) clamp(24px, 6vw, 96px) 42px; }
+.contact-panel .section-kicker { color: #565d59; }
+.contact-panel > a { border-color: #afb5b1; color: #070908; font-size: clamp(3.4rem, 7vw, 8.5rem); letter-spacing: -.07em; }
+.contact-panel > a svg { color: #0b8f67; }
+.contact-panel .social-list a { border-color: #bdc2bf; color: #070908; }
+
+.sidebar:not(.sidebar-horizontal) { inset: 18px auto 18px 18px; height: calc(100vh - 36px); border: 1px solid rgb(255 255 255 / 12%); border-radius: 18px; background: rgb(8 10 9 / 86%); box-shadow: 0 20px 70px rgb(0 0 0 / 30%); backdrop-filter: blur(20px); overflow: hidden; }
+.sidebar:not(.sidebar-horizontal) .sidebar-brand { min-height: 120px; }
+.sidebar:not(.sidebar-horizontal) .sidebar-link { min-height: 72px; border-color: rgb(255 255 255 / 8%); }
+.sidebar:not(.sidebar-horizontal) .sidebar-link:hover, .sidebar:not(.sidebar-horizontal) .sidebar-link.is-active { background: rgb(255 255 255 / 5%); }
+
+@media (max-width: 760px) {
+  .sidebar-horizontal { position: relative; inset: auto; width: calc(100% - 28px); height: 62px; margin: 14px; border-radius: 16px; padding: 8px 10px 8px 16px; transform: none; }
+  .sidebar-horizontal .sidebar-brand { display: flex; }
+  .sidebar-horizontal nav { top: calc(100% + 8px); border: 1px solid rgb(255 255 255 / 12%); border-radius: 14px; background: rgb(7 9 8 / 96%); padding: 8px; }
+  .sidebar-horizontal .sidebar-link, .sidebar-horizontal .sidebar-link:is(:hover, .is-active) { padding: 0 14px; }
+  .portfolio-home .intro-section { min-height: 760px; padding: 90px 22px 70px; }
+  .portfolio-home .intro-copy h1 { font-size: clamp(52px, 15vw, 78px); line-height: .88; }
+  .portfolio-home .intro-lede { font-size: 17px; }
+  .portfolio-home .hero-proof { width: 100%; }
+  .portfolio-home .hero-proof li { min-width: 0; }
+  .portfolio-home .lanyard-stage { opacity: .2; }
+  .services-section, .featured-section, .side-projects-section, .about-panel { padding: 88px 20px; }
+  .services-heading h2, .content-heading h2, .side-projects-heading h2, .about-panel h2 { font-size: clamp(3.2rem, 15vw, 5rem); }
+  .service-brief { min-height: 0; border-radius: 14px; }
+  .sidebar:not(.sidebar-horizontal) { position: sticky; inset: 0; width: 100%; height: auto; border-width: 0 0 1px; border-radius: 0; }
+}
