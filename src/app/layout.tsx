@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
-import { Archivo, Geist, IBM_Plex_Mono } from "next/font/google";
+import { Archivo, Fraunces, Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { jsonLd } from "@/lib/json-ld";
 import { site } from "@/data/site";
@@ -11,10 +11,10 @@ const googleSiteVerification = process.env.GOOGLE_SITE_VERIFICATION;
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
 const archivo = Archivo({ subsets: ["latin"], variable: "--font-archivo" });
-const plexMono = IBM_Plex_Mono({
+const fraunces = Fraunces({
   subsets: ["latin"],
-  variable: "--font-plex-mono",
-  weight: ["400", "500"],
+  variable: "--font-fraunces",
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -77,7 +77,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("font-sans", geist.variable, archivo.variable, plexMono.variable)}>
+    <html lang="en" className={cn("font-sans", geist.variable, archivo.variable, fraunces.variable)}>
       <body>
         <SiteCursor />
         <script
