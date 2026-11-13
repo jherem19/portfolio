@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { ArrowUpRight, Download, FileText, Mail } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, ArrowUpRight, Download, Mail } from "lucide-react";
 
 import { FeaturedProjects } from "@/components/featured-projects";
 import { LanyardBadge } from "@/components/lanyard-badge";
@@ -10,6 +11,7 @@ import { SocialLinks } from "@/components/social-links";
 import { getPublishedProjects } from "@/lib/cms/projects";
 import { getSideProjects } from "@/lib/cms/side-projects";
 import { ThreeDShowcase } from "@/components/three-d-showcase";
+import { services } from "@/data/site";
 
 export const revalidate = 60;
 
@@ -28,24 +30,63 @@ export default async function Home() {
           <HeroMotionBackground />
           <div className="mobile-hero-profile">
             <Image src="/profile.png" alt="Hector Heredia" width={112} height={112} sizes="72px" />
-            <div><strong>Hector Heredia</strong><span>Senior Product &amp; Motion Designer</span></div>
+            <div><strong>Hector Heredia</strong><span>Freelance Product, Motion &amp; 3D Designer</span></div>
           </div>
           <div className="intro-copy">
-            <h1>I turn complex ideas into clear, memorable digital experiences.</h1>
-            <p className="intro-lede">I help SaaS, AI, Web3, fintech, and digital-product teams through product design, motion, and real-time 3D.</p>
+            <p className="hero-availability"><span aria-hidden="true" /> Available for select freelance projects</p>
+            <h1>I help founders build and grow products and experiences people remember.</h1>
+            <p className="intro-lede">I partner directly with founders and product owners across product UI, websites, visual identity, motion, ads, and interactive 3D—from one focused build to ongoing support.</p>
             <div className="intro-actions">
-              <SocialLinks />
-              <div className="resume-actions" aria-label="Resume options">
-                <a href="/hector-heredia-resume.pdf" target="_blank" rel="noreferrer">
-                  <FileText aria-hidden="true" /> View resume
-                </a>
-                <a href="/hector-heredia-resume.pdf" download="Hector-Heredia-Resume.pdf">
-                  <Download aria-hidden="true" /> Download PDF
-                </a>
-              </div>
+              <Link className="hero-cta hero-cta-primary" href="/contact"><Mail aria-hidden="true" /> Discuss a project</Link>
+              <a className="hero-cta" href="#services">Explore services <ArrowRight aria-hidden="true" /></a>
             </div>
+            <ul className="hero-proof" aria-label="Working details">
+              <li><strong>10 years</strong><span>design experience</span></li>
+              <li><strong>1–6 weeks</strong><span>focused engagements</span></li>
+              <li><strong>UTC−3</strong><span>remote worldwide</span></li>
+            </ul>
           </div>
           <LanyardBadge />
+        </section>
+
+        <section className="services-section" id="services" aria-labelledby="services-title">
+          <header className="services-heading">
+            <div>
+              <p className="section-kicker">Ways to work together</p>
+              <h2 id="services-title">A complete project—or the creative partner who stays with it.</h2>
+            </div>
+            <p>I work best with people responsible for a real product and a concrete outcome: launch it, improve it, or give it a stronger visual world.</p>
+          </header>
+
+          <div className="services-list">
+            {services.map((service) => (
+              <article className="service-brief" key={service.title}>
+                <div className="service-brief-title">
+                  <p>{service.format}</p>
+                  <h3>{service.title}</h3>
+                </div>
+                <p className="service-description">{service.description}</p>
+                <ul aria-label={`${service.title} deliverables`}>
+                  {service.deliverables.map((deliverable) => <li key={deliverable}>{deliverable}</li>)}
+                </ul>
+                <dl>
+                  <div><dt>Typical timing</dt><dd>{service.timeline}</dd></div>
+                  <div><dt>Investment</dt><dd>{service.investment}</dd></div>
+                </dl>
+              </article>
+            ))}
+          </div>
+
+          <aside className="agency-callout direct-callout">
+            <div>
+              <p className="section-kicker">Already have a roadmap?</p>
+              <h3>Your product can keep one creative partner as it evolves.</h3>
+            </div>
+            <div className="agency-callout-copy">
+              <p>I can support redesigns, new pages, product releases, launch videos, ads, graphic assets, motion, and 3D without restarting the relationship for every deliverable.</p>
+              <Link href="/services">See how projects work <ArrowUpRight aria-hidden="true" /></Link>
+            </div>
+          </aside>
         </section>
 
         <section className="featured-section" id="work" aria-labelledby="work-title">
@@ -62,10 +103,10 @@ export default async function Home() {
         <section className="about-panel" id="about" aria-labelledby="about-title">
           <p className="section-kicker">About</p>
           <div className="about-layout">
-            <h2 id="about-title">Designing what&apos;s next—with clarity, motion, and purpose.</h2>
+            <h2 id="about-title">A senior design partner for ideas that need clarity and dimension.</h2>
             <div className="about-text">
-              <p>I&apos;m Hector Heredia, a Senior Product &amp; Motion Designer. I help ambitious teams shape products that feel simple, expressive, and human.</p>
-              <p>My practice combines product thinking, interaction, motion, and real-time 3D to turn early ideas into experiences people remember.</p>
+              <p>I&apos;m Hector Heredia, a freelance Senior Product &amp; Motion Designer based in Chile and working remotely worldwide.</p>
+              <p>Across 10 years of experience, I&apos;ve worked directly with founders and product owners to connect product thinking, web design, visual identity, motion, and real-time 3D in one coherent experience.</p>
               <div className="about-links">
                 <a href="https://www.linkedin.com/in/3d-visual-designer-jherem/" target="_blank" rel="noreferrer">View my experience <ArrowUpRight aria-hidden="true" /></a>
                 <a href="/hector-heredia-resume.pdf" download="Hector-Heredia-Resume.pdf">Download resume <Download aria-hidden="true" /></a>
@@ -75,8 +116,8 @@ export default async function Home() {
         </section>
 
         <footer className="contact-panel" id="contact">
-          <p className="section-kicker">Have a project in mind?</p>
-          <a href="mailto:hectorheredia19@gmail.com?subject=Project%20inquiry%20from%20your%20portfolio">Let&apos;s create something memorable <Mail aria-hidden="true" /></a>
+          <p className="section-kicker">Have a launch or project in mind?</p>
+          <Link href="/contact">Tell me what you&apos;re building <Mail aria-hidden="true" /></Link>
           <div className="contact-bottom"><span>Hector Heredia © 2026</span><SocialLinks compact /></div>
         </footer>
       </div>
