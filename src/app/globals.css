@@ -1432,10 +1432,10 @@ body { background: light-dark(#f9fafa, #050606); }
 .contact-field > span, .contact-field > legend { padding: 0; color: light-dark(#4b524e, #b3b8b5); font-size: 13px; font-weight: 500; }
 .contact-field > legend { margin-bottom: 8px; }
 .contact-field i { color: light-dark(#1482dc, #32b6ff); font-style: normal; }
-.contact-field :is(input[type="text"], select, textarea) { width: 100%; min-height: 42px; border: 1px solid light-dark(rgb(0 0 0 / 14%), rgb(255 255 255 / 14%)); border-radius: 10px; background: light-dark(rgb(0 0 0 / 3%), rgb(255 255 255 / 5%)); padding: 0 12px; color: var(--foreground); font: inherit; font-size: 14px; outline: 0; transition: border-color 180ms ease, background 180ms ease; }
+.contact-field :is(input[type="text"], input[type="email"], select, textarea) { width: 100%; min-height: 42px; border: 1px solid light-dark(rgb(0 0 0 / 14%), rgb(255 255 255 / 14%)); border-radius: 10px; background: light-dark(rgb(0 0 0 / 3%), rgb(255 255 255 / 5%)); padding: 0 12px; color: var(--foreground); font: inherit; font-size: 14px; outline: 0; transition: border-color 180ms ease, background 180ms ease; }
 .contact-field textarea { padding: 10px 12px; line-height: 1.6; resize: vertical; }
 .contact-field :is(input, select, textarea)::placeholder { color: light-dark(#8a918d, #747a77); }
-.contact-field :is(input[type="text"], select, textarea):focus { border-color: light-dark(rgb(0 0 0 / 55%), rgb(255 255 255 / 55%)); }
+.contact-field :is(input[type="text"], input[type="email"], select, textarea):focus { border-color: light-dark(rgb(0 0 0 / 55%), rgb(255 255 255 / 55%)); }
 .contact-choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 .contact-choice input { position: absolute; opacity: 0; pointer-events: none; }
 .contact-choice span { display: grid; min-height: 42px; border: 1px solid light-dark(rgb(0 0 0 / 14%), rgb(255 255 255 / 14%)); border-radius: 10px; background: light-dark(rgb(0 0 0 / 3%), rgb(255 255 255 / 5%)); font-size: 14px; cursor: pointer; place-items: center; transition: border-color 180ms ease, background 180ms ease; }
@@ -1460,3 +1460,9 @@ body { background: light-dark(#f9fafa, #050606); }
   .contact-card { padding: 20px; }
 }
 .contact-form .contact-field select:is(select) { appearance: none; background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%); background-position: calc(100% - 18px) 18px, calc(100% - 13px) 18px; background-repeat: no-repeat; background-size: 5px 5px; padding-right: 34px; }
+.contact-honeypot { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
+.contact-form-footer button:disabled { cursor: progress; opacity: .6; }
+.contact-form-footer a { color: var(--foreground); text-decoration: underline; }
+.contact-sent { border: 1px solid light-dark(rgb(30 150 110 / 35%), rgb(102 221 179 / 30%)); border-radius: 12px; background: light-dark(rgb(30 150 110 / 7%), rgb(102 221 179 / 7%)); padding: 22px; }
+.contact-sent strong { font-size: 1.1rem; font-weight: 500; }
+.contact-sent p { margin: 6px 0 0; color: light-dark(#4b524e, #b3b8b5); font-size: 14px; }
