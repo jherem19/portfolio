@@ -6,22 +6,15 @@ import { FeaturedProjects } from "@/components/featured-projects";
 import { LanyardBadge } from "@/components/lanyard-badge";
 import { HeroMotionBackground } from "@/components/hero-motion-background";
 import { SiteSidebar } from "@/components/site-sidebar";
-import { SideProjects } from "@/components/side-projects";
 import { SocialLinks } from "@/components/social-links";
 import { getPublishedProjects } from "@/lib/cms/projects";
-import { getSideProjects } from "@/lib/cms/side-projects";
-import { ThreeDShowcase } from "@/components/three-d-showcase";
 import { services } from "@/data/site";
 
 export const revalidate = 60;
 
 export default async function Home() {
-  const [projects, sideProjects] = await Promise.all([
-    getPublishedProjects(),
-    getSideProjects(),
-  ]);
+  const projects = await getPublishedProjects();
   const featuredProjects = projects.filter((project) => project.featured);
-  const threeDProjects = projects.filter((project) => project.show_in_3d_archive);
   return (
     <main className="site-shell portfolio-home">
       <SiteSidebar horizontal />
@@ -53,9 +46,9 @@ export default async function Home() {
           <header className="services-heading">
             <div>
               <p className="section-kicker">Ways to work together</p>
-              <h2 id="services-title">From launch to what comes next.</h2>
+              <h2 id="services-title">Three ways I can help.</h2>
             </div>
-            <p>I work best with people responsible for a real product and a concrete outcome: launch it, improve it, or give it a stronger visual world.</p>
+            <p>Choose the outcome closest to what your product needs now.</p>
           </header>
 
           <div className="services-list">
@@ -65,14 +58,8 @@ export default async function Home() {
                   <p>{service.format}</p>
                   <h3>{service.title}</h3>
                 </div>
-                <p className="service-description">{service.description}</p>
-                <ul aria-label={`${service.title} deliverables`}>
-                  {service.deliverables.map((deliverable) => <li key={deliverable}>{deliverable}</li>)}
-                </ul>
-                <dl>
-                  <div><dt>Typical timing</dt><dd>{service.timeline}</dd></div>
-                  <div><dt>Investment</dt><dd>{service.investment}</dd></div>
-                </dl>
+                <p className="service-description">{service.summary}</p>
+                <Link className="service-brief-link" href="/services">See engagement details <ArrowRight aria-hidden="true" /></Link>
               </article>
             ))}
           </div>
@@ -95,10 +82,11 @@ export default async function Home() {
             <span>{featuredProjects.length} projects · 2022—2026</span>
           </header>
           <FeaturedProjects projects={featuredProjects} />
-          <ThreeDShowcase projects={threeDProjects} />
+          <nav className="portfolio-paths" aria-label="More work">
+            <Link href="/3d"><span>Dimensional work</span><strong>Explore the 3D archive</strong><ArrowUpRight aria-hidden="true" /></Link>
+            <Link href="/experiments"><span>Personal practice</span><strong>Browse experiments</strong><ArrowUpRight aria-hidden="true" /></Link>
+          </nav>
         </section>
-
-        <SideProjects projects={sideProjects} />
 
         <section className="about-panel" id="about" aria-labelledby="about-title">
           <p className="section-kicker">About</p>
@@ -116,9 +104,24 @@ export default async function Home() {
         </section>
 
         <footer className="contact-panel" id="contact">
-          <p className="section-kicker">Have a launch or project in mind?</p>
-          <Link href="/contact">Tell me what you&apos;re building <Mail aria-hidden="true" /></Link>
-          <div className="contact-bottom"><span>Hector Heredia © 2026</span><SocialLinks compact /></div>
+          <div className="contact-panel-grid">
+            <div>
+              <p className="section-kicker">Have a product that needs its next move?</p>
+              <h2>Let&apos;s make the next version worth remembering.</h2>
+            </div>
+            <div className="contact-panel-copy">
+              <p>Share what you&apos;re building, what needs to change, and where you want to take it. I&apos;ll help you shape the right design engagement.</p>
+              <div className="contact-panel-actions">
+                <Link className="hero-cta hero-cta-primary" href="/contact"><Mail aria-hidden="true" /> Start a project</Link>
+                <a className="hero-cta" href="mailto:hectorheredia19@gmail.com">Email me directly <ArrowUpRight aria-hidden="true" /></a>
+              </div>
+            </div>
+          </div>
+          <div className="contact-bottom">
+            <span className="footer-availability"><i aria-hidden="true" /> Available for select projects</span>
+            <span>Chile · UTC−3 · Working worldwide</span>
+            <SocialLinks compact />
+          </div>
         </footer>
       </div>
     </main>

@@ -37,6 +37,7 @@ export const services = [
   {
     format: "Complete project",
     title: "Launch or rebuild your product",
+    summary: "Bring the interface, website, and launch assets into one clear visual system.",
     description:
       "A cohesive visual experience for a product that needs to launch, explain its value, or evolve beyond its current website and interface.",
     deliverables: ["Product & web UI", "Visual direction", "Launch-ready assets"],
@@ -46,6 +47,7 @@ export const services = [
   {
     format: "Ongoing partnership",
     title: "Keep your product moving",
+    summary: "Add a senior creative partner to ongoing releases and improvements.",
     description:
       "Direct, recurring creative support for the stream of improvements and releases that follows a product after its first launch.",
     deliverables: ["Website improvements", "Launch videos & ads", "Graphic design support"],
@@ -55,6 +57,7 @@ export const services = [
   {
     format: "Immersive build",
     title: "Interactive 3D & motion",
+    summary: "Use motion and 3D when a conventional interface is not enough.",
     description:
       "Distinctive digital worlds, product visuals, and animation for ideas that need more than a conventional interface or campaign.",
     deliverables: ["Interactive 3D", "3D environments", "Product & campaign motion"],
