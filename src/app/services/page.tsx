@@ -4,12 +4,28 @@ import { ArrowLeft, ArrowRight, ArrowUpRight, Check, Mail } from "lucide-react";
 
 import { SiteSidebar } from "@/components/site-sidebar";
 import { services, site } from "@/data/site";
+import { jsonLd } from "@/lib/json-ld";
 
 export const metadata: Metadata = {
   title: "Freelance Design Services",
   description:
     "Direct product UI, website, brand, motion, advertising, and interactive 3D support for founders and product owners.",
   alternates: { canonical: `${site.url}/services` },
+  openGraph: {
+    type: "website",
+    url: `${site.url}/services`,
+    title: `Freelance Design Services | ${site.name}`,
+    description:
+      "Product UI, websites, brand, motion, advertising, and interactive 3D support for founders and product owners.",
+    images: [{ url: site.socialImage, alt: site.socialImageAlt }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Freelance Design Services | ${site.name}`,
+    description:
+      "Product UI, websites, brand, motion, advertising, and interactive 3D support for founders and product owners.",
+    images: [site.socialImage],
+  },
 };
 
 const needs = [
@@ -29,6 +45,53 @@ const process = [
 export default function ServicesPage() {
   return (
     <main className="site-shell agency-shell">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: jsonLd({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "BreadcrumbList",
+                "@id": `${site.url}/services#breadcrumb`,
+                itemListElement: [
+                  {
+                    "@type": "ListItem",
+                    position: 1,
+                    name: "Home",
+                    item: site.url,
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 2,
+                    name: "Services",
+                    item: `${site.url}/services`,
+                  },
+                ],
+              },
+              {
+                "@type": "ItemList",
+                "@id": `${site.url}/services#service-list`,
+                name: `Freelance design services by ${site.name}`,
+                itemListElement: services.map((service, index) => ({
+                  "@type": "ListItem",
+                  position: index + 1,
+                  item: {
+                    "@type": "Service",
+                    "@id": `${site.url}/services#service-${index + 1}`,
+                    name: service.title,
+                    description: service.description,
+                    serviceType: service.deliverables,
+                    areaServed: "Worldwide",
+                    provider: { "@id": `${site.url}/#person` },
+                    url: `${site.url}/services`,
+                  },
+                })),
+              },
+            ],
+          }),
+        }}
+      />
       <SiteSidebar active="services" />
       <article className="page-content agency-page">
         <header className="agency-hero">

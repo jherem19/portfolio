@@ -3,39 +3,41 @@ import type { MetadataRoute } from "next";
 import { site } from "@/data/site";
 import { getPublishedProjects } from "@/lib/cms/projects";
 
-const lastModified = new Date("2026-08-21T00:00:00.000Z");
+const siteLastModified = new Date("2026-11-13T00:00:00.000Z");
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const projects = await getPublishedProjects();
   return [
     {
       url: site.url,
-      lastModified,
+      lastModified: siteLastModified,
       changeFrequency: "monthly",
       priority: 1,
       images: [`${site.url}${site.image}`],
     },
     {
       url: `${site.url}/3d`,
-      lastModified,
+      lastModified: siteLastModified,
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
       url: `${site.url}/services`,
-      lastModified,
+      lastModified: siteLastModified,
       changeFrequency: "monthly",
       priority: 0.9,
     },
     {
       url: `${site.url}/contact`,
-      lastModified,
+      lastModified: siteLastModified,
       changeFrequency: "monthly",
       priority: 0.9,
     },
     ...projects.map((project) => ({
       url: `${site.url}/work/${project.slug}`,
-      lastModified,
+      lastModified: new Date(
+        project.updated_at ?? project.published_at ?? project.project_date,
+      ),
       changeFrequency: "yearly" as const,
       priority: 0.8,
       images: [project.cover_image.startsWith("http") ? project.cover_image : `${site.url}${project.cover_image}`],

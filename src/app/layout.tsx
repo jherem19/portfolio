@@ -7,6 +7,8 @@ import { jsonLd } from "@/lib/json-ld";
 import { site } from "@/data/site";
 import { SiteCursor } from "@/components/site-cursor";
 
+const googleSiteVerification = process.env.GOOGLE_SITE_VERIFICATION;
+
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
 const archivo = Archivo({ subsets: ["latin"], variable: "--font-archivo" });
 const plexMono = IBM_Plex_Mono({
@@ -64,6 +66,9 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
+  ...(googleSiteVerification
+    ? { verification: { google: googleSiteVerification } }
+    : {}),
 };
 
 export default function RootLayout({
@@ -89,8 +94,20 @@ export default function RootLayout({
                   image: `${site.url}${site.image}`,
                   jobTitle: site.role,
                   description: site.description,
+                  email: site.email,
                   sameAs: site.socials,
                   knowsAbout: site.expertise,
+                  knowsLanguage: ["English", "Spanish"],
+                  address: {
+                    "@type": "PostalAddress",
+                    addressLocality: "Santiago",
+                    addressCountry: "CL",
+                  },
+                  hasOccupation: {
+                    "@type": "Occupation",
+                    name: site.role,
+                    skills: site.expertise.join(", "),
+                  },
                 },
                 {
                   "@type": "WebSite",

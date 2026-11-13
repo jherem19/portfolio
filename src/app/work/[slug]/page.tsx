@@ -64,19 +64,50 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         dangerouslySetInnerHTML={{
           __html: jsonLd({
             "@context": "https://schema.org",
-            "@type": "CreativeWork",
-            "@id": `${projectUrl}/#creative-work`,
-            url: projectUrl,
-            name: project.title,
-            description: project.short_description,
-            abstract: project.short_description,
-            image: project.cover_image.startsWith("http") ? project.cover_image : `${site.url}${project.cover_image}`,
-            dateCreated: project.project_date,
-            genre: project.category,
-            keywords: project.tags.join(", "),
-            inLanguage: "en",
-            creator: { "@id": `${site.url}/#person` },
-            isPartOf: { "@id": `${site.url}/#website` },
+            "@graph": [
+              {
+                "@type": "CreativeWork",
+                "@id": `${projectUrl}/#creative-work`,
+                url: projectUrl,
+                mainEntityOfPage: projectUrl,
+                name: project.title,
+                description: project.short_description,
+                abstract: project.short_description,
+                image: project.cover_image.startsWith("http") ? project.cover_image : `${site.url}${project.cover_image}`,
+                dateCreated: project.project_date,
+                ...(project.published_at ? { datePublished: project.published_at } : {}),
+                ...(project.updated_at ? { dateModified: project.updated_at } : {}),
+                genre: project.category,
+                keywords: project.tags.join(", "),
+                inLanguage: "en",
+                creator: { "@id": `${site.url}/#person` },
+                isPartOf: { "@id": `${site.url}/#website` },
+              },
+              {
+                "@type": "BreadcrumbList",
+                "@id": `${projectUrl}/#breadcrumb`,
+                itemListElement: [
+                  {
+                    "@type": "ListItem",
+                    position: 1,
+                    name: "Home",
+                    item: site.url,
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 2,
+                    name: "Work",
+                    item: `${site.url}/#work`,
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 3,
+                    name: project.title,
+                    item: projectUrl,
+                  },
+                ],
+              },
+            ],
           }),
         }}
       />
