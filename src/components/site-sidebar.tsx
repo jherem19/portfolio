@@ -12,7 +12,7 @@ export function SiteSidebar({ active = "home", horizontal = false }: { active?: 
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const sidebarRef = useRef<HTMLElement>(null);
   const items = [
-    { label: "Work", href: "/#work", icon: BriefcaseBusiness, key: "work" },
+    { label: "Work", href: "/work", icon: BriefcaseBusiness, key: "work" },
     { label: "Services", href: "/services", icon: PanelsTopLeft, key: "services" },
     { label: "Resources", href: "/resources", icon: Download, key: "resources" },
     { label: "Contact", href: "/contact", icon: Mail, key: "contact" },

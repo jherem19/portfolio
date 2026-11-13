@@ -14,7 +14,7 @@ export const revalidate = 60;
 
 export default async function Home() {
   const projects = await getPublishedProjects();
-  const featuredProjects = projects.filter((project) => project.featured);
+  const featuredProjects = projects.filter((project) => project.featured).slice(0, 6);
   return (
     <main className="site-shell portfolio-home">
       <SiteSidebar horizontal />
@@ -79,7 +79,7 @@ export default async function Home() {
         <section className="featured-section" id="work" aria-labelledby="work-title">
           <header className="content-heading">
             <div><p className="section-kicker">Selected projects</p><h2 id="work-title">Featured Work</h2></div>
-            <span>{featuredProjects.length} projects · 2022—2026</span>
+            <Link className="archive-link" href="/work">View all projects <ArrowRight aria-hidden="true" /></Link>
           </header>
           <FeaturedProjects projects={featuredProjects} />
           <nav className="portfolio-paths" aria-label="More work">
