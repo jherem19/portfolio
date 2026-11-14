@@ -26,6 +26,7 @@ export function HeroOrbit({ items }: { items: OrbitItem[] }) {
     const cards = Array.from(node.querySelectorAll<HTMLElement>(".orbit-card"));
     if (cards.length === 0) return;
     const section = node.closest("section") ?? node;
+    const aroundPortrait = Boolean(node.closest(".hero-portrait"));
     const cta = section.querySelector<HTMLElement>(".intro-actions .hero-cta-primary");
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -92,14 +93,14 @@ export function HeroOrbit({ items }: { items: OrbitItem[] }) {
         const sin = Math.sin(theta);
         // Squared-off ellipse that keeps the centre clear for the copy and uses the corners.
         const ring = seed.ring + Math.sin(time * 0.25 + seed.wobble) * 0.05;
-        const radiusX = width * (compact ? 0.5 + ring * 0.1 : 0.39 + ring * 0.13) * (1.25 - entrance * 0.25);
+        const radiusX = width * (aroundPortrait ? 0.32 + ring * 0.08 : compact ? 0.5 + ring * 0.1 : 0.39 + ring * 0.13) * (1.25 - entrance * 0.25);
         const radiusY = height * (0.41 + ring * 0.13) * (1.25 - entrance * 0.25);
         const orbitX = radiusX * Math.sign(cos) * Math.pow(Math.abs(cos), 0.72);
         const orbitY = radiusY * Math.sign(sin) * Math.pow(Math.abs(sin), 0.72);
         // Gathered: a tight swirl around the call to action.
         const swirl = 64 + seed.ring * 96;
         const nearX = gatherX + cos * swirl * 1.7;
-        const nearY = gatherY + sin * swirl * 0.85;
+        const nearY = gatherY + sin * (aroundPortrait ? 16 + seed.ring * 16 : swirl * 0.85);
 
         const x = lerp(orbitX, nearX, gather) + parallaxX * seed.depth;
         const y = lerp(orbitY, nearY, gather) + parallaxY * seed.depth;

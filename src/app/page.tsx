@@ -1,10 +1,10 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Download, Mail } from "lucide-react";
 
 import { FeaturedShowcase } from "@/components/featured-showcase";
 import { CountUp, RollText, ScrollWords } from "@/components/motion";
 import { HeroOrbit } from "@/components/hero-orbit";
+import { HeroPortrait } from "@/components/hero-portrait";
 import { HeroMotionBackground } from "@/components/hero-motion-background";
 import { SiteSidebar } from "@/components/site-sidebar";
 import { SiteFooter } from "@/components/site-footer";
@@ -32,11 +32,6 @@ export default async function Home() {
       <div className="page-content">
         <section className="intro-section" id="home">
           <HeroMotionBackground />
-          <HeroOrbit items={orbitItems} />
-          <div className="mobile-hero-profile">
-            <Image src="/profile.png" alt="Hector Heredia" width={112} height={112} sizes="72px" />
-            <div><strong>Hector Heredia</strong><span>Freelance Product, Motion &amp; 3D Designer</span></div>
-          </div>
           <div className="intro-copy">
             <p className="hero-availability"><span aria-hidden="true" /> Available for select freelance projects</p>
             <h1><span className="hero-line">I design products</span><span className="hero-line"><em>people remember.</em></span></h1>
@@ -51,6 +46,7 @@ export default async function Home() {
               <li><strong>UTC−3</strong><span>remote worldwide</span></li>
             </ul>
           </div>
+          <HeroPortrait><HeroOrbit items={orbitItems} /></HeroPortrait>
         </section>
 
         <section className="services-section" id="services" aria-labelledby="services-title">
