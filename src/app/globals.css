@@ -1557,34 +1557,57 @@ body { background: light-dark(#f9fafa, #050606); }
   .site-footer-legal { flex-direction: column; gap: 4px; }
 }
 
-/* Liquid glass for second-level surfaces: translucent fill, heavy blur, bright rim and soft inner glow. */
+/* Clear glass for second-level surfaces: no tint and almost no frost, only a bright rim and soft depth. */
 :root {
-  --glass-hi: light-dark(rgb(255 255 255 / 78%), rgb(255 255 255 / 11%));
-  --glass-lo: light-dark(rgb(255 255 255 / 34%), rgb(255 255 255 / 2.5%));
-  --glass-mid: light-dark(rgb(255 255 255 / 52%), rgb(255 255 255 / 6%));
-  --glass-edge: light-dark(rgb(255 255 255 / 90%), rgb(255 255 255 / 15%));
-  --glass-rim: light-dark(rgb(255 255 255 / 100%), rgb(255 255 255 / 34%));
-  --glass-rim-low: light-dark(rgb(20 40 60 / 7%), rgb(255 255 255 / 7%));
-  --glass-inner: light-dark(rgb(255 255 255 / 55%), rgb(255 255 255 / 5%));
-  --glass-outline: light-dark(rgb(15 30 45 / 9%), rgb(0 0 0 / 0%));
-  --glass-drop: light-dark(rgb(20 45 70 / 13%), rgb(0 0 0 / 36%));
+  --card-radius: clamp(16px, 1.4vw, 22px);
+  --card-pad: clamp(24px, 2.4vw, 36px);
+  --card-gap: clamp(12px, 1.2vw, 18px);
+  --glass-edge: light-dark(rgb(0 0 0 / 13%), rgb(255 255 255 / 16%));
+  --glass-rim: light-dark(rgb(255 255 255 / 95%), rgb(255 255 255 / 34%));
+  --glass-rim-low: light-dark(rgb(0 0 0 / 5%), rgb(255 255 255 / 7%));
+  --glass-drop: light-dark(rgb(20 45 70 / 12%), rgb(0 0 0 / 34%));
 }
 :root:root:root :is(.sidebar-horizontal, .hero-proof, .hero-availability, .inquiry-availability, .hero-cta:not(.hero-cta-primary), .service-brief, .agency-callout, .contact-card, .agency-capability-grid article, .agency-engagements article, .resource-card, .side-project-card, .agency-facts, .project-facts, .custom-engagement-note, .keycap-sound, .theme-toggle) {
-  border-color: var(--glass-edge);
-  background: radial-gradient(130% 90% at 0% 0%, var(--glass-hi), transparent 58%), linear-gradient(135deg, var(--glass-mid), var(--glass-lo) 55%, var(--glass-mid));
-  box-shadow: inset 0 1px 0 var(--glass-rim), inset 1px 0 0 var(--glass-rim-low), inset 0 -1px 0 var(--glass-rim-low), inset 0 0 26px var(--glass-inner), 0 0 0 1px var(--glass-outline), 0 20px 50px -18px var(--glass-drop);
-  -webkit-backdrop-filter: blur(24px) saturate(175%);
-  backdrop-filter: blur(24px) saturate(175%);
+  border: 1px solid var(--glass-edge);
+  background: transparent;
+  box-shadow: inset 0 1px 0 var(--glass-rim), inset 1px 0 0 var(--glass-rim-low), inset -1px 0 0 var(--glass-rim-low), inset 0 -1px 0 var(--glass-rim-low), 0 20px 50px -22px var(--glass-drop);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
 }
+/* The fixed nav sits over moving content, so it keeps enough blur to stay readable. */
+:root:root:root .sidebar-horizontal { -webkit-backdrop-filter: blur(14px) brightness(.62); backdrop-filter: blur(14px) brightness(.62); }
+:root:root:root[data-theme="light"] .sidebar-horizontal { -webkit-backdrop-filter: blur(14px) brightness(1.06); backdrop-filter: blur(14px) brightness(1.06); }
 @media (hover: hover) and (pointer: fine) {
-  :root:root:root :is(.service-brief, .contact-card, .agency-capability-grid article, .agency-engagements article, .resource-card, .side-project-card, .hero-cta:not(.hero-cta-primary)):hover {
-    border-color: var(--glass-rim);
-    box-shadow: inset 0 1px 0 var(--glass-rim), inset 1px 0 0 var(--glass-rim-low), inset 0 -1px 0 var(--glass-rim-low), inset 0 0 34px var(--glass-hi), 0 0 0 1px var(--glass-outline), 0 26px 60px -18px var(--glass-drop);
-  }
+  :root:root:root :is(.service-brief, .contact-card, .agency-capability-grid article, .agency-engagements article, .resource-card, .side-project-card, .hero-cta:not(.hero-cta-primary)):hover { border-color: var(--glass-rim); background: transparent; }
 }
-/* Give the glass something to refract on otherwise flat sections. */
-.services-section, .side-projects-section { background-image: radial-gradient(42rem 26rem at 14% 62%, light-dark(rgb(34 153 111 / 10%), rgb(102 221 179 / 9%)), transparent 70%), radial-gradient(46rem 30rem at 82% 38%, light-dark(rgb(41 130 227 / 13%), rgb(50 150 255 / 15%)), transparent 70%), radial-gradient(30rem 22rem at 52% 96%, light-dark(rgb(120 90 240 / 9%), rgb(130 100 255 / 10%)), transparent 70%); }
-/* Lighter blur on phones, where many glass surfaces at once cost more. */
+
+/* One card system: shared radius, inner padding and spacing between neighbours. */
+:root:root:root :is(.service-brief, .agency-callout, .contact-card, .agency-capability-grid article, .agency-engagements article, .resource-card, .side-project-card, .agency-facts, .project-facts, .custom-engagement-note) { border-radius: var(--card-radius); }
+:root:root:root :is(.service-brief, .agency-capability-grid article, .agency-engagements article, .contact-card) { padding: var(--card-pad); }
+:root:root:root :is(.agency-callout, .custom-engagement-note) { padding: clamp(28px, 4vw, 60px); }
+:root:root:root :is(.services-list, .agency-engagements, .side-projects-grid) { gap: var(--card-gap); }
+
+.agency-capability-grid { gap: var(--card-gap); border: 0; background: transparent; }
+.agency-capability-grid h3 { margin-top: 28px; }
+.agency-capability-grid p { margin-top: 22px; }
+
+:root:root:root :is(.agency-facts, .project-facts) { overflow: hidden; }
+:root:root:root :is(.agency-facts, .project-facts) div { padding: clamp(18px, 1.8vw, 26px) clamp(20px, 2vw, 30px); }
+:root:root:root :is(.agency-facts, .project-facts) div + div { border-top: 0; border-left: 1px solid var(--glass-edge); }
+
+:root:root:root .resource-card { margin-top: var(--card-gap); padding: clamp(18px, 2vw, 28px); gap: clamp(22px, 3vw, 40px); }
+:root:root:root .side-project-card { padding: clamp(12px, 1.1vw, 16px); gap: clamp(18px, 2vw, 28px); }
+.side-project-thumbnail { border-radius: calc(var(--card-radius) - 6px); }
+.resource-art { border-radius: calc(var(--card-radius) - 6px); }
+
+@media (max-width: 1050px) {
+  :root:root:root .agency-facts div:nth-child(3) { border-left: 0; }
+  :root:root:root .agency-facts div:nth-child(n + 3) { border-top: 1px solid var(--glass-edge); }
+}
 @media (max-width: 760px) {
-  :root:root:root :is(.sidebar-horizontal, .hero-proof, .hero-availability, .inquiry-availability, .hero-cta:not(.hero-cta-primary), .service-brief, .agency-callout, .contact-card, .agency-capability-grid article, .agency-engagements article, .resource-card, .side-project-card, .agency-facts, .project-facts, .custom-engagement-note, .keycap-sound, .theme-toggle) { -webkit-backdrop-filter: blur(12px) saturate(160%); backdrop-filter: blur(12px) saturate(160%); }
+  :root:root:root :is(.agency-facts, .project-facts) div + div { border-top: 1px solid var(--glass-edge); border-left: 0; }
 }
+
+/* Soft colour behind otherwise flat sections so the clear glass has depth to show. */
+.services-section, .side-projects-section { background-image: radial-gradient(42rem 26rem at 14% 62%, light-dark(rgb(34 153 111 / 10%), rgb(102 221 179 / 9%)), transparent 70%), radial-gradient(46rem 30rem at 82% 38%, light-dark(rgb(41 130 227 / 13%), rgb(50 150 255 / 15%)), transparent 70%), radial-gradient(30rem 22rem at 52% 96%, light-dark(rgb(120 90 240 / 9%), rgb(130 100 255 / 10%)), transparent 70%); }
+.site-shell:not(.portfolio-home) .site-footer { margin-top: clamp(36px, 5vw, 80px); }
