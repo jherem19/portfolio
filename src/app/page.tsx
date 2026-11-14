@@ -7,7 +7,7 @@ import { CountUp, RollText, ScrollWords } from "@/components/motion";
 import { HeroOrbit } from "@/components/hero-orbit";
 import { HeroMotionBackground } from "@/components/hero-motion-background";
 import { SiteSidebar } from "@/components/site-sidebar";
-import { SocialLinks } from "@/components/social-links";
+import { SiteFooter } from "@/components/site-footer";
 import { getPublishedProjects } from "@/lib/cms/projects";
 import { services } from "@/data/site";
 
@@ -120,7 +120,7 @@ export default async function Home() {
           </div>
         </section>
 
-        <footer className="contact-panel" id="contact">
+        <section className="contact-panel" id="contact">
           <div className="contact-panel-grid">
             <div>
               <p className="section-kicker">Have a product that needs its next move?</p>
@@ -134,12 +134,8 @@ export default async function Home() {
               </div>
             </div>
           </div>
-          <div className="contact-bottom">
-            <span className="footer-availability"><i aria-hidden="true" /> Available for select projects</span>
-            <span>Chile · UTC−3 · Working worldwide</span>
-            <SocialLinks compact />
-          </div>
-        </footer>
+        </section>
+        <SiteFooter />
       </div>
     </main>
   );

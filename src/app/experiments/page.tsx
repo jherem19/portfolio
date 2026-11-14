@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { SideProjects } from "@/components/side-projects";
+import { SiteFooter } from "@/components/site-footer";
 import { SiteSidebar } from "@/components/site-sidebar";
 import { site } from "@/data/site";
 import { getSideProjects } from "@/lib/cms/side-projects";
@@ -25,6 +26,7 @@ export default async function ExperimentsPage() {
         </header>
         <SideProjects projects={projects} />
       </div>
+      <SiteFooter />
     </main>
   );
 }

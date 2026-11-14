@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Download } from "lucide-react";
 
+import { SiteFooter } from "@/components/site-footer";
 import { SiteSidebar } from "@/components/site-sidebar";
 import { resources } from "@/data/resources";
 
@@ -38,6 +39,7 @@ export default function ResourcesPage() {
         </section>
         <footer className="resource-footer"><Download aria-hidden="true" /><p>This collection will grow as I build and share more tools.</p></footer>
       </div>
+      <SiteFooter />
     </main>
   );
 }

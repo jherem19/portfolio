@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { FeaturedProjects } from "@/components/featured-projects";
+import { SiteFooter } from "@/components/site-footer";
 import { SiteSidebar } from "@/components/site-sidebar";
 import { site } from "@/data/site";
 import { getPublishedProjects } from "@/lib/cms/projects";
@@ -33,6 +34,7 @@ export default async function WorkArchivePage() {
           <FeaturedProjects projects={projects} />
         </section>
       </div>
+      <SiteFooter />
     </main>
   );
 }

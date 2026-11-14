@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Check, Mail } from "lucide-react";
 
+import { SiteFooter } from "@/components/site-footer";
 import { SiteSidebar } from "@/components/site-sidebar";
 import { services, site } from "@/data/site";
 import { jsonLd } from "@/lib/json-ld";
@@ -186,6 +187,7 @@ export default function ServicesPage() {
           <p>Direct collaboration · Remote worldwide · English &amp; Spanish</p>
         </footer>
       </article>
+      <SiteFooter />
     </main>
   );
 }

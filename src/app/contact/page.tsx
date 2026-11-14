@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Clock3, Mail, MapPin, MessagesSquare } from "lucide-react";
 
 import { ContactForm } from "@/components/contact-form";
+import { SiteFooter } from "@/components/site-footer";
 import { SiteSidebar } from "@/components/site-sidebar";
 import { site } from "@/data/site";
 
@@ -33,6 +34,7 @@ export default function ContactPage() {
           </aside>
         </div>
       </article>
+      <SiteFooter />
     </main>
   );
 }

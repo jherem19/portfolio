@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { SiteFooter } from "@/components/site-footer";
 import { SiteSidebar } from "@/components/site-sidebar";
 import { ThreeDLibrary } from "@/components/three-d-library";
 import { getPublishedProjects } from "@/lib/cms/projects";
@@ -28,6 +29,7 @@ export default async function ThreeDArchivePage() {
           <ThreeDLibrary projects={projects} />
         </section>
       </div>
+      <SiteFooter />
     </main>
   );
 }

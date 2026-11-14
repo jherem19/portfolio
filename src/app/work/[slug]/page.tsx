@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { notFound } from "next/navigation";
 
+import { SiteFooter } from "@/components/site-footer";
 import { SiteSidebar } from "@/components/site-sidebar";
 import { ProjectBlocks } from "@/components/project-blocks";
 import { site } from "@/data/site";
@@ -136,6 +137,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         {nextProject ? <Link className="next-project" href={`/work/${nextProject.slug}`}><span>Next project</span><strong>{nextProject.title}</strong><ArrowRight aria-hidden="true" /></Link> : null}
         <footer className="project-footer"><span>Want to discuss a similar project?</span><Link href="/contact">Let&apos;s talk <ArrowUpRight aria-hidden="true" /></Link></footer>
       </article>
+      <SiteFooter />
     </main>
   );
 }
