@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { BriefcaseBusiness, Download, Menu, PanelsTopLeft, X } from "lucide-react";
 import Link from "next/link";
 
+import { RollText } from "@/components/motion";
+
 type NavigationKey = "home" | "services" | "work" | "3d" | "resources" | "about" | "contact";
 
 export function SiteSidebar({ active = "home", horizontal = false }: { active?: NavigationKey; horizontal?: boolean }) {
@@ -119,7 +121,7 @@ export function SiteSidebar({ active = "home", horizontal = false }: { active?: 
               onClick={() => setMenuOpen(false)}
             >
               <Icon aria-hidden="true" />
-              <span>{item.label}</span>
+              <RollText text={item.label} />
             </Link>
           );
         })}
@@ -139,7 +141,7 @@ export function SiteSidebar({ active = "home", horizontal = false }: { active?: 
           >
             <span aria-hidden="true" />
           </button>
-          <Link className="sidebar-cta" href="/contact">Start a project</Link>
+          <Link className="sidebar-cta" href="/contact"><RollText text="Start a project" /></Link>
         </div>
       ) : null}
       <p className="sidebar-foot">Based in Chile · Working worldwide</p>

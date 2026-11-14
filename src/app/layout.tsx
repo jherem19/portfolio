@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { jsonLd } from "@/lib/json-ld";
 import { site } from "@/data/site";
 import { GlowHover } from "@/components/glow-hover";
+import { ScrollReveal } from "@/components/motion";
 import { SiteCursor } from "@/components/site-cursor";
 
 const googleSiteVerification = process.env.GOOGLE_SITE_VERIFICATION;
@@ -87,6 +88,7 @@ export default function RootLayout({
         />
         <SiteCursor />
         <GlowHover />
+        <ScrollReveal />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

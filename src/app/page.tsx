@@ -3,7 +3,8 @@ import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Download, Mail } from "lucide-react";
 
 import { FeaturedShowcase } from "@/components/featured-showcase";
-import { LanyardBadge } from "@/components/lanyard-badge";
+import { CountUp, RollText, ScrollWords } from "@/components/motion";
+import { KeycapCluster } from "@/components/keycaps/keycap-cluster";
 import { HeroMotionBackground } from "@/components/hero-motion-background";
 import { SiteSidebar } from "@/components/site-sidebar";
 import { SocialLinks } from "@/components/social-links";
@@ -27,19 +28,19 @@ export default async function Home() {
           </div>
           <div className="intro-copy">
             <p className="hero-availability"><span aria-hidden="true" /> Available for select freelance projects</p>
-            <h1>I design products<br /><em>people remember.</em></h1>
+            <h1><span className="hero-line">I design products</span><span className="hero-line"><em>people remember.</em></span></h1>
             <p className="intro-lede">I partner directly with founders and product owners across product UI, websites, visual identity, motion, ads, and interactive 3D—from one focused build to ongoing support.</p>
             <div className="intro-actions">
-              <Link className="hero-cta hero-cta-primary" href="/contact"><Mail aria-hidden="true" /> Discuss a project</Link>
-              <a className="hero-cta" href="#services">Explore services <ArrowRight aria-hidden="true" /></a>
+              <Link className="hero-cta hero-cta-primary" href="/contact"><Mail aria-hidden="true" /> <RollText text="Discuss a project" /></Link>
+              <a className="hero-cta" href="#services"><RollText text="Explore services" /> <ArrowRight aria-hidden="true" /></a>
             </div>
             <ul className="hero-proof" aria-label="Working details">
-              <li><strong>10 years</strong><span>design experience</span></li>
-              <li><strong>1–6 weeks</strong><span>focused engagements</span></li>
+              <li><strong><CountUp delay={700} to={10} /> years</strong><span>design experience</span></li>
+              <li><strong>1–<CountUp delay={850} to={6} /> weeks</strong><span>focused engagements</span></li>
               <li><strong>UTC−3</strong><span>remote worldwide</span></li>
             </ul>
           </div>
-          <LanyardBadge />
+          <KeycapCluster />
         </section>
 
         <section className="services-section" id="services" aria-labelledby="services-title">
@@ -82,8 +83,8 @@ export default async function Home() {
               <h2 id="work-title">Featured work.<br />Built to ship.</h2>
               <p>Product interfaces, websites, visual systems, motion, and interactive 3D made for launches, releases, and evolving products.</p>
               <div className="showcase-actions">
-                <Link className="hero-cta hero-cta-primary" href="/work">See all work</Link>
-                <Link className="hero-cta" href="/contact">Start a project</Link>
+                <Link className="hero-cta hero-cta-primary" href="/work"><RollText text="See all work" /></Link>
+                <Link className="hero-cta" href="/contact"><RollText text="Start a project" /></Link>
               </div>
             </div>
             <FeaturedShowcase projects={featuredProjects} />
@@ -99,8 +100,8 @@ export default async function Home() {
           <div className="about-layout">
             <h2 id="about-title">A senior design partner, end to end.</h2>
             <div className="about-text">
-              <p>I&apos;m Hector Heredia, a freelance Senior Product &amp; Motion Designer based in Chile and working remotely worldwide.</p>
-              <p>Across 10 years of experience, I&apos;ve worked directly with founders and product owners to connect product thinking, web design, visual identity, motion, and real-time 3D in one coherent experience.</p>
+              <ScrollWords text="I'm Hector Heredia, a freelance Senior Product & Motion Designer based in Chile and working remotely worldwide." />
+              <ScrollWords text="Across 10 years of experience, I've worked directly with founders and product owners to connect product thinking, web design, visual identity, motion, and real-time 3D in one coherent experience." />
               <div className="about-links">
                 <a href="https://www.linkedin.com/in/3d-visual-designer-jherem/" target="_blank" rel="noreferrer">View my experience <ArrowUpRight aria-hidden="true" /></a>
                 <a href="/hector-heredia-resume.pdf" download="Hector-Heredia-Resume.pdf">Download resume <Download aria-hidden="true" /></a>
@@ -118,8 +119,8 @@ export default async function Home() {
             <div className="contact-panel-copy">
               <p>Share what you&apos;re building, what needs to change, and where you want to take it. I&apos;ll help you shape the right design engagement.</p>
               <div className="contact-panel-actions">
-                <Link className="hero-cta hero-cta-primary" href="/contact"><Mail aria-hidden="true" /> Start a project</Link>
-                <a className="hero-cta" href="mailto:hectorheredia19@gmail.com">Email me directly <ArrowUpRight aria-hidden="true" /></a>
+                <Link className="hero-cta hero-cta-primary" href="/contact"><Mail aria-hidden="true" /> <RollText text="Start a project" /></Link>
+                <a className="hero-cta" href="mailto:hectorheredia19@gmail.com"><RollText text="Email me directly" /> <ArrowUpRight aria-hidden="true" /></a>
               </div>
             </div>
           </div>
