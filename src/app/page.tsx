@@ -4,7 +4,7 @@ import { ArrowRight, ArrowUpRight, Download, Mail } from "lucide-react";
 
 import { FeaturedShowcase } from "@/components/featured-showcase";
 import { CountUp, RollText, ScrollWords } from "@/components/motion";
-import { KeycapCluster } from "@/components/keycaps/keycap-cluster";
+import { HeroOrbit } from "@/components/hero-orbit";
 import { HeroMotionBackground } from "@/components/hero-motion-background";
 import { SiteSidebar } from "@/components/site-sidebar";
 import { SocialLinks } from "@/components/social-links";
@@ -16,12 +16,23 @@ export const revalidate = 60;
 export default async function Home() {
   const projects = await getPublishedProjects();
   const featuredProjects = projects.filter((project) => project.featured).slice(0, 6);
+  // Hero cards cycle through every published project; repeats land on opposite sides of the orbit.
+  const orbitItems = projects.length === 0 ? [] : Array.from({ length: 16 }, (_, index) => {
+    const project = projects[index % projects.length];
+    return {
+      href: `/work/${project.slug}`,
+      src: project.cover_image,
+      title: project.title,
+      position: `${project.cover_position_x}% ${project.cover_position_y}%`,
+    };
+  });
   return (
     <main className="site-shell portfolio-home">
       <SiteSidebar horizontal />
       <div className="page-content">
         <section className="intro-section" id="home">
           <HeroMotionBackground />
+          <HeroOrbit items={orbitItems} />
           <div className="mobile-hero-profile">
             <Image src="/profile.png" alt="Hector Heredia" width={112} height={112} sizes="72px" />
             <div><strong>Hector Heredia</strong><span>Freelance Product, Motion &amp; 3D Designer</span></div>
@@ -40,7 +51,6 @@ export default async function Home() {
               <li><strong>UTC−3</strong><span>remote worldwide</span></li>
             </ul>
           </div>
-          <KeycapCluster />
         </section>
 
         <section className="services-section" id="services" aria-labelledby="services-title">

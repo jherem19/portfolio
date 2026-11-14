@@ -1476,16 +1476,6 @@ body { background: light-dark(#f9fafa, #050606); }
 .keycap-sound { display: inline-flex; height: 32px; align-items: center; gap: 7px; border: 1px solid light-dark(rgb(0 0 0 / 14%), rgb(255 255 255 / 14%)); border-radius: 999px; background: transparent; padding: 0 12px; color: light-dark(#2b302d, #d5d9d6); font: inherit; font-weight: 500; cursor: pointer; }
 .keycap-sound svg { width: 14px; height: 14px; }
 
-@media (min-width: 1001px) {
-  .portfolio-home .intro-section { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr); align-items: center; gap: clamp(16px, 3vw, 48px); padding-inline: clamp(24px, 6vw, 96px); text-align: left; }
-  .portfolio-home .intro-copy { width: auto; margin: 0; }
-  .portfolio-home .hero-availability { margin: 0 0 28px; }
-  .portfolio-home .intro-copy h1 { margin-inline: 0; font-size: clamp(52px, 5.9vw, 104px); line-height: .88; }
-  .portfolio-home .intro-lede { max-width: 560px; margin: 32px 0 0; font-size: clamp(16px, 1.25vw, 20px); }
-  .portfolio-home .intro-actions { justify-content: flex-start; }
-  .portfolio-home .hero-proof { margin: 44px 0 0; }
-  .keycap-stage { width: min(100%, 660px); margin: 0; justify-self: center; }
-}
 @media (max-width: 760px) {
   .keycap-stage { width: min(100%, 340px); margin-top: 34px; }
   .keycap-controls span { display: none; }
@@ -1522,4 +1512,19 @@ body { background: light-dark(#f9fafa, #050606); }
 @keyframes nav-drop { from { opacity: 0; translate: 0 -18px; } to { opacity: 1; translate: 0 0; } }
 @media (prefers-reduced-motion: reduce) {
   .roll .roll-char { transition: none; }
+}
+
+/* Hero: project cards orbit the centred copy and gather around the primary call to action. */
+.hero-orbit { position: absolute; z-index: 3; inset: 0; overflow: hidden; perspective: 1100px; pointer-events: none; }
+.orbit-card { position: absolute; top: 50%; left: 50%; display: block; overflow: hidden; width: clamp(92px, 10vw, 158px); aspect-ratio: 4 / 3; border-radius: clamp(10px, 1vw, 16px); background: var(--panel-soft); box-shadow: 0 18px 44px rgb(0 0 0 / 34%); opacity: 0; pointer-events: auto; will-change: transform, opacity; }
+.orbit-card img { object-fit: cover; }
+:root[data-theme="light"] .orbit-card { box-shadow: 0 14px 34px rgb(0 0 0 / 14%); }
+.portfolio-home .intro-copy { position: relative; z-index: 5; pointer-events: none; }
+.portfolio-home .intro-copy :is(a, button, .hero-availability) { pointer-events: auto; }
+.portfolio-home .intro-copy h1 { font-size: clamp(52px, 6.6vw, 108px); line-height: .86; }
+.portfolio-home .intro-lede { max-width: 600px; }
+@media (max-width: 760px) {
+  .orbit-card:nth-child(n + 10) { display: none; }
+  .hero-orbit { opacity: .55; }
+  .portfolio-home .intro-copy h1 { font-size: clamp(50px, 14.5vw, 76px); line-height: .88; }
 }
