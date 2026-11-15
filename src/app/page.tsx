@@ -1,15 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Download, Mail } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Box, Clapperboard, Download, Mail, PenTool } from "lucide-react";
 
 import { FeaturedShowcase } from "@/components/featured-showcase";
 import { AmbientDots } from "@/components/ambient-dots";
 import { CountUp, RollText, ScrollWords } from "@/components/motion";
-import { HeroMotionBackground } from "@/components/hero-motion-background";
 import { LanyardBadge } from "@/components/lanyard-badge";
 import { SiteSidebar } from "@/components/site-sidebar";
 import { SiteFooter } from "@/components/site-footer";
-import { SocialLinks } from "@/components/social-links";
 import { getPublishedProjects } from "@/lib/cms/projects";
 import { services } from "@/data/site";
 
@@ -18,63 +16,65 @@ export const revalidate = 60;
 export default async function Home() {
   const projects = await getPublishedProjects();
   const featuredProjects = projects.filter((project) => project.featured).slice(0, 6);
+  const heroProject = featuredProjects[0] ?? projects[0];
   return (
     <main className="site-shell portfolio-home">
       <SiteSidebar horizontal />
       <div className="page-content">
-        <section className="intro-section" id="home">
-          <HeroMotionBackground />
-          <div className="hero-dashboard">
-            <div className="intro-copy hero-profile-panel">
-              <p className="hero-handle">@JHEREM</p>
-              <div className="hero-profile-copy">
-                <p className="hero-availability"><span aria-hidden="true" /> Available for select projects</p>
-                <h1><span className="hero-line">I design products</span><span className="hero-line"><em>people remember.</em></span></h1>
-                <p className="intro-lede">I partner directly with founders and product owners across product UI, websites, visual identity, motion, ads, and interactive 3D—from one focused build to ongoing support.</p>
-              </div>
-              <div className="hero-profile-footer">
-                <ul className="hero-profile-proof" aria-label="Working details">
-                  <li><strong><CountUp delay={700} to={10} /> years</strong><span>design experience</span></li>
-                  <li><strong>1–<CountUp delay={850} to={6} /> weeks</strong><span>focused engagements</span></li>
-                  <li><strong>UTC−3</strong><span>remote worldwide</span></li>
-                </ul>
-                <div className="intro-actions">
-                  <Link className="hero-cta hero-cta-primary" href="/contact"><Mail aria-hidden="true" /> <RollText text="Discuss a project" /></Link>
-                  <a className="hero-cta" href="#services"><RollText text="Explore services" /> <ArrowRight aria-hidden="true" /></a>
-                </div>
-              </div>
+        <section className="intro-section hero-bento-section" id="home">
+          <div className="intro-copy hero-bento-top">
+            <p className="hero-availability"><span aria-hidden="true" /> Available for select projects</p>
+            <h1><span className="hero-line">I design products</span><span className="hero-line"><em>people remember.</em></span></h1>
+            <p className="intro-lede">I partner directly with founders and product owners across product UI, websites, visual identity, motion, ads, and interactive 3D—from one focused build to ongoing support.</p>
+            <div className="intro-actions">
+              <Link className="hero-cta hero-cta-primary" href="/contact"><Mail aria-hidden="true" /> <RollText text="Discuss a project" /></Link>
+              <a className="hero-cta" href="#services"><RollText text="Explore services" /> <ArrowRight aria-hidden="true" /></a>
             </div>
+          </div>
 
-            <div className="hero-lanyard-panel">
+          <div className="hero-bento">
+            <article className="bento-card bento-disciplines">
+              <div className="bento-icons" aria-hidden="true"><span><PenTool /></span><span><Clapperboard /></span><span><Box /></span></div>
+              <div>
+                <h2>Design, motion &amp; 3D</h2>
+                <p>Product UI, websites, identity, motion and interactive 3D from one partner.</p>
+              </div>
+            </article>
+
+            <article className="bento-card bento-stat">
+              <strong><CountUp delay={500} to={10} />+</strong>
+              <p>Years designing digital products with founders and product teams.</p>
+            </article>
+
+            <div className="hero-lanyard-panel bento-lanyard">
               <AmbientDots className="hero-lanyard-dots" />
               <LanyardBadge />
               <p className="hero-lanyard-caption"><span aria-hidden="true" /> Interactive ID · drag and release</p>
             </div>
 
-            <aside className="hero-side-panel" aria-label="Availability and selected work">
-              <div className="hero-connect-panel">
-                <div>
-                  <span>Based in</span>
-                  <strong>Santiago, Chile · UTC−3</strong>
-                  <p>Working remotely worldwide</p>
-                </div>
-                <SocialLinks compact />
+            <article className="bento-card bento-accent">
+              <strong>1–<CountUp delay={650} to={6} /> wk</strong>
+              <p>Typical length of a focused engagement, from brief to delivery.</p>
+            </article>
+
+            {heroProject ? (
+              <Link className="bento-card bento-project" href={`/work/${heroProject.slug}`}>
+                <Image src={heroProject.cover_image} alt="" fill sizes="(max-width: 760px) 50vw, 24vw" style={{ objectPosition: `${heroProject.cover_position_x}% ${heroProject.cover_position_y}%` }} />
+                <span><small>Latest project</small>{heroProject.title}<ArrowUpRight aria-hidden="true" /></span>
+              </Link>
+            ) : null}
+
+            <Link className="bento-card bento-work" href="/work">
+              <div>
+                <h2>Selected work across product, motion and 3D</h2>
+                <span className="bento-work-link">See all work <ArrowUpRight aria-hidden="true" /></span>
               </div>
-              <div className="hero-latest-panel">
-                <header><h2>Selected work</h2><Link href="/work" aria-label="See all work"><ArrowUpRight aria-hidden="true" /></Link></header>
-                <ul>
-                  {featuredProjects.slice(0, 3).map((project) => (
-                    <li key={project.slug}>
-                      <Link href={`/work/${project.slug}`}>
-                        <span className="hero-project-thumb"><Image src={project.cover_image} alt="" fill sizes="46px" style={{ objectPosition: `${project.cover_position_x}% ${project.cover_position_y}%` }} /></span>
-                        <span><strong>{project.title}</strong><small>{project.category}</small></span>
-                        <ArrowUpRight aria-hidden="true" />
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+              <div className="bento-work-thumbs" aria-hidden="true">
+                {featuredProjects.slice(1, 5).map((project) => (
+                  <span key={project.slug}><Image src={project.cover_image} alt="" fill sizes="96px" style={{ objectPosition: `${project.cover_position_x}% ${project.cover_position_y}%` }} /></span>
+                ))}
               </div>
-            </aside>
+            </Link>
           </div>
         </section>
 
