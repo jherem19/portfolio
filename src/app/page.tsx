@@ -109,6 +109,14 @@ export default async function Home() {
           <p className="section-kicker">About</p>
           <div className="about-layout">
             <h2 id="about-title">A senior design partner, end to end.</h2>
+            <figure className="about-portrait">
+              <Image
+                src="/hector-heredia-about.png"
+                alt="Hector Heredia, Senior Product and Motion Designer"
+                fill
+                sizes="(max-width: 760px) 100vw, (max-width: 1050px) 38vw, 24vw"
+              />
+            </figure>
             <div className="about-text">
               <ScrollWords text="I'm Hector Heredia, a freelance Senior Product & Motion Designer based in Chile and working remotely worldwide." />
               <ScrollWords text="Across 10 years of experience, I've worked directly with founders and product owners to connect product thinking, web design, visual identity, motion, and real-time 3D in one coherent experience." />
@@ -124,7 +132,7 @@ export default async function Home() {
           <div className="contact-panel-grid">
             <div>
               <p className="section-kicker">Have a product that needs its next move?</p>
-              <h2>Let&apos;s make the next version worth remembering.</h2>
+              <h2>Let&apos;s build what&apos;s next.</h2>
             </div>
             <div className="contact-panel-copy">
               <p>Share what you&apos;re building, what needs to change, and where you want to take it. I&apos;ll help you shape the right design engagement.</p>

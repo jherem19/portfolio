@@ -96,7 +96,7 @@ export function ScrollWords({ text }: { text: string }) {
 
 const REVEAL_SELECTOR = [
   ".section-kicker", ".services-heading h2", ".services-heading > p", ".service-brief", ".agency-callout", ".showcase-copy > *",
-  ".portfolio-paths a", ".about-panel h2", ".about-links", ".contact-panel-grid h2", ".contact-panel-copy", ".work-card",
+  ".portfolio-paths a", ".about-panel h2", ".about-portrait", ".about-links", ".contact-panel-grid h2", ".contact-panel-copy", ".work-card",
   ".agency-section-heading h2", ".agency-capability-grid article", ".agency-engagements article", ".agency-rhythm li",
   ".resource-card", ".side-project-card", ".three-d-card", ".contact-card",
 ].join(", ");
