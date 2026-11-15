@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Download, Mail } from "lucide-react";
 
 import { FeaturedShowcase } from "@/components/featured-showcase";
+import { AmbientDots } from "@/components/ambient-dots";
 import { CountUp, RollText, ScrollWords } from "@/components/motion";
 import { HeroOrbit } from "@/components/hero-orbit";
 import { HeroMotionBackground } from "@/components/hero-motion-background";
@@ -32,6 +33,7 @@ export default async function Home() {
       <div className="page-content">
         <section className="intro-section" id="home">
           <HeroMotionBackground />
+          <AmbientDots className="hero-dot-field" />
           <HeroOrbit items={orbitItems} />
           <div className="mobile-hero-profile">
             <Image src="/profile.png" alt="Hector Heredia" width={112} height={112} sizes="72px" />
@@ -129,6 +131,7 @@ export default async function Home() {
         </section>
 
         <section className="contact-panel" id="contact">
+          <AmbientDots className="contact-dot-field" />
           <div className="contact-panel-grid">
             <div>
               <p className="section-kicker">Have a product that needs its next move?</p>
