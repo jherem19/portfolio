@@ -6,6 +6,7 @@ import { FeaturedShowcase } from "@/components/featured-showcase";
 import { AmbientDots } from "@/components/ambient-dots";
 import { CountUp, RollText, ScrollWords } from "@/components/motion";
 import { LanyardBadge } from "@/components/lanyard-badge";
+import { ScrollCue } from "@/components/scroll-cue";
 import { SiteSidebar } from "@/components/site-sidebar";
 import { SiteFooter } from "@/components/site-footer";
 import { getPublishedProjects } from "@/lib/cms/projects";
@@ -32,6 +33,7 @@ export default async function Home() {
             </div>
           </div>
 
+          <ScrollCue />
           <div className="hero-bento">
             <article className="bento-card bento-disciplines">
               <div className="bento-icons" aria-hidden="true"><span><PenTool /></span><span><Clapperboard /></span><span><Box /></span></div>
