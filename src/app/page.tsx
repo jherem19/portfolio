@@ -4,7 +4,7 @@ import { ArrowRight, ArrowUpRight, Box, Clapperboard, Download, Mail, PenTool } 
 
 import { FeaturedShowcase } from "@/components/featured-showcase";
 import { AmbientDots } from "@/components/ambient-dots";
-import { CountUp, RollText, ScrollWords } from "@/components/motion";
+import { CountUp, RollText, ScrollWords, Typewriter } from "@/components/motion";
 import { LanyardBadge } from "@/components/lanyard-badge";
 import { ScrollCue } from "@/components/scroll-cue";
 import { SiteSidebar } from "@/components/site-sidebar";
@@ -25,7 +25,7 @@ export default async function Home() {
         <section className="intro-section hero-bento-section" id="home">
           <div className="intro-copy hero-bento-top">
             <p className="hero-availability"><span aria-hidden="true" /> Available for select projects</p>
-            <h1><span className="hero-line">I design products</span><span className="hero-line"><em>people remember.</em></span></h1>
+            <h1><span className="hero-line">I design products</span><span className="hero-line"><em><Typewriter text="people remember." /></em></span></h1>
             <p className="intro-lede">I partner directly with founders and product owners across product UI, websites, visual identity, motion, ads, and interactive 3D—from one focused build to ongoing support.</p>
             <div className="intro-actions">
               <Link className="hero-cta hero-cta-primary" href="/contact"><Mail aria-hidden="true" /> <RollText text="Discuss a project" /></Link>

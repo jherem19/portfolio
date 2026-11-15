@@ -1774,3 +1774,10 @@ body { background: light-dark(#f9fafa, #050606); }
 .cursor-fill-c { stop-color: light-dark(#7a68ff, #7a55ff); }
 .cursor-shine { stroke: light-dark(rgb(255 255 255 / 85%), rgb(255 255 255 / 45%)); }
 body.has-custom-cursor, body.has-custom-cursor * { cursor: none; }
+
+/* Typewriter headline: hidden letters keep their space; a caret follows the last typed letter. */
+.type-char { position: relative; }
+.type-char.is-hidden { visibility: hidden; }
+.typewriter.is-typing .type-char:is(.is-caret, .is-caret-start)::after { position: absolute; top: .16em; right: -.05em; width: .035em; min-width: 2px; height: .82em; border-radius: 2px; background: var(--green); content: ""; transform: skewX(-11deg); visibility: visible; animation: type-caret 900ms steps(1) infinite; }
+.typewriter.is-typing .type-char.is-caret-start::after { right: auto; left: -.02em; }
+@keyframes type-caret { 0%, 55% { opacity: 1; } 56%, 100% { opacity: 0; } }

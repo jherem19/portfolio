@@ -143,3 +143,48 @@ export function ScrollReveal() {
 
   return null;
 }
+
+/**
+ * Phrase that is erased and typed again every few seconds. Letters keep their place in the
+ * layout (they are only hidden), so the headline never shifts or re-wraps while it types.
+ */
+export function Typewriter({ text, hold = 6500 }: { text: string; hold?: number }) {
+  const chars = Array.from(text);
+  const [count, setCount] = useState(chars.length);
+  const [typing, setTyping] = useState(false);
+  const length = chars.length;
+
+  useEffect(() => {
+    if (reducedMotion()) return;
+    let timer = 0;
+    let current = length;
+    const wait = (ms: number, next: () => void) => { timer = window.setTimeout(next, ms); };
+    const erase = () => {
+      setTyping(true);
+      current -= 1;
+      setCount(current);
+      if (current > 0) wait(34, erase); else wait(420, write);
+    };
+    const write = () => {
+      current += 1;
+      setCount(current);
+      if (current < length) wait(62 + Math.random() * 70, write);
+      else wait(900, () => { setTyping(false); wait(hold, start); });
+    };
+    const start = () => { if (document.hidden) wait(1500, start); else erase(); };
+    wait(hold - 2200, start);
+    return () => clearTimeout(timer);
+  }, [length, hold]);
+
+  return (
+    <span aria-label={text} className={typing ? "typewriter is-typing" : "typewriter"} role="text">
+      {chars.map((char, index) => (
+        <span
+          aria-hidden="true"
+          className={`type-char${index >= count ? " is-hidden" : ""}${index === Math.max(count, 1) - 1 ? (count === 0 ? " is-caret-start" : " is-caret") : ""}`}
+          key={index}
+        >{char}</span>
+      ))}
+    </span>
+  );
+}
