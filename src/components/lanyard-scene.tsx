@@ -57,8 +57,8 @@ function Band({ impulse, onReady }: { impulse: number; onReady: () => void }) {
   const [hovered, setHovered] = useState(false);
   const dragOffset = useRef(new THREE.Vector3());
   const capture = useRef<{ target: CaptureTarget; id: number } | null>(null);
-  const { gl, viewport } = useThree();
-  const anchorX = viewport.width * .3;
+  const { gl } = useThree();
+  const anchorX = 0;
   const source = useTexture("/id-card.png");
   const texture = useMemo(() => { const t = source.clone(); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = gl.capabilities.getMaxAnisotropy(); t.needsUpdate = true; return t; }, [source, gl]);
   const face = useMemo(() => roundedFace(), []);

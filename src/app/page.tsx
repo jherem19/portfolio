@@ -4,7 +4,7 @@ import { ArrowRight, ArrowUpRight, Download, Mail } from "lucide-react";
 
 import { FeaturedShowcase } from "@/components/featured-showcase";
 import { AmbientDots } from "@/components/ambient-dots";
-import { RollText, ScrollWords } from "@/components/motion";
+import { CountUp, RollText, ScrollWords } from "@/components/motion";
 import { HeroMotionBackground } from "@/components/hero-motion-background";
 import { LanyardBadge } from "@/components/lanyard-badge";
 import { SiteSidebar } from "@/components/site-sidebar";
@@ -29,15 +29,18 @@ export default async function Home() {
               <p className="hero-handle">@JHEREM</p>
               <div className="hero-profile-copy">
                 <p className="hero-availability"><span aria-hidden="true" /> Available for select projects</p>
-                <h1><span className="hero-line">Hello.</span><span className="hero-line">I&apos;m Hector.</span></h1>
-                <p className="hero-role">Senior Product &amp; Motion Designer</p>
-                <p className="intro-lede">I design product interfaces, websites, motion, and interactive 3D for launches and products ready for their next move.</p>
+                <h1><span className="hero-line">I design products</span><span className="hero-line"><em>people remember.</em></span></h1>
+                <p className="intro-lede">I partner directly with founders and product owners across product UI, websites, visual identity, motion, ads, and interactive 3D—from one focused build to ongoing support.</p>
               </div>
               <div className="hero-profile-footer">
-                <p>Product UI · Web · Motion · 3D</p>
+                <ul className="hero-profile-proof" aria-label="Working details">
+                  <li><strong><CountUp delay={700} to={10} /> years</strong><span>design experience</span></li>
+                  <li><strong>1–<CountUp delay={850} to={6} /> weeks</strong><span>focused engagements</span></li>
+                  <li><strong>UTC−3</strong><span>remote worldwide</span></li>
+                </ul>
                 <div className="intro-actions">
-                  <Link className="hero-cta hero-cta-primary" href="/contact"><Mail aria-hidden="true" /> <RollText text="Start a project" /></Link>
-                  <Link className="hero-cta" href="/work"><RollText text="View work" /> <ArrowRight aria-hidden="true" /></Link>
+                  <Link className="hero-cta hero-cta-primary" href="/contact"><Mail aria-hidden="true" /> <RollText text="Discuss a project" /></Link>
+                  <a className="hero-cta" href="#services"><RollText text="Explore services" /> <ArrowRight aria-hidden="true" /></a>
                 </div>
               </div>
             </div>
