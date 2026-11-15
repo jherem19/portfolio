@@ -967,6 +967,8 @@ body.has-custom-cursor, body.has-custom-cursor :is(a, button, summary, [role="bu
 .resource-download { display: inline-flex; align-items: center; gap: 12px; padding: 16px 22px; border-radius: 6px; background: var(--green); color: light-dark(#e4f4eb, #0b1b12); font-weight: 600; font-size: 14px; }
 .resource-download svg { width: 18px; height: 18px; }
 .resource-download:hover { background: light-dark(#186839, #97e7b8); }
+.resource-download-secondary { border: 1px solid light-dark(rgb(0 0 0 / 18%), rgb(255 255 255 / 18%)); background: transparent; color: var(--foreground); }
+.resource-download-secondary:hover { border-color: var(--green); background: light-dark(rgb(34 153 111 / 8%), rgb(102 221 179 / 8%)); color: var(--green); }
 .resource-demo { display: flex; justify-content: center; align-items: center; gap: clamp(24px, 6vw, 80px); padding: 48px 28px; border: 1px solid light-dark(#a8b2cf, #303a57); border-radius: 12px; background: radial-gradient(ellipse at 50% 50%, light-dark(#001c8c16, #738fff16), transparent 80%), light-dark(#d8ddea, #151a27); margin-bottom: 64px; }
 .resource-demo > svg { width: 32px; height: 32px; color: light-dark(#000d59, #a6b3ff); flex-shrink: 0; }
 .resource-demo > div > span { color: light-dark(#000d59, #a6b3ff); font: 500 14px var(--font-geist), Arial, sans-serif; }
