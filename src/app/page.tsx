@@ -4,11 +4,12 @@ import { ArrowRight, ArrowUpRight, Download, Mail } from "lucide-react";
 
 import { FeaturedShowcase } from "@/components/featured-showcase";
 import { AmbientDots } from "@/components/ambient-dots";
-import { CountUp, RollText, ScrollWords } from "@/components/motion";
-import { HeroOrbit } from "@/components/hero-orbit";
+import { RollText, ScrollWords } from "@/components/motion";
 import { HeroMotionBackground } from "@/components/hero-motion-background";
+import { LanyardBadge } from "@/components/lanyard-badge";
 import { SiteSidebar } from "@/components/site-sidebar";
 import { SiteFooter } from "@/components/site-footer";
+import { SocialLinks } from "@/components/social-links";
 import { getPublishedProjects } from "@/lib/cms/projects";
 import { services } from "@/data/site";
 
@@ -17,41 +18,60 @@ export const revalidate = 60;
 export default async function Home() {
   const projects = await getPublishedProjects();
   const featuredProjects = projects.filter((project) => project.featured).slice(0, 6);
-  // Hero cards cycle through every published project; repeats land on opposite sides of the orbit.
-  const orbitItems = projects.length === 0 ? [] : Array.from({ length: 16 }, (_, index) => {
-    const project = projects[index % projects.length];
-    return {
-      href: `/work/${project.slug}`,
-      src: project.cover_image,
-      title: project.title,
-      position: `${project.cover_position_x}% ${project.cover_position_y}%`,
-    };
-  });
   return (
     <main className="site-shell portfolio-home">
       <SiteSidebar horizontal />
       <div className="page-content">
         <section className="intro-section" id="home">
           <HeroMotionBackground />
-          <AmbientDots className="hero-dot-field" />
-          <HeroOrbit items={orbitItems} />
-          <div className="mobile-hero-profile">
-            <Image src="/profile.png" alt="Hector Heredia" width={112} height={112} sizes="72px" />
-            <div><strong>Hector Heredia</strong><span>Freelance Product, Motion &amp; 3D Designer</span></div>
-          </div>
-          <div className="intro-copy">
-            <p className="hero-availability"><span aria-hidden="true" /> Available for select freelance projects</p>
-            <h1><span className="hero-line">I design products</span><span className="hero-line"><em>people remember.</em></span></h1>
-            <p className="intro-lede">I partner directly with founders and product owners across product UI, websites, visual identity, motion, ads, and interactive 3D—from one focused build to ongoing support.</p>
-            <div className="intro-actions">
-              <Link className="hero-cta hero-cta-primary" href="/contact"><Mail aria-hidden="true" /> <RollText text="Discuss a project" /></Link>
-              <a className="hero-cta" href="#services"><RollText text="Explore services" /> <ArrowRight aria-hidden="true" /></a>
+          <div className="hero-dashboard">
+            <div className="intro-copy hero-profile-panel">
+              <p className="hero-handle">@JHEREM</p>
+              <div className="hero-profile-copy">
+                <p className="hero-availability"><span aria-hidden="true" /> Available for select projects</p>
+                <h1><span className="hero-line">Hello.</span><span className="hero-line">I&apos;m Hector.</span></h1>
+                <p className="hero-role">Senior Product &amp; Motion Designer</p>
+                <p className="intro-lede">I design product interfaces, websites, motion, and interactive 3D for launches and products ready for their next move.</p>
+              </div>
+              <div className="hero-profile-footer">
+                <p>Product UI · Web · Motion · 3D</p>
+                <div className="intro-actions">
+                  <Link className="hero-cta hero-cta-primary" href="/contact"><Mail aria-hidden="true" /> <RollText text="Start a project" /></Link>
+                  <Link className="hero-cta" href="/work"><RollText text="View work" /> <ArrowRight aria-hidden="true" /></Link>
+                </div>
+              </div>
             </div>
-            <ul className="hero-proof" aria-label="Working details">
-              <li><strong><CountUp delay={700} to={10} /> years</strong><span>design experience</span></li>
-              <li><strong>1–<CountUp delay={850} to={6} /> weeks</strong><span>focused engagements</span></li>
-              <li><strong>UTC−3</strong><span>remote worldwide</span></li>
-            </ul>
+
+            <div className="hero-lanyard-panel">
+              <AmbientDots className="hero-lanyard-dots" />
+              <LanyardBadge />
+              <p className="hero-lanyard-caption"><span aria-hidden="true" /> Interactive ID · drag and release</p>
+            </div>
+
+            <aside className="hero-side-panel" aria-label="Availability and selected work">
+              <div className="hero-connect-panel">
+                <div>
+                  <span>Based in</span>
+                  <strong>Santiago, Chile · UTC−3</strong>
+                  <p>Working remotely worldwide</p>
+                </div>
+                <SocialLinks compact />
+              </div>
+              <div className="hero-latest-panel">
+                <header><h2>Selected work</h2><Link href="/work" aria-label="See all work"><ArrowUpRight aria-hidden="true" /></Link></header>
+                <ul>
+                  {featuredProjects.slice(0, 3).map((project) => (
+                    <li key={project.slug}>
+                      <Link href={`/work/${project.slug}`}>
+                        <span className="hero-project-thumb"><Image src={project.cover_image} alt="" fill sizes="46px" style={{ objectPosition: `${project.cover_position_x}% ${project.cover_position_y}%` }} /></span>
+                        <span><strong>{project.title}</strong><small>{project.category}</small></span>
+                        <ArrowUpRight aria-hidden="true" />
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </aside>
           </div>
         </section>
 
