@@ -1760,7 +1760,7 @@ body { background: light-dark(#f9fafa, #050606); }
 .bento-work { border-color: var(--surface-edge); background: var(--surface); }
 
 /* Cursor: a small glass arrow with an iridescent rim, dark-filled on dark and pale on light. */
-.site-cursor .site-cursor-dot, .site-cursor.is-interactive .site-cursor-dot, .site-cursor.is-pressed .site-cursor-dot { width: 34px; height: 34px; margin: -3px 0 0 -3px; border: 0; border-radius: 0; background: none; box-shadow: none; }
+.site-cursor .site-cursor-dot, .site-cursor.is-interactive .site-cursor-dot, .site-cursor.is-pressed .site-cursor-dot { width: 34px; height: 34px; margin: -3px 0 0 -3px; border: 0; border-radius: 0; background: none; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
 .site-cursor-dot svg { display: block; width: 100%; height: 100%; overflow: visible; transform-origin: 12% 12%; transition: transform 220ms cubic-bezier(.2,.7,.2,1); }
 .site-cursor.is-interactive .site-cursor-dot svg { transform: scale(1.22) rotate(-8deg); }
 .site-cursor.is-pressed .site-cursor-dot svg { transform: scale(.86); }
