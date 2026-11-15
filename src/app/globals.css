@@ -1758,3 +1758,19 @@ body { background: light-dark(#f9fafa, #050606); }
 .site-footer-invite { background: #111412; }
 .site-footer-invite::after { display: none; }
 .bento-work { border-color: var(--surface-edge); background: var(--surface); }
+
+/* Cursor: a small glass arrow with an iridescent rim, dark-filled on dark and pale on light. */
+.site-cursor .site-cursor-dot, .site-cursor.is-interactive .site-cursor-dot, .site-cursor.is-pressed .site-cursor-dot { width: 34px; height: 34px; margin: -3px 0 0 -3px; border: 0; border-radius: 0; background: none; box-shadow: none; }
+.site-cursor-dot svg { display: block; width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 4px 7px light-dark(rgb(60 70 160 / 30%), rgb(0 0 0 / 55%))); transform-origin: 12% 12%; transition: transform 220ms cubic-bezier(.2,.7,.2,1); }
+.site-cursor.is-interactive .site-cursor-dot svg { transform: scale(1.22) rotate(-8deg); }
+.site-cursor.is-pressed .site-cursor-dot svg { transform: scale(.86); }
+.cursor-rim-a { stop-color: light-dark(#8f9cff, #e9f2ff); }
+.cursor-rim-b { stop-color: light-dark(#6c7dff, #3d6bff); }
+.cursor-rim-c { stop-color: light-dark(#c9b4ff, #6fe3ff); }
+.cursor-rim-d { stop-color: light-dark(#e79bff, #ff5f8a); }
+.cursor-rim-e { stop-color: light-dark(#a8e6ff, #ffc46b); }
+.cursor-fill-a { stop-color: light-dark(#8feaff, #1420d8); }
+.cursor-fill-b { stop-color: light-dark(#dfe9ff, #0a0aa0); }
+.cursor-fill-c { stop-color: light-dark(#7a68ff, #7a55ff); }
+.cursor-shine { stroke: light-dark(rgb(255 255 255 / 85%), rgb(255 255 255 / 45%)); }
+body.has-custom-cursor, body.has-custom-cursor * { cursor: none; }
