@@ -1745,3 +1745,16 @@ body { background: light-dark(#f9fafa, #050606); }
 @keyframes scroll-cue-chevron { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
 /* The footer card is always dark, so its chips keep the dark finish in light mode too. */
 :root:root:root .site-footer-contact .social-list a { border-color: rgb(255 255 255 / 12%); background: rgb(255 255 255 / 7%); box-shadow: none; color: rgb(255 255 255 / 78%); }
+
+/* No colour gradients: sections and cards use flat, neutral backgrounds. */
+.services-section, .side-projects-section { background-image: none; }
+.about-panel { background: light-dark(#f8f9f9, #050606); }
+.site-shell:not(.portfolio-home) { background: light-dark(#f9fafa, #050606); }
+.portfolio-home .contact-panel { background: var(--surface); }
+.contact-page::before { display: none; }
+:is(.service-brief, .side-project-card, .agency-capability-grid article, .agency-engagements article, .inquiry-grid > a, .resource-art, .resource-demo)::after { display: none; }
+.hero-lanyard-panel, .hero-bento .bento-lanyard { background: light-dark(#0b0d0d, #0b0d0d); }
+.hero-lanyard-panel::after { background: linear-gradient(180deg, transparent 62%, rgb(11 13 13 / 84%) 100%); }
+.site-footer-invite { background: #111412; }
+.site-footer-invite::after { display: none; }
+.bento-work { border-color: var(--surface-edge); background: var(--surface); }
