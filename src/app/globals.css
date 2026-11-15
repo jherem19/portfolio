@@ -1537,7 +1537,12 @@ body { background: light-dark(#f9fafa, #050606); }
 }
 
 /* Footer: a quiet project invitation followed by a compact directory. */
-.portfolio-home .contact-panel { padding-bottom: clamp(84px, 9vw, 130px); }
+.portfolio-home .contact-panel {
+  margin: 0 clamp(10px, 1.4vw, 22px) clamp(10px, 1.4vw, 22px);
+  border: 1px solid light-dark(rgb(0 0 0 / 10%), rgb(255 255 255 / 10%));
+  border-radius: clamp(20px, 2.4vw, 34px);
+  padding-bottom: clamp(84px, 9vw, 130px);
+}
 .site-footer { position: relative; z-index: 1; padding: 0 clamp(10px, 1.4vw, 22px) clamp(10px, 1.4vw, 22px); }
 .portfolio-home .site-footer { background: light-dark(#f8f9f9, #070908); }
 .site-footer-card { position: relative; overflow: hidden; border: 1px solid rgb(255 255 255 / 10%); border-radius: clamp(20px, 2.4vw, 34px); background: #0a0c0b; padding: clamp(12px, 1.2vw, 18px) clamp(22px, 3.2vw, 50px) clamp(18px, 2vw, 30px); color: #f4f6f3; color-scheme: dark; }
