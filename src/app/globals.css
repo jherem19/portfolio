@@ -1545,7 +1545,7 @@ body { background: light-dark(#f9fafa, #050606); }
 }
 .site-footer { position: relative; z-index: 1; padding: 0 clamp(10px, 1.4vw, 22px) clamp(10px, 1.4vw, 22px); }
 .portfolio-home .site-footer { background: light-dark(#f8f9f9, #070908); }
-.site-footer-card { position: relative; overflow: hidden; border: 1px solid rgb(255 255 255 / 10%); border-radius: clamp(20px, 2.4vw, 34px); background: #0a0c0b; padding: clamp(12px, 1.2vw, 18px) clamp(22px, 3.2vw, 50px) clamp(18px, 2vw, 30px); color: #f4f6f3; color-scheme: dark; }
+.site-footer-card { position: relative; overflow: hidden; border: 1px solid rgb(255 255 255 / 10%); border-radius: clamp(20px, 2.4vw, 34px); background: #0a0c0b; padding: clamp(22px, 3.2vw, 50px); color: #f4f6f3; color-scheme: dark; }
 .portfolio-home .site-footer-invite { display: none; }
 .site-footer-invite { position: relative; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr); gap: clamp(38px, 6vw, 100px); overflow: hidden; border: 1px solid rgb(255 255 255 / 8%); border-radius: clamp(14px, 1.6vw, 22px); background: radial-gradient(circle at 92% 120%, rgb(102 221 179 / 20%), transparent 42%), #111412; padding: clamp(30px, 4vw, 64px); }
 .site-footer-invite::after { position: absolute; right: 0; bottom: 0; left: 0; height: 1px; background: linear-gradient(90deg, transparent, #66ddb3 50%, transparent); content: ""; opacity: .65; }
@@ -1571,7 +1571,7 @@ body { background: light-dark(#f9fafa, #050606); }
 .site-footer-contact .social-list a:hover { border-color: rgb(102 221 179 / 45%); color: #66ddb3; }
 .site-footer-legal { display: flex; justify-content: space-between; gap: 16px; border-top: 1px solid rgb(255 255 255 / 8%); padding: 22px 12px 0; color: rgb(255 255 255 / 38%); font-size: 11px; }
 @media (max-width: 700px) {
-  .site-footer-card { padding: 9px 9px 18px; }
+  .site-footer-card { padding: 9px; }
   .site-footer-invite { grid-template-columns: 1fr; gap: 30px; padding: 30px 24px; }
   .site-footer-invite h2 { font-size: clamp(2.8rem, 14vw, 4.4rem); }
   .site-footer-directory { grid-template-columns: 1fr 1fr; gap: 42px 28px; padding: 48px 16px; }
