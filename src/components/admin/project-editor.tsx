@@ -214,7 +214,7 @@ export function ProjectEditor({ project }: { project?: CMSProject | null }) {
             <p className="admin-label">Cover image *</p>
             <div className="admin-media-guidance">
               <p><strong>Recommended</strong> 1600 × 1200 px · 4:3 · WebP or JPG</p>
-              <p><strong>Maximum</strong> 5 MB · ideally under 1 MB</p>
+              <p><strong>Maximum</strong> 10 MB · ideally under 1 MB</p>
             </div>
             {form.cover_image ? (
               <CoverCropper
@@ -225,16 +225,16 @@ export function ProjectEditor({ project }: { project?: CMSProject | null }) {
                 zoom={form.cover_zoom}
               />
             ) : <div className="admin-empty-media">No cover image selected</div>}
-            <MediaUploader label="Upload cover image" maxSizeMb={5} onUploaded={([asset]) => setForm((current) => ({ ...current, cover_image: asset.url, cover_image_path: asset.path, cover_position_x: 50, cover_position_y: 50, cover_zoom: 100 }))} />
+            <MediaUploader label="Upload cover image" maxSizeMb={10} onUploaded={([asset]) => setForm((current) => ({ ...current, cover_image: asset.url, cover_image_path: asset.path, cover_position_x: 50, cover_position_y: 50, cover_zoom: 100 }))} />
           </div>
           <div>
             <p className="admin-label">Cover video (optional)</p>
             <div className="admin-media-guidance">
               <p><strong>Recommended</strong> 1600 × 1200 px · 4:3 · WebM or MP4</p>
-              <p><strong>Maximum</strong> 25 MB · short, muted loop</p>
+              <p><strong>Maximum</strong> 50 MB · short, muted loop</p>
             </div>
             {form.cover_video ? <video className="admin-video-preview" controls playsInline src={form.cover_video} /> : <div className="admin-empty-media">No cover video selected</div>}
-            <MediaUploader accept="video/mp4,video/webm,video/quicktime" label="Upload cover video" maxSizeMb={25} onUploaded={([asset]) => setForm((current) => ({ ...current, cover_video: asset.url, cover_video_path: asset.path }))} />
+            <MediaUploader accept="video/mp4,video/webm,video/quicktime" label="Upload cover video" maxSizeMb={50} onUploaded={([asset]) => setForm((current) => ({ ...current, cover_video: asset.url, cover_video_path: asset.path }))} />
           </div>
         </div>
       </section>
