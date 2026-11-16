@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Plus } from "lucide-react";
 
@@ -12,10 +13,24 @@ const monthNames = ["January", "February", "March", "April", "May", "June", "Jul
 function ProjectRow({ project }: { project: ProjectSummary }) {
   return (
     <article className="admin-project-row">
-      <div>
+      <div className="admin-project-main">
+        <Link className="admin-project-thumb" href={`/admin/projects/${project.id}`} tabIndex={-1} aria-hidden="true">
+          {project.cover_image ? (
+            <Image
+              alt=""
+              fill
+              sizes="120px"
+              src={project.cover_image}
+              style={{ objectPosition: `${project.cover_position_x}% ${project.cover_position_y}%`, transform: `scale(${project.cover_zoom / 100})` }}
+              unoptimized
+            />
+          ) : null}
+        </Link>
+        <div>
         <span className={`admin-status admin-status-${project.status}`}>{project.status}</span>
         <h2><Link href={`/admin/projects/${project.id}`}>{project.title}</Link></h2>
         <p>{project.category || "Uncategorized"} · {project.project_date}{project.featured ? " · Featured Work" : ""}{project.show_in_3d_archive ? " · 3D Archive" : ""}</p>
+        </div>
       </div>
       <div className="admin-project-row-links">
         {project.status === "published" ? <a href={`/work/${project.slug}`} target="_blank" title="View public page"><ArrowUpRight aria-hidden="true" /></a> : null}
