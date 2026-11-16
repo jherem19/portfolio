@@ -172,6 +172,23 @@ export async function setProjectStatusAction(
   }
 }
 
+export async function setProjectFeaturedAction(id: string, featured: boolean): Promise<AdminActionResult> {
+  try {
+    if (!(await getAdmin())) throw new Error("Your administrator session is not valid.");
+    const supabase = await createClient();
+    const { error } = await supabase.from("projects").update({ featured }).eq("id", id);
+    if (error) throw error;
+    revalidatePath("/");
+    revalidatePath("/work", "layout");
+    revalidatePath("/sitemap.xml");
+    revalidatePath("/llms.txt");
+    revalidatePath("/admin/projects");
+    return { ok: true, id };
+  } catch (error) {
+    return { ok: false, error: error instanceof Error ? error.message : "Unable to change Featured Work." };
+  }
+}
+
 export async function deleteProjectAction(id: string): Promise<AdminActionResult> {
   try {
     if (!(await getAdmin())) throw new Error("Your administrator session is not valid.");

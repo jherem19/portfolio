@@ -2,11 +2,11 @@
 
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
-import { Eye, EyeOff, Trash2 } from "lucide-react";
+import { Eye, EyeOff, Star, Trash2 } from "lucide-react";
 
-import { deleteProjectAction, setProjectStatusAction } from "@/app/admin/actions";
+import { deleteProjectAction, setProjectFeaturedAction, setProjectStatusAction } from "@/app/admin/actions";
 
-export function ProjectRowActions({ id, status }: { id: string; status: "draft" | "published" }) {
+export function ProjectRowActions({ id, status, featured }: { id: string; status: "draft" | "published"; featured: boolean }) {
   const router = useRouter();
   const [error, setError] = useState("");
   const [pending, startTransition] = useTransition();
@@ -16,6 +16,15 @@ export function ProjectRowActions({ id, status }: { id: string; status: "draft" 
     startTransition(async () => {
       const result = await setProjectStatusAction(id, status === "published" ? "draft" : "published");
       if (!result.ok) setError(result.error ?? "Unable to update status.");
+      router.refresh();
+    });
+  }
+
+  function toggleFeatured() {
+    setError("");
+    startTransition(async () => {
+      const result = await setProjectFeaturedAction(id, !featured);
+      if (!result.ok) setError(result.error ?? "Unable to update Featured Work.");
       router.refresh();
     });
   }
@@ -32,6 +41,9 @@ export function ProjectRowActions({ id, status }: { id: string; status: "draft" 
 
   return (
     <div className="admin-row-actions">
+      <button aria-pressed={featured} className={featured ? "is-featured" : undefined} disabled={pending} onClick={toggleFeatured} title={featured ? "Featured · click to make normal" : "Normal · click to feature"} type="button">
+        <Star aria-hidden="true" fill={featured ? "currentColor" : "none"} />
+      </button>
       <button disabled={pending} onClick={toggle} title={status === "published" ? "Unpublish" : "Publish"} type="button">
         {status === "published" ? <EyeOff aria-hidden="true" /> : <Eye aria-hidden="true" />}
       </button>
