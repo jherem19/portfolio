@@ -1802,3 +1802,23 @@ body.has-custom-cursor, body.has-custom-cursor * { cursor: none; }
 .admin-project-thumb { position: relative; display: block; width: 120px; flex: none; aspect-ratio: 4 / 3; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: light-dark(#dcdcdc, #1b1b1b); }
 .admin-project-thumb img { object-fit: cover; }
 @media (max-width: 760px) { .admin-project-thumb { width: 88px; } }
+
+/* Home: rotating "Latest project" card */
+.bento-project-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 900ms ease; }
+.bento-project-slide[data-active="true"] { opacity: 1; }
+.bento-project-caption { animation: bento-caption-in 700ms cubic-bezier(.2,.7,.2,1) both; }
+@keyframes bento-caption-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* Home: "Selected work" thumbnails drifting like bubbles */
+.bento-work-thumbs span { animation: bubble-drift 8s ease-in-out infinite; will-change: translate; }
+.bento-work-thumbs span::after { position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 30% 24%, rgb(255 255 255 / 48%) 0, rgb(255 255 255 / 0%) 34%), radial-gradient(circle at 70% 82%, rgb(255 255 255 / 16%) 0, rgb(255 255 255 / 0%) 40%); content: ""; pointer-events: none; }
+.bento-work-thumbs span:nth-child(1) { animation-duration: 7.4s; animation-delay: -1.2s; }
+.bento-work-thumbs span:nth-child(2) { animation-name: bubble-drift-alt; animation-duration: 9.6s; animation-delay: -4.1s; }
+.bento-work-thumbs span:nth-child(3) { animation-duration: 8.6s; animation-delay: -6.3s; }
+.bento-work-thumbs span:nth-child(4) { animation-name: bubble-drift-alt; animation-duration: 10.8s; animation-delay: -2.7s; }
+@keyframes bubble-drift { 0%, 100% { translate: 0 0; } 25% { translate: 7px -11px; } 50% { translate: -5px -18px; } 75% { translate: -9px -7px; } }
+@keyframes bubble-drift-alt { 0%, 100% { translate: 0 0; } 30% { translate: -8px -9px; } 55% { translate: 6px -17px; } 80% { translate: 9px -5px; } }
+@media (prefers-reduced-motion: reduce) {
+  .bento-project-slide { transition: none; }
+  .bento-project-caption, .bento-work-thumbs span { animation: none; }
+}

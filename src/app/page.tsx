@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Box, Clapperboard, Download, Mail, PenTool } from "lucide-react";
 
 import { FeaturedShowcase } from "@/components/featured-showcase";
+import { HeroProjectRotator } from "@/components/hero-project-rotator";
 import { AmbientDots } from "@/components/ambient-dots";
 import { CountUp, RollText, ScrollWords, Typewriter } from "@/components/motion";
 import { LanyardBadge } from "@/components/lanyard-badge";
@@ -17,7 +18,8 @@ export const revalidate = 60;
 export default async function Home() {
   const projects = await getPublishedProjects();
   const featuredProjects = projects.filter((project) => project.featured).slice(0, 6);
-  const heroProject = featuredProjects[0] ?? projects[0];
+  const rotatorSource = featuredProjects.length ? featuredProjects : projects.slice(0, 1);
+  const rotatorProjects = rotatorSource.map(({ slug, title, cover_image, cover_position_x, cover_position_y }) => ({ slug, title, cover_image, cover_position_x, cover_position_y }));
   return (
     <main className="site-shell portfolio-home">
       <SiteSidebar horizontal />
@@ -59,12 +61,7 @@ export default async function Home() {
               <p>Typical length of a focused engagement, from brief to delivery.</p>
             </article>
 
-            {heroProject ? (
-              <Link className="bento-card bento-project" href={`/work/${heroProject.slug}`}>
-                <Image src={heroProject.cover_image} alt="" fill sizes="(max-width: 760px) 50vw, 24vw" style={{ objectPosition: `${heroProject.cover_position_x}% ${heroProject.cover_position_y}%` }} />
-                <span><small>Latest project</small>{heroProject.title}<ArrowUpRight aria-hidden="true" /></span>
-              </Link>
-            ) : null}
+            {rotatorProjects.length ? <HeroProjectRotator projects={rotatorProjects} /> : null}
 
             <Link className="bento-card bento-work" href="/work">
               <div>
