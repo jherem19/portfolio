@@ -16,7 +16,8 @@ export const metadata: Metadata = {
 export const revalidate = 60;
 
 export default async function WorkArchivePage() {
-  const projects = await getPublishedProjects();
+  // Newest first by project date (stable sort keeps the default order for ties)
+  const projects = [...(await getPublishedProjects())].sort((a, b) => b.project_date.localeCompare(a.project_date));
 
   return (
     <main className="site-shell">

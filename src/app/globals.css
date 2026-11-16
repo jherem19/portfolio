@@ -1781,3 +1781,10 @@ body.has-custom-cursor, body.has-custom-cursor * { cursor: none; }
 .typewriter.is-typing .type-char:is(.is-caret, .is-caret-start)::after { position: absolute; top: .16em; right: -.05em; width: .035em; min-width: 2px; height: .82em; border-radius: 2px; background: var(--green); content: ""; transform: skewX(-11deg); visibility: visible; animation: type-caret 900ms steps(1) infinite; }
 .typewriter.is-typing .type-char.is-caret-start::after { right: auto; left: -.02em; }
 @keyframes type-caret { 0%, 55% { opacity: 1; } 56%, 100% { opacity: 0; } }
+
+/* Works archive: 3-column grid */
+.work-archive-library .work-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 56px 22px; }
+.work-archive-library .work-meta { gap: 14px; }
+.work-archive-library .work-meta h3 { font-size: clamp(1.15rem, 1.55vw, 1.55rem); }
+@media (max-width: 1100px) { .work-archive-library .work-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 760px) { .work-archive-library .work-grid { grid-template-columns: 1fr; gap: 50px; } }
