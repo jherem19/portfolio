@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { FeaturedProjects } from "@/components/featured-projects";
+import { WorkLibrary } from "@/components/work-library";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteSidebar } from "@/components/site-sidebar";
 import { site } from "@/data/site";
@@ -32,7 +32,7 @@ export default async function WorkArchivePage() {
           </div>
         </header>
         <section className="work-archive-library" aria-label="All projects">
-          <FeaturedProjects projects={projects} />
+          <WorkLibrary projects={projects} />
         </section>
       </div>
       <SiteFooter />

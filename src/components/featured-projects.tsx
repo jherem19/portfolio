@@ -5,9 +5,9 @@ import type { ProjectSummary } from "@/types/cms";
 
 const PAGE_SIZE = 12;
 
-export function FeaturedProjects({ projects }: { projects: ProjectSummary[] }) {
-  const visibleProjects = projects.slice(0, PAGE_SIZE);
-  const remainingProjects = projects.slice(PAGE_SIZE);
+export function FeaturedProjects({ projects, pageSize = PAGE_SIZE }: { projects: ProjectSummary[]; pageSize?: number }) {
+  const visibleProjects = projects.slice(0, pageSize);
+  const remainingProjects = projects.slice(pageSize);
 
   return (
     <>

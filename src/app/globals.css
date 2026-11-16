@@ -1822,3 +1822,15 @@ body.has-custom-cursor, body.has-custom-cursor * { cursor: none; }
   .bento-project-slide { transition: none; }
   .bento-project-caption, .bento-work-thumbs span { animation: none; }
 }
+
+/* Works: type filters */
+.work-filter-chips { margin-bottom: 14px; }
+.work-filter-chips button:focus-visible, .work-filter-status button:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
+.work-filter-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.work-filter-chips button { display: inline-flex; min-height: 42px; align-items: center; gap: 9px; border: 1px solid var(--surface-edge); border-radius: 999px; background: transparent; padding: 0 16px; color: inherit; cursor: pointer; font-family: var(--font-geist), Arial, sans-serif; font-size: .9rem; font-weight: 500; letter-spacing: -.01em; transition: background 180ms ease, border-color 180ms ease, color 180ms ease; }
+.work-filter-chips button span { color: var(--muted); font-size: .76rem; font-variant-numeric: tabular-nums; }
+.work-filter-chips button:hover { border-color: light-dark(rgb(0 0 0 / 28%), rgb(255 255 255 / 30%)); }
+.work-filter-chips button[aria-pressed="true"] { border-color: transparent; background: light-dark(#0f1210, #f2f4f1); color: light-dark(#ffffff, #0b0d0c); }
+.work-filter-chips button[aria-pressed="true"] span { color: inherit; opacity: .65; }
+.work-filter-status { display: flex; min-height: 24px; align-items: center; gap: 14px; margin: 0 0 30px; color: var(--muted); font-family: var(--font-geist), Arial, sans-serif; font-size: .85rem; }
+.work-filter-status button { border: 0; background: transparent; padding: 0; color: var(--green); cursor: pointer; font: inherit; text-decoration: underline; text-underline-offset: 3px; }
