@@ -270,6 +270,48 @@ async function rasterSelection(selection,scene,frameInverse) {
         wrapper.remove();
     }
 }
+async function rasterFrameLayers(frame,scene,depth) {
+    if(frame.type!=='FRAME') throw new Error('Raster layers requires one selected frame');
+    const visibleChildren=frame.children.filter(n=>n.visible!==false&&n.opacity!==0);
+    if(!visibleChildren.length) throw new Error('The selected frame has no visible layers');
+    const roots=[],frameOpacity=frame.opacity===undefined?1:frame.opacity;
+    const maxDepth=depth==='all'?Infinity:depth;
+    let expanded=0,flattened=0,depthLimited=0;
+    async function image(n,matrix,opacityMultiplier,reason,backgroundOnly,id,name) {
+        if(roots.length>=1000)throw new Error('Raster layers supports up to 1000 images; choose a smaller depth or selection');
+        const base={name:name||n.name,id:id||n.id,matrix:matrix.map(row=>[...row]),width:n.width,height:n.height,opacity:(n.opacity===undefined?1:n.opacity)*opacityMultiplier*100,asMask:backgroundOnly?false:!!n.isMask,maskType:n.maskType||'ALPHA',blendMode:backgroundOnly?'NORMAL':n.blendMode};
+        BridgeCore.transform(base.matrix);
+        return raster(n,base,scene,reason,backgroundOnly);
+    }
+    function expandable(n) {
+        return 'children' in n&&n.type!=='BOOLEAN_OPERATION'&&n.children.some(child=>child.visible!==false&&child.opacity!==0)&&!n.isMask&&!n.clipsContent&&normalBlend(n)&&!(n.effects||[]).some(effect=>effect.visible!==false);
+    }
+    const framePaints=visiblePaints(frame.fills).length||visiblePaints(frame.strokes).length;
+    if(framePaints) {
+        roots.push(await image(frame,[[1,0,0],[0,1,0]],1,'Raster layers mode · frame background',true,frame.id+'-background',frame.name+' · background'));
+    }
+    async function visit(n,matrix,opacityMultiplier,level) {
+        const hasChildren='children' in n&&n.children.some(child=>child.visible!==false&&child.opacity!==0);
+        if(!hasChildren||level>=maxDepth||!expandable(n)) {
+            if(hasChildren) {
+                if(level>=maxDepth)depthLimited++;
+                else flattened++;
+            }
+            roots.push(await image(n,matrix,opacityMultiplier,'Raster layers mode'));
+            return;
+        }
+        const ownPaints=visiblePaints(n.fills).length||visiblePaints(n.strokes).length;
+        if(ownPaints)roots.push(await image(n,matrix,opacityMultiplier,'Raster layers mode · nested background',true,n.id+'-background',n.name+' · background'));
+        const childOpacity=opacityMultiplier*(n.opacity===undefined?1:n.opacity);
+        for(const child of n.children) if(child.visible!==false&&child.opacity!==0) {
+            await visit(child,multiplyMatrices(matrix,child.relativeTransform),childOpacity,level+1);
+        }
+        expanded++;
+    }
+    for(const n of visibleChildren)await visit(n,n.relativeTransform,frameOpacity,1);
+    scene.warnings.push('Raster layers mode ('+(depth==='all'?'all layers':depth+' level'+(depth===1?'':'s'))+'): '+roots.length+' PNG layers created; '+expanded+' groups opened.'+(depthLimited?' '+depthLimited+' groups stopped at the chosen depth.':'')+(flattened?' '+flattened+' visual groups stayed flattened.':''));
+    return roots;
+}
 function inverseMatrix(m) {
     const det=m[0][0]*m[1][1]-m[0][1]*m[1][0];
     if(Math.abs(det)<0.000001) throw new Error('Cannot preserve position with a degenerate frame transform');
@@ -452,7 +494,13 @@ figma.ui.onmessage = async message => {
         if (!selection.length) throw new Error('Select a frame or multiple elements');
         if (![24, 25, 30, 60].includes(message.fps) || !Number.isFinite(message.duration) || message.duration < 1 || message.duration > 3600 || ![1, 2].includes(message.rasterScale)) throw new Error('Invalid options');
         const rasterMode=message.rasterSelection===true;
-        const scene = {version: 1, build: BRIDGE_VERSION, precomposeSelection:!!message.precomposeSelection, rasterSelection:rasterMode,groupShapes:!rasterMode&&!!message.groupShapes, flatLayers:!!message.direct||!!message.groupShapes||!!message.precomposeSelection, centerInComp:message.centerInComp!==false, preferEditable: message.preferEditable !== false, name: selection.length === 1 ? selection[0].name : 'Figma selection', fps: message.fps, duration: message.duration, editableText:!rasterMode&&message.editableText !== false, rasterScale: message.rasterScale, warnings: [], stats: {shapes: 0, text: 0, images: 0, groups: 0}, nodeCount: 0, assetBytes: 0, roots: []};
+        const rasterLayersMode=message.rasterLayers===true;
+        if(rasterMode&&rasterLayersMode)throw new Error('Choose one raster conversion mode');
+        if(rasterLayersMode&&(selection.length!==1||selection[0].type!=='FRAME'))throw new Error('Raster layers requires one selected frame');
+        const rasterLayerDepth=message.rasterLayerDepth===undefined?2:message.rasterLayerDepth;
+        if(rasterLayersMode&&rasterLayerDepth!=='all'&&(!Number.isSafeInteger(rasterLayerDepth)||rasterLayerDepth<1))throw new Error('Invalid raster layer depth');
+        const anyRasterMode=rasterMode||rasterLayersMode;
+        const scene = {version: 1, build: BRIDGE_VERSION, precomposeSelection:!!message.precomposeSelection, rasterSelection:rasterMode, rasterLayers:rasterLayersMode, rasterLayerDepth:rasterLayersMode?rasterLayerDepth:undefined,groupShapes:!anyRasterMode&&!!message.groupShapes, flatLayers:!!message.direct||!!message.groupShapes||!!message.precomposeSelection||rasterLayersMode, centerInComp:message.centerInComp!==false, preferEditable: message.preferEditable !== false, name: selection.length === 1 ? selection[0].name : 'Figma selection', fps: message.fps, duration: message.duration, editableText:!anyRasterMode&&message.editableText !== false, rasterScale: message.rasterScale, warnings: [], stats: {shapes: 0, text: 0, images: 0, groups: 0}, nodeCount: 0, assetBytes: 0, roots: []};
         // Editable multi-selections need siblings; raster selections use document stacking order.
         if (!rasterMode && selection.length > 1 && selection.some(n => n.parent !== selection[0].parent)) throw new Error('Select elements from the same group, or export each frame separately');
         const frames=message.keepFigmaPosition ? referenceFrames(selection) : [];
@@ -470,6 +518,9 @@ figma.ui.onmessage = async message => {
         if(rasterMode) {
             const image=await rasterSelection(selection,scene,frameInverse);
             scene.width=image.renderWidth;scene.height=image.renderHeight;scene.roots.push(image);
+        } else if(rasterLayersMode) {
+            scene.width=Math.max(1,Math.ceil(selection[0].width));scene.height=Math.max(1,Math.ceil(selection[0].height));
+            scene.roots=await rasterFrameLayers(selection[0],scene,rasterLayerDepth);
         } else if (selection.length === 1) {
             scene.width = Math.max(1, Math.ceil(selection[0].width)); scene.height = Math.max(1, Math.ceil(selection[0].height));
             const root = await serialize(selection[0], scene, true);
@@ -515,7 +566,7 @@ figma.ui.onmessage = async message => {
         if (scene.width > 30000 || scene.height > 30000) throw new Error('Composition too large for After Effects');
         figma.currentPage.selection = selection;
         if (message.direct) {
-            figma.ui.postMessage({type:'sending',rasterSelection:rasterMode});
+            figma.ui.postMessage({type:'sending',rasterSelection:rasterMode,rasterLayers:rasterLayersMode});
             if(!BRIDGE_CONFIG.token)throw new Error('Local bridge is not configured');
             let response;
             try { response=await fetch(BRIDGE_CONFIG.url+'/transfer',{method:'POST',headers:{'Content-Type':'application/json','X-Bridge-Token':BRIDGE_CONFIG.token},body:JSON.stringify({scene})}); }

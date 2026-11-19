@@ -1,4 +1,4 @@
-param([string]$NodeArchive = (Join-Path $PSScriptRoot '..\..\work\installer-build\node-v24.19.0-win-x64.zip'))
+param([string]$NodeArchive = (Join-Path $PSScriptRoot '..\..\..\work\installer-build\node-v24.19.0-win-x64.zip'))
 $ErrorActionPreference='Stop'
 $workspace=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..\..'))
 $buildRoot=Join-Path $workspace 'work\installer-build'

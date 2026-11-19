@@ -4,6 +4,9 @@ function validateScene(scene) {
     if(scene && scene.groupShapes!==undefined) check(typeof scene.groupShapes==='boolean','Invalid grouping option');
     if(scene && scene.precomposeSelection!==undefined) check(typeof scene.precomposeSelection==='boolean','Invalid precomposition option');
     if(scene && scene.rasterSelection!==undefined) check(typeof scene.rasterSelection==='boolean','Invalid raster option');
+    if(scene && scene.rasterLayers!==undefined) check(typeof scene.rasterLayers==='boolean','Invalid raster layers option');
+    if(scene && scene.rasterSelection===true)check(scene.rasterLayers!==true,'Conflicting raster options');
+    if(scene && scene.rasterLayerDepth!==undefined)check(scene.rasterLayers===true&&(scene.rasterLayerDepth==='all'||Number.isSafeInteger(scene.rasterLayerDepth)&&scene.rasterLayerDepth>=1),'Invalid raster layer depth');
     if(scene && scene.keepFigmaPosition!==undefined)check(typeof scene.keepFigmaPosition==='boolean','Invalid position option');
     if(scene && scene.positionFrames!==undefined){
         check(scene.keepFigmaPosition===true && Array.isArray(scene.positionFrames)&&scene.positionFrames.length>0&&scene.positionFrames.length<=100,'Invalid position frames');

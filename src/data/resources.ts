@@ -16,12 +16,12 @@ export const resources: Resource[] = [
     name: "AE Bridge",
     category: "Figma plugin",
     status: "Beta",
-    version: "0.4.17",
+    version: "0.4.19",
     description:
-      "Send your Figma selection to After Effects as editable layers, a precomp, or one raster image. A small bridge between design and motion.",
+      "Send your Figma selection to After Effects as editable layers, a precomp, one raster image, or separate rasterized layers at any depth.",
     platform: "Windows x64",
     previewImage: "/resources/ae-bridge/icon.webp",
     downloadUrl:
-      "https://github.com/jherem19/portfolio/releases/download/ae-bridge-v0.4.17/AE-Bridge-Setup-0.4.17.exe",
+      "https://github.com/jherem19/portfolio/releases/download/ae-bridge-v0.4.19/AE-Bridge-Setup-0.4.19.exe",
   },
 ];
