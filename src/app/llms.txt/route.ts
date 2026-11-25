@@ -1,3 +1,4 @@
+import { visibleProjectTags } from "@/lib/case-studies";
 import { site } from "@/data/site";
 import { getPublishedProjects } from "@/lib/cms/projects";
 
@@ -6,7 +7,7 @@ export async function GET() {
   const projectList = projects
     .map(
       (project) =>
-        `- [${project.title}](${site.url}/work/${project.slug}): ${project.short_description} Category: ${project.category}. Tags: ${project.tags.join(", ")}. Year: ${project.project_date.slice(0, 4)}.`,
+        `- [${project.title}](${site.url}/work/${project.slug}): ${project.short_description} Category: ${project.category}. Tags: ${visibleProjectTags(project.tags).join(", ")}. Year: ${project.project_date.slice(0, 4)}.`,
     )
     .join("\n");
 

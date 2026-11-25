@@ -1,3 +1,4 @@
+import { visibleProjectTags } from "@/lib/case-studies";
 import type { ProjectSummary } from "@/types/cms";
 
 export type WorkType = { id: string; label: string; pattern: RegExp };
@@ -13,7 +14,7 @@ export const workTypes: WorkType[] = [
 ];
 
 export function projectTypeText(project: ProjectSummary) {
-  return [project.title, project.category, ...project.tags].join(" ").toLowerCase();
+  return [project.title, project.category, ...visibleProjectTags(project.tags)].join(" ").toLowerCase();
 }
 
 export function projectTypes(project: ProjectSummary): string[] {

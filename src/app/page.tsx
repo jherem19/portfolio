@@ -5,7 +5,7 @@ import { ArrowRight, ArrowUpRight, Box, Clapperboard, Download, Mail, PenTool } 
 import { FeaturedShowcase } from "@/components/featured-showcase";
 import { HeroProjectRotator } from "@/components/hero-project-rotator";
 import { HomeCaseStudies } from "@/components/home-case-studies";
-import { isCaseStudy } from "@/lib/case-studies";
+import { isCaseStudy, compareCaseStudies } from "@/lib/case-studies";
 import { AmbientDots } from "@/components/ambient-dots";
 import { CountUp, RollText, ScrollWords, Typewriter } from "@/components/motion";
 import { LanyardBadge } from "@/components/lanyard-badge";
@@ -104,7 +104,7 @@ export default async function Home() {
           <div className="services-detail-cta"><Link className="hero-cta hero-cta-primary" href="/services">Explore freelance services <ArrowRight aria-hidden="true" /></Link></div>
         </section>
 
-        <HomeCaseStudies projects={projects.filter(isCaseStudy).sort((a, b) => b.project_date.localeCompare(a.project_date)).map(({ slug, title, short_description, cover_image, project_date }) => ({ slug, title, short_description, cover_image, project_date }))} />
+        <HomeCaseStudies projects={projects.filter(isCaseStudy).sort(compareCaseStudies).map(({ slug, title, short_description, cover_image, project_date }) => ({ slug, title, short_description, cover_image, project_date }))} />
 
         <section className="featured-section featured-showcase" id="work" aria-labelledby="work-title">
           <div className="showcase-layout">

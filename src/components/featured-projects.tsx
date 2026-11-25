@@ -1,3 +1,4 @@
+import { visibleProjectTags } from "@/lib/case-studies";
 import { ArrowDown } from "lucide-react";
 
 import { ProjectCoverPreview } from "@/components/project-cover-preview";
@@ -41,7 +42,7 @@ function ProjectCard({ project }: { project: ProjectSummary }) {
       <ProjectCoverPreview project={project} />
       <div className="work-meta">
         <div><span>{project.category}</span><h3>{project.title}</h3></div>
-        <p>{project.tags.slice(0, 2).join(" · ")}<br />{project.project_date.slice(0, 4)}</p>
+        <p>{visibleProjectTags(project.tags).slice(0, 2).join(" · ")}<br />{project.project_date.slice(0, 4)}</p>
       </div>
     </a>
   );

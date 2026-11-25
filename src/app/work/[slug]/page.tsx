@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 
 import { SiteFooter } from "@/components/site-footer";
 import { SiteSidebar } from "@/components/site-sidebar";
-import { isCaseStudy } from "@/lib/case-studies";
+import { isCaseStudy, compareCaseStudies, visibleProjectTags } from "@/lib/case-studies";
 import { ProjectBlocks } from "@/components/project-blocks";
 import { site } from "@/data/site";
 import { getPublishedProject, getPublishedProjects } from "@/lib/cms/projects";
@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: project.title,
     description: project.short_description,
-    keywords: [project.category, ...project.tags, site.name],
+    keywords: [project.category, ...visibleProjectTags(project.tags), site.name],
     alternates: { canonical: url },
     openGraph: {
       type: "article",
@@ -57,7 +57,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
   const projectIndex = projects.findIndex((item) => item.slug === project.slug);
   const nextProject = projects[(projectIndex + 1) % projects.length];
-  const relatedCases = isCaseStudy(project) ? projects.filter((item) => item.slug !== project.slug && isCaseStudy(item)) : [];
+  const relatedCases = isCaseStudy(project) ? projects.filter((item) => item.slug !== project.slug && isCaseStudy(item)).sort(compareCaseStudies) : [];
   const projectUrl = `${site.url}/work/${project.slug}`;
 
   return (
@@ -81,7 +81,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 ...(project.published_at ? { datePublished: project.published_at } : {}),
                 ...(project.updated_at ? { dateModified: project.updated_at } : {}),
                 genre: project.category,
-                keywords: project.tags.join(", "),
+                keywords: visibleProjectTags(project.tags).join(", "),
                 inLanguage: "en",
                 creator: { "@id": `${site.url}/#person` },
                 isPartOf: { "@id": `${site.url}/#website` },
@@ -124,7 +124,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           <dl className="project-facts">
             <div><dt>Category</dt><dd>{project.category}</dd></div>
             <div><dt>Year</dt><dd>{project.project_date.slice(0, 4)}</dd></div>
-            <div><dt>Focus</dt><dd>{project.tags.join(" · ")}</dd></div>
+            <div><dt>Focus</dt><dd>{visibleProjectTags(project.tags).join(" · ")}</dd></div>
           </dl>
         </header>
 

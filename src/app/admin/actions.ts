@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 
 import { getAdmin } from "@/lib/supabase/auth";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
-import { isCaseStudy } from "@/lib/case-studies";
+import { isCaseStudy, CASE_ORDER_PREFIX, caseOrder, compareCaseStudies, visibleProjectTags } from "@/lib/case-studies";
 import { createClient } from "@/lib/supabase/server";
 import {
   blockTypes,
@@ -131,6 +131,13 @@ export async function saveProjectAction(input: ProjectInput): Promise<AdminActio
       data: block.data,
     }));
     const supabase = await createClient();
+    if (input.id) {
+      const { data: stored, error: readError } = await supabase.from("projects").select("tags").eq("id", input.id).single();
+      if (readError) throw readError;
+      const rank = caseOrder(stored.tags ?? []);
+      project.tags = visibleProjectTags(project.tags);
+      if (rank !== undefined) project.tags.push(`${CASE_ORDER_PREFIX}${rank}`);
+    }
     const { data, error } = await supabase.rpc("save_project_with_blocks", {
       p_project_id: input.id ?? null,
       p_project: project,
@@ -295,4 +302,31 @@ export async function deleteSideProjectAction(id: string): Promise<AdminActionRe
   } catch (error) {
     return { ok: false, error: error instanceof Error ? error.message : "Unable to delete the side project." };
   }
+}
+
+export async function moveCaseStudyAction(id: string, direction: number): Promise<AdminActionResult> {
+  try {
+    if (!(await getAdmin())) throw new Error("Your administrator session is not valid.");
+    if (direction !== -1 && direction !== 1) throw new Error("Invalid direction.");
+    const supabase = await createClient();
+    const { data, error } = await supabase.from("projects").select("id,tags,project_date");
+    if (error) throw error;
+    const cases = (data ?? []).filter(isCaseStudy).sort(compareCaseStudies);
+    const index = cases.findIndex((item) => item.id === id);
+    const target = index + direction;
+    if (index < 0 || target < 0 || target >= cases.length) throw new Error("This case cannot move further.");
+    const [item] = cases.splice(index, 1);
+    cases.splice(target, 0, item);
+    const rank = (entry: typeof item) => caseOrder(entry.tags) ?? -Date.parse(entry.project_date);
+    const before = cases[target - 1];
+    const after = cases[target + 1];
+    const nextRank = before && after ? (rank(before) + rank(after)) / 2 : before ? rank(before) + 86400000 : rank(after) - 86400000;
+    const { error: updateError } = await supabase.from("projects").update({ tags: [...visibleProjectTags(item.tags), `${CASE_ORDER_PREFIX}${nextRank}`] }).eq("id", id);
+    if (updateError) throw updateError;
+    revalidatePath("/");
+    revalidatePath("/work", "layout");
+    revalidatePath("/admin/case-studies");
+    revalidatePath("/admin/projects");
+    return { ok: true };
+  } catch (error) { return { ok: false, error: error instanceof Error ? error.message : "Unable to reorder cases." }; }
 }

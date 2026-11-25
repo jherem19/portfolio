@@ -10,7 +10,7 @@ import { deleteProjectAction, saveProjectAction } from "@/app/admin/actions";
 import { CoverCropper } from "@/components/admin/cover-cropper";
 import { MediaUploader } from "@/components/admin/media-uploader";
 import { TagInput } from "@/components/admin/tag-input";
-import { isCaseStudy, setCaseStudy } from "@/lib/case-studies";
+import { isCaseStudy, setCaseStudy, visibleProjectTags } from "@/lib/case-studies";
 import type { BlockType, CMSProject, MediaAsset, ProjectBlock, ProjectInput } from "@/types/cms";
 
 const RichTextEditor = dynamic(() =>
@@ -39,6 +39,7 @@ function emptyProject(project?: CMSProject | null): ProjectInput {
   return project
     ? {
         ...project,
+        tags: visibleProjectTags(project.tags),
         blocks: project.blocks.map((block, position) => ({ ...block, position })),
       }
     : {

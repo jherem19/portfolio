@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { WorkLibrary } from "@/components/work-library";
 import { WorkCaseStudies } from "@/components/work-case-studies";
-import { isCaseStudy } from "@/lib/case-studies";
+import { isCaseStudy, compareCaseStudies } from "@/lib/case-studies";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteSidebar } from "@/components/site-sidebar";
 import { site } from "@/data/site";
@@ -29,7 +29,7 @@ export default async function WorkArchivePage() {
           <h1>Selected work.</h1>
           <p>Design for products, brands, and the people behind them.</p>
         </header>
-        <WorkCaseStudies projects={projects.filter(isCaseStudy)} />
+        <WorkCaseStudies projects={projects.filter(isCaseStudy).sort(compareCaseStudies)} />
         <section className="work-archive-library" aria-label="All projects">
           <div className="work-library-heading"><h2>Explore the work</h2><span>{projects.length} projects</span></div>
           <WorkLibrary projects={projects} />
