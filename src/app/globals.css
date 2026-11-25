@@ -1915,12 +1915,12 @@ body.has-custom-cursor, body.has-custom-cursor * { cursor: none; }
 .home-case-studies { padding: clamp(48px, 5vw, 72px) clamp(24px, 6vw, 96px) 0; }
 .home-case-banner { position: relative; isolation: isolate; overflow: hidden; max-width: 1440px; margin-inline: auto; border: 1px solid rgb(255 255 255 / 13%); border-radius: 24px; background: #090d0c; color: #f5f6f4; color-scheme: dark; }
 .home-case-slide { position: relative; isolation: isolate; display: flex; align-items: center; min-height: 360px; padding: 32px 40px; }
-.home-case-art { position: absolute; z-index: -1; inset: 0 0 0 28%; overflow: hidden; opacity: .48; pointer-events: none; mask-image: linear-gradient(to right, transparent, #000 38%), linear-gradient(to top, #000 5%, rgb(0 0 0 / 70%) 45%, transparent 100%); mask-composite: intersect; -webkit-mask-image: linear-gradient(to right, transparent, #000 38%), linear-gradient(to top, #000 5%, rgb(0 0 0 / 70%) 45%, transparent 100%); -webkit-mask-composite: source-in; }
-.home-case-art img { object-fit: cover; object-position: right bottom; filter: saturate(.65) brightness(.7) blur(.5px); }
+.home-case-art { position: absolute; z-index: -1; inset: 0 0 0 28%; overflow: hidden; opacity: .48; pointer-events: none; mask-image: linear-gradient(to right, transparent, #000 38%), linear-gradient(to top, #000 5%, rgb(0 0 0 / 90%) 45%, rgb(0 0 0 / 45%) 100%); mask-composite: intersect; -webkit-mask-image: linear-gradient(to right, transparent, #000 38%), linear-gradient(to top, #000 5%, rgb(0 0 0 / 90%) 45%, rgb(0 0 0 / 45%) 100%); -webkit-mask-composite: source-in; }
+.home-case-art img { object-fit: cover; object-position: right bottom; filter: saturate(.95) brightness(.95); }
 .home-case-blur, .home-case-blur span { position: absolute; inset: 0; }
-.home-case-blur span:nth-child(1) { backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); mask-image: linear-gradient(to top left, transparent, #000 45%); -webkit-mask-image: linear-gradient(to top left, transparent, #000 45%); }
-.home-case-blur span:nth-child(2) { backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); mask-image: linear-gradient(to top left, transparent 20%, #000 75%); -webkit-mask-image: linear-gradient(to top left, transparent 20%, #000 75%); }
-.home-case-blur span:nth-child(3) { backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px); mask-image: linear-gradient(to top left, transparent 45%, #000 100%); -webkit-mask-image: linear-gradient(to top left, transparent 45%, #000 100%); }
+.home-case-blur span:nth-child(1) { backdrop-filter: blur(1px); -webkit-backdrop-filter: blur(1px); mask-image: linear-gradient(to top left, transparent, #000 45%); -webkit-mask-image: linear-gradient(to top left, transparent, #000 45%); }
+.home-case-blur span:nth-child(2) { backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); mask-image: linear-gradient(to top left, transparent 20%, #000 75%); -webkit-mask-image: linear-gradient(to top left, transparent 20%, #000 75%); }
+.home-case-blur span:nth-child(3) { backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); mask-image: linear-gradient(to top left, transparent 45%, #000 100%); -webkit-mask-image: linear-gradient(to top left, transparent 45%, #000 100%); }
 .home-case-copy { position: relative; width: 70%; max-width: 680px; min-width: 0; }
 .home-case-eyebrow { margin: 0 0 14px; color: rgb(255 255 255 / 72%); font-size: 10px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; }
 .home-case-eyebrow span { color: rgb(255 255 255 / 48%); }
@@ -1972,9 +1972,9 @@ body.has-custom-cursor, body.has-custom-cursor * { cursor: none; }
 @media (max-width: 640px) { .related-case-studies .work-grid { grid-template-columns: 1fr; } }
 
 .services-detail-cta { margin-top: 36px; }
-.home-case-art { opacity: .576; animation: case-art-slide 900ms cubic-bezier(.22,.61,.36,1) both; }
+.home-case-art { opacity: var(--case-art-opacity, .82); animation: case-art-slide 900ms cubic-bezier(.22,.61,.36,1) both; }
 .home-case-slide { animation: case-copy-slide 900ms cubic-bezier(.22,.61,.36,1) both; }
-@keyframes case-art-slide { from { opacity: 0; transform: translateX(5%); } to { opacity: .576; transform: translateX(0); } }
+@keyframes case-art-slide { from { opacity: 0; transform: translateX(5%); } to { opacity: var(--case-art-opacity, .82); transform: translateX(0); } }
 @keyframes case-copy-slide { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: translateX(0); } }
 .related-case-studies { padding-block: 48px 24px; }
 .related-case-heading { margin-bottom: 20px; }
@@ -2000,7 +2000,7 @@ body.has-custom-cursor, body.has-custom-cursor * { cursor: none; }
 .agency-rhythm li:nth-child(4)::after { animation-delay: 3s; }
 .agency-rhythm li h3 { margin-top: 28px; }
 @keyframes process-pulse { 0%, 70%, 100% { box-shadow: 0 0 0 0 transparent; } 25% { box-shadow: 0 0 0 7px rgb(102 221 179 / 12%); } }
-@media(max-width:760px) { .agency-rhythm ol { grid-template-columns: 1fr; } .agency-rhythm li { padding: 0 0 32px 28px; } .agency-rhythm li::before { top:0; bottom:0; left:4px; right:auto; width:1px; height:auto; } .agency-rhythm li::after { top:4px; } .agency-rhythm li h3 { margin-top:8px; } .home-case-art { opacity:.336; } }
+@media(max-width:760px) { .agency-rhythm ol { grid-template-columns: 1fr; } .agency-rhythm li { padding: 0 0 32px 28px; } .agency-rhythm li::before { top:0; bottom:0; left:4px; right:auto; width:1px; height:auto; } .agency-rhythm li::after { top:4px; } .agency-rhythm li h3 { margin-top:8px; } .home-case-art { --case-art-opacity: .48; opacity: .48; } }
 @media(prefers-reduced-motion:reduce) { .home-case-art, .home-case-slide, .agency-rhythm li::after { animation:none; } }
 
 /* Tighter section rhythm and a narrower pair of archive links. */
