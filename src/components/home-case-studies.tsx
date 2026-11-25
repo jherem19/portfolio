@@ -63,11 +63,11 @@ export function HomeCaseStudies({ projects }: { projects: CaseStudy[] }) {
       }}
     >
       <div className="home-case-banner">
-        <div className="home-case-art" key={active.slug} aria-hidden="true">
+        <div className="home-case-art" key={`art-${active.slug}`} aria-hidden="true">
           <Image src={active.cover_image} alt="" fill sizes="(max-width: 640px) 100vw, 65vw" />
           <div className="home-case-blur"><span /><span /><span /></div>
         </div>
-        <div className="home-case-slide" key={active.slug} role="group" aria-roledescription="slide" aria-label={`${activeIndex + 1} of ${projects.length}`}>
+        <div className="home-case-slide" key={`slide-${active.slug}`} role="group" aria-roledescription="slide" aria-label={`${activeIndex + 1} of ${projects.length}`}>
           <div className="home-case-copy">
             <p className="home-case-eyebrow">Case study <span> / {active.project_date.slice(0, 4)}</span></p>
             <h2>{displayTitle}</h2>
