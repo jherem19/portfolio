@@ -98,7 +98,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                     "@type": "ListItem",
                     position: 2,
                     name: "Work",
-                    item: `${site.url}/#work`,
+                    item: `${site.url}/work`,
                   },
                   {
                     "@type": "ListItem",
@@ -115,7 +115,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       <SiteSidebar active="work" horizontal />
       <article className="page-content project-page">
         <header className="project-hero">
-          <Link className="back-link" href="/#work"><ArrowLeft aria-hidden="true" /> Back to work</Link>
+          <Link className="back-link" href="/work"><ArrowLeft aria-hidden="true" /> Back to work</Link>
           <p className="section-kicker">{project.category} · {project.project_date.slice(0, 4)}</p>
           <h1>{project.title}</h1>
           <p className="project-intro">{project.short_description}</p>

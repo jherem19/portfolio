@@ -34,7 +34,7 @@ export function ProjectBlocks({ blocks }: { blocks: ProjectBlock[] }) {
         }
 
         if (block.type === "section") {
-          return <section className="case-section" key={block.id ?? index}><p className="section-kicker">Section {String(index + 1).padStart(2, "0")}</p><div><h2>{block.data.title}</h2><div className="case-markdown"><RichText>{block.data.markdown ?? ""}</RichText></div></div></section>;
+          return <section className="case-section" key={block.id ?? index}><h2>{block.data.title}</h2><div className="case-markdown"><RichText>{block.data.markdown ?? ""}</RichText></div></section>;
         }
 
         if (block.type === "image" && block.data.url) {

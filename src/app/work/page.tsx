@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 
 import { WorkLibrary } from "@/components/work-library";
+import { WorkCaseStudies } from "@/components/work-case-studies";
+import { isCaseStudy } from "@/lib/case-studies";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteSidebar } from "@/components/site-sidebar";
 import { site } from "@/data/site";
@@ -23,15 +25,13 @@ export default async function WorkArchivePage() {
     <main className="site-shell">
       <SiteSidebar active="work" horizontal />
       <div className="page-content work-archive-page">
-        <header className="work-archive-hero">
-          <p className="section-kicker">Selected work · 2022—2026</p>
-          <h1>Work</h1>
-          <div>
-            <p>Product interfaces, websites, visual systems, motion, and interactive 3D built for launches, releases, and evolving products.</p>
-            <span>{String(projects.length).padStart(2, "0")} projects</span>
-          </div>
+        <header className="work-archive-intro">
+          <h1>Selected work.</h1>
+          <p>Design for products, brands, and the people behind them.</p>
         </header>
+        <WorkCaseStudies projects={projects.filter(isCaseStudy)} />
         <section className="work-archive-library" aria-label="All projects">
+          <div className="work-library-heading"><h2>Explore the work</h2><span>{projects.length} projects</span></div>
           <WorkLibrary projects={projects} />
         </section>
       </div>

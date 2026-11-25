@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 
 import { getAdmin } from "@/lib/supabase/auth";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
+import { isCaseStudy } from "@/lib/case-studies";
 import { createClient } from "@/lib/supabase/server";
 import {
   blockTypes,
@@ -53,7 +54,7 @@ function validateProject(input: ProjectInput) {
     cover_video: clean(input.cover_video, 2000) || null,
     cover_video_path: clean(input.cover_video_path, 1000) || null,
     category: clean(input.category, 120),
-    tags: input.tags.map((tag) => clean(tag, 60)).filter(Boolean).slice(0, 20),
+    tags: input.tags.map((tag) => clean(tag, 60)).filter(Boolean).slice(0, isCaseStudy(input) ? 21 : 20),
     project_date: input.project_date,
     client: clean(input.client, 160) || null,
     external_url: clean(input.external_url, 2000) || null,

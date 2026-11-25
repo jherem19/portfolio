@@ -10,6 +10,7 @@ import { deleteProjectAction, saveProjectAction } from "@/app/admin/actions";
 import { CoverCropper } from "@/components/admin/cover-cropper";
 import { MediaUploader } from "@/components/admin/media-uploader";
 import { TagInput } from "@/components/admin/tag-input";
+import { isCaseStudy, setCaseStudy } from "@/lib/case-studies";
 import type { BlockType, CMSProject, MediaAsset, ProjectBlock, ProjectInput } from "@/types/cms";
 
 const RichTextEditor = dynamic(() =>
@@ -195,6 +196,10 @@ export function ProjectEditor({ project }: { project?: CMSProject | null }) {
           <label className="admin-field">
             <span>External URL</span>
             <input onChange={(event) => update("external_url", event.target.value)} placeholder="https://…" type="url" value={form.external_url ?? ""} />
+          </label>
+          <label className="admin-check admin-field-wide">
+            <input checked={isCaseStudy(form)} onChange={(event) => update("tags", setCaseStudy(form.tags, event.target.checked))} type="checkbox" />
+            <span><strong>Case study</strong> · Show this project in the case studies hero on the Work page</span>
           </label>
           <label className="admin-check admin-field-wide">
             <input checked={form.featured} onChange={(event) => update("featured", event.target.checked)} type="checkbox" />

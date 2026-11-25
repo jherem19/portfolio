@@ -4,6 +4,7 @@ import { ArrowUpRight, Plus } from "lucide-react";
 
 import { ProjectRowActions } from "@/components/admin/project-row-actions";
 import { getAdminProjects } from "@/lib/cms/projects";
+import { isCaseStudy } from "@/lib/case-studies";
 import type { ProjectSummary } from "@/types/cms";
 
 type SearchParams = { year?: string; month?: string; order?: string };
@@ -29,7 +30,7 @@ function ProjectRow({ project }: { project: ProjectSummary }) {
         <div>
         <span className={`admin-status admin-status-${project.status}`}>{project.status}</span>
         <h2><Link href={`/admin/projects/${project.id}`}>{project.title}</Link></h2>
-        <p>{project.category || "Uncategorized"} · {project.project_date}{project.featured ? " · Featured Work" : ""}{project.show_in_3d_archive ? " · 3D Archive" : ""}</p>
+        <p>{project.category || "Uncategorized"} · {project.project_date}{isCaseStudy(project) ? " · Case study" : ""}{project.featured ? " · Featured Work" : ""}{project.show_in_3d_archive ? " · 3D Archive" : ""}</p>
         </div>
       </div>
       <div className="admin-project-row-links">
