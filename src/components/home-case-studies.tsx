@@ -63,10 +63,6 @@ export function HomeCaseStudies({ projects }: { projects: CaseStudy[] }) {
       }}
     >
       <div className="home-case-banner">
-        <div className="home-case-art" key={`art-${active.slug}`} aria-hidden="true">
-          <Image src={active.cover_image} alt="" fill sizes="(max-width: 640px) 100vw, 65vw" />
-          <div className="home-case-blur"><span /><span /><span /></div>
-        </div>
         <div className="home-case-slide" key={`slide-${active.slug}`} role="group" aria-roledescription="slide" aria-label={`${activeIndex + 1} of ${projects.length}`}>
           <div className="home-case-copy">
             <p className="home-case-eyebrow">Case study <span> / {active.project_date.slice(0, 4)}</span></p>
@@ -74,6 +70,9 @@ export function HomeCaseStudies({ projects }: { projects: CaseStudy[] }) {
             <p className="home-case-description">{active.short_description}</p>
             <Link className="hero-cta hero-cta-primary" href={`/work/${active.slug}`} aria-label={`Read the case study: ${active.title}`}>Read the case study <ArrowRight aria-hidden="true" /></Link>
           </div>
+          <Link className="home-case-thumbnail" href={`/work/${active.slug}`} aria-label={`View ${displayTitle}`}>
+            <Image src={active.cover_image} alt={`${displayTitle} project preview`} width={720} height={480} sizes="(max-width: 640px) 85vw, 36vw" style={{ width: "auto", height: "auto" }} />
+          </Link>
         </div>
         {multiple ? (
           <div className="home-case-controls" aria-label="Case study navigation">
