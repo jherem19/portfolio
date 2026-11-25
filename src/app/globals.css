@@ -2033,3 +2033,8 @@ body.has-custom-cursor, body.has-custom-cursor * { cursor: none; }
  .home-case-thumbnail { justify-content: center; }
  .home-case-thumbnail img { max-height: 200px; border-radius: 14px; }
 }
+
+/* Navigation belongs with the story actions, clear of the thumbnail. */
+.home-case-copy .home-case-controls { position: static; justify-content: flex-start; margin-top: 20px; padding: 0; }
+.home-case-banner .home-case-slide { padding-bottom: 28px; }
+@media (max-width: 640px) { .home-case-banner .home-case-slide { padding-bottom: 24px; } }

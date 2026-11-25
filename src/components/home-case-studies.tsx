@@ -69,11 +69,6 @@ export function HomeCaseStudies({ projects }: { projects: CaseStudy[] }) {
             <h2>{displayTitle}</h2>
             <p className="home-case-description">{active.short_description}</p>
             <Link className="hero-cta hero-cta-primary" href={`/work/${active.slug}`} aria-label={`Read the case study: ${active.title}`}>Read the case study <ArrowRight aria-hidden="true" /></Link>
-          </div>
-          <Link className="home-case-thumbnail" href={`/work/${active.slug}`} aria-label={`View ${displayTitle}`}>
-            <Image src={active.cover_image} alt={`${displayTitle} project preview`} width={720} height={480} sizes="(max-width: 640px) 85vw, 36vw" style={{ width: "auto", height: "auto" }} />
-          </Link>
-        </div>
         {multiple ? (
           <div className="home-case-controls" aria-label="Case study navigation">
             <span className="home-case-counter" aria-live={rotating ? "off" : "polite"}>{String(activeIndex + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}</span>
@@ -82,6 +77,12 @@ export function HomeCaseStudies({ projects }: { projects: CaseStudy[] }) {
             {!reducedMotion ? <button type="button" aria-label={paused ? "Resume automatic rotation" : "Pause automatic rotation"} aria-pressed={paused} onClick={() => setPaused(!paused)}>{paused ? <Play aria-hidden="true" /> : <Pause aria-hidden="true" />}</button> : null}
           </div>
         ) : null}
+          </div>
+          <Link className="home-case-thumbnail" href={`/work/${active.slug}`} aria-label={`View ${displayTitle}`}>
+            <Image src={active.cover_image} alt={`${displayTitle} project preview`} width={720} height={480} sizes="(max-width: 640px) 85vw, 36vw" style={{ width: "auto", height: "auto" }} />
+          </Link>
+        </div>
+
       </div>
     </section>
   );
