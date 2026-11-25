@@ -6,7 +6,6 @@ import { notFound } from "next/navigation";
 
 import { SiteFooter } from "@/components/site-footer";
 import { SiteSidebar } from "@/components/site-sidebar";
-import { FeaturedProjects } from "@/components/featured-projects";
 import { isCaseStudy } from "@/lib/case-studies";
 import { ProjectBlocks } from "@/components/project-blocks";
 import { site } from "@/data/site";
@@ -139,8 +138,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
         {relatedCases.length ? (
           <section className="related-case-studies" aria-labelledby="related-cases-title">
-            <div className="related-case-heading"><p className="section-kicker">More case studies</p><h2 id="related-cases-title">Explore the thinking behind other projects.</h2></div>
-            <FeaturedProjects projects={relatedCases} pageSize={3} />
+            <div className="related-case-heading"><p className="section-kicker">More case studies</p><h2 id="related-cases-title">Keep exploring.</h2></div>
+            <div className="compact-case-links">{relatedCases.slice(0, 3).map((item) => <Link key={item.slug} href={`/work/${item.slug}`}><div className="compact-case-image"><Image src={item.cover_image} alt="" fill sizes="96px" /></div><strong>{item.title.split(/\s+[—–]\s+/)[0]}</strong><ArrowUpRight aria-hidden="true" /></Link>)}</div>
           </section>
         ) : null}
         {!isCaseStudy(project) && nextProject ? <Link className="next-project" href={`/work/${nextProject.slug}`}><span>Next project</span><strong>{nextProject.title}</strong><ArrowRight aria-hidden="true" /></Link> : null}

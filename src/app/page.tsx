@@ -101,16 +101,7 @@ export default async function Home() {
             ))}
           </div>
 
-          <aside className="agency-callout direct-callout">
-            <div>
-              <p className="section-kicker">Already have a roadmap?</p>
-              <h3>One creative partner. Every next release.</h3>
-            </div>
-            <div className="agency-callout-copy">
-              <p>I can support redesigns, new pages, product releases, launch videos, ads, graphic assets, motion, and 3D without restarting the relationship for every deliverable.</p>
-              <Link href="/services">See how projects work <ArrowUpRight aria-hidden="true" /></Link>
-            </div>
-          </aside>
+          <div className="services-detail-cta"><Link className="hero-cta hero-cta-primary" href="/services">Explore freelance services <ArrowRight aria-hidden="true" /></Link></div>
         </section>
 
         <HomeCaseStudies projects={projects.filter(isCaseStudy).sort((a, b) => b.project_date.localeCompare(a.project_date)).map(({ slug, title, short_description, cover_image, project_date }) => ({ slug, title, short_description, cover_image, project_date }))} />
@@ -125,11 +116,11 @@ export default async function Home() {
                 <Link className="hero-cta" href="/contact"><RollText text="Start a project" /></Link>
               </div>
             </div>
-            <FeaturedShowcase projects={featuredProjects} />
+            <FeaturedShowcase projects={[...featuredProjects, ...projects.filter((project) => !featuredProjects.some((item) => item.slug === project.slug))].slice(0, 24)} />
           </div>
           <nav className="portfolio-paths" aria-label="More work">
-            <Link href="/3d"><span>Dimensional work</span><strong>Explore the 3D archive</strong><ArrowUpRight aria-hidden="true" /></Link>
-            <Link href="/experiments"><span>Personal practice</span><strong>Browse experiments</strong><ArrowUpRight aria-hidden="true" /></Link>
+            <Link href="/3d"><span>Dimensional work</span><p>Spaces, objects and interactive experiences.</p><strong>Explore the 3D archive</strong><ArrowUpRight aria-hidden="true" /></Link>
+            <Link href="/experiments"><span>Personal practice</span><p>Small ideas, playful tools and explorations.</p><strong>Browse experiments</strong><ArrowUpRight aria-hidden="true" /></Link>
           </nav>
         </section>
 

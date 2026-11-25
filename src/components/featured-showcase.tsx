@@ -10,8 +10,7 @@ export function FeaturedShowcase({ projects }: { projects: ProjectSummary[] }) {
   if (projects.length === 0) return null;
 
   const rows = Array.from({ length: ROWS }, (_, row) => {
-    const offset = (row * 2) % projects.length;
-    return [...projects.slice(offset), ...projects.slice(0, offset)];
+    return projects.filter((_, index) => index % ROWS === row);
   });
 
   return (
@@ -26,11 +25,11 @@ export function FeaturedShowcase({ projects }: { projects: ProjectSummary[] }) {
                     className="showcase-tile"
                     href={`/work/${project.slug}`}
                     key={project.slug}
-                    tabIndex={copy === 1 || rowIndex > 0 ? -1 : undefined}
+                    tabIndex={copy === 1 ? -1 : undefined}
                   >
                     <Image
                       src={project.cover_image}
-                      alt={copy === 0 && rowIndex === 0 ? `${project.title} project cover` : ""}
+                      alt={copy === 0 ? `${project.title} project cover` : ""}
                       fill
                       quality={60}
                       sizes={TILE_SIZES}

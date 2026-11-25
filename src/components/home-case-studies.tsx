@@ -63,7 +63,7 @@ export function HomeCaseStudies({ projects }: { projects: CaseStudy[] }) {
       }}
     >
       <div className="home-case-banner">
-        <div className="home-case-art" aria-hidden="true">
+        <div className="home-case-art" key={active.slug} aria-hidden="true">
           <Image src={active.cover_image} alt="" fill sizes="(max-width: 640px) 100vw, 65vw" />
           <div className="home-case-blur"><span /><span /><span /></div>
         </div>
