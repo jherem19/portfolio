@@ -46,6 +46,7 @@ export function HomeCaseStudies({ projects }: { projects: CaseStudy[] }) {
   }, [rotating, index, projects.length]);
 
   if (!active) return null;
+  const displayTitle = active.title.split(/\s+[—–]\s+/)[0];
   const move = (direction: number) => setIndex((activeIndex + direction + projects.length) % projects.length);
 
   return (
@@ -62,19 +63,17 @@ export function HomeCaseStudies({ projects }: { projects: CaseStudy[] }) {
       }}
     >
       <div className="home-case-banner">
-        <div className="home-case-backdrop" aria-hidden="true">
-          <Image src={active.cover_image} alt="" fill sizes="100vw" />
+        <div className="home-case-art" aria-hidden="true">
+          <Image src={active.cover_image} alt="" fill sizes="(max-width: 640px) 100vw, 65vw" />
+          <div className="home-case-blur"><span /><span /><span /></div>
         </div>
         <div className="home-case-slide" key={active.slug} role="group" aria-roledescription="slide" aria-label={`${activeIndex + 1} of ${projects.length}`}>
           <div className="home-case-copy">
             <p className="home-case-eyebrow">Case study <span> / {active.project_date.slice(0, 4)}</span></p>
-            <h2>{active.title}</h2>
+            <h2>{displayTitle}</h2>
             <p className="home-case-description">{active.short_description}</p>
-            <Link className="hero-cta hero-cta-primary" href={`/work/${active.slug}`}>Read the case study <ArrowRight aria-hidden="true" /></Link>
+            <Link className="hero-cta hero-cta-primary" href={`/work/${active.slug}`} aria-label={`Read the case study: ${active.title}`}>Read the case study <ArrowRight aria-hidden="true" /></Link>
           </div>
-          <Link className="home-case-visual" href={`/work/${active.slug}`} aria-label={`Read ${active.title}`} tabIndex={-1}>
-            <Image src={active.cover_image} alt={`${active.title} project preview`} fill sizes="(max-width: 760px) 85vw, 42vw" />
-          </Link>
         </div>
         {multiple ? (
           <div className="home-case-controls" aria-label="Case study navigation">
