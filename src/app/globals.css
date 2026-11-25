@@ -2045,3 +2045,10 @@ body.has-custom-cursor, body.has-custom-cursor * { cursor: none; }
 .home-case-banner::before { position: absolute; z-index: 5; inset: 0; border-radius: inherit; padding: 1px; background: conic-gradient(from var(--service-shine-angle), transparent 0deg 42deg, light-dark(rgb(147 78 220 / 0), rgb(176 120 245 / 0)) 58deg, light-dark(#934edc, #b078f5) 76deg, light-dark(#190629, #faf0ff) 88deg, light-dark(#934edc, #b078f5) 100deg, light-dark(rgb(147 78 220 / 0), rgb(176 120 245 / 0)) 118deg, transparent 138deg 222deg, light-dark(rgb(147 78 220 / 0), rgb(176 120 245 / 0)) 242deg, light-dark(#b58ae5, #8550b8) 260deg, light-dark(#49206e, #e3c4ff) 270deg, light-dark(#b58ae5, #8550b8) 282deg, light-dark(rgb(147 78 220 / 0), rgb(176 120 245 / 0)) 302deg, transparent 320deg 360deg); content: ""; opacity: 1; animation: service-border-shine 5s linear infinite; pointer-events: none; transition: opacity 180ms ease; -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
 @media (max-width: 640px) { .home-case-banner .home-case-slide { grid-template-columns: 1fr; } .home-case-thumbnail img { max-height: 240px; } }
 @media (prefers-reduced-motion: reduce) { .home-case-banner::before { animation: none; } }
+
+/* A slow violet horizon behind the case-study content. */
+.home-case-banner { background: #060619; }
+.home-case-banner::after { content: ''; position: absolute; z-index: -1; inset: -35%; pointer-events: none; background: radial-gradient(ellipse at 52% 100%, #9976f4 0%, #6934df 23%, rgb(69 28 154 / 65%) 40%, transparent 63%), radial-gradient(ellipse at 90% 65%, rgb(51 53 160 / 55%), transparent 48%); transform-origin: 50% 100%; animation: case-violet-horizon 18s ease-in-out infinite alternate; }
+.home-case-banner .home-case-slide { isolation: auto; }
+@keyframes case-violet-horizon { from { transform: translate(-4%, 10%) scale(1); } to { transform: translate(5%, 3%) scale(1.08); } }
+@media (prefers-reduced-motion: reduce) { .home-case-banner::after { animation: none; } }
