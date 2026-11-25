@@ -132,7 +132,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
         <ProjectBlocks blocks={project.blocks} />
 
-        {project.external_url ? <a className="project-external-link" href={project.external_url} rel="noreferrer" target="_blank">Visit project <ArrowUpRight aria-hidden="true" /></a> : null}
+        {project.external_url ? <a className="hero-cta project-external-link" href={project.external_url} rel="noreferrer" target="_blank">Visit project <ArrowUpRight aria-hidden="true" /></a> : null}
 
         {nextProject ? <Link className="next-project" href={`/work/${nextProject.slug}`}><span>Next project</span><strong>{nextProject.title}</strong><ArrowRight aria-hidden="true" /></Link> : null}
         <footer className="project-footer"><span>Want to discuss a similar project?</span><Link href="/contact">Let&apos;s talk <ArrowUpRight aria-hidden="true" /></Link></footer>
