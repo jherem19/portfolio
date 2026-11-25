@@ -2038,3 +2038,10 @@ body.has-custom-cursor, body.has-custom-cursor * { cursor: none; }
 .home-case-copy .home-case-controls { position: static; justify-content: flex-start; margin-top: 20px; padding: 0; }
 .home-case-banner .home-case-slide { padding-bottom: 28px; }
 @media (max-width: 640px) { .home-case-banner .home-case-slide { padding-bottom: 24px; } }
+
+/* Give the artwork equal weight and keep the violet edge in motion. */
+.home-case-banner .home-case-slide { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; }
+.home-case-thumbnail img { max-height: 320px; }
+.home-case-banner::before { position: absolute; z-index: 5; inset: 0; border-radius: inherit; padding: 1px; background: conic-gradient(from var(--service-shine-angle), transparent 0deg 42deg, light-dark(rgb(147 78 220 / 0), rgb(176 120 245 / 0)) 58deg, light-dark(#934edc, #b078f5) 76deg, light-dark(#190629, #faf0ff) 88deg, light-dark(#934edc, #b078f5) 100deg, light-dark(rgb(147 78 220 / 0), rgb(176 120 245 / 0)) 118deg, transparent 138deg 222deg, light-dark(rgb(147 78 220 / 0), rgb(176 120 245 / 0)) 242deg, light-dark(#b58ae5, #8550b8) 260deg, light-dark(#49206e, #e3c4ff) 270deg, light-dark(#b58ae5, #8550b8) 282deg, light-dark(rgb(147 78 220 / 0), rgb(176 120 245 / 0)) 302deg, transparent 320deg 360deg); content: ""; opacity: 1; animation: service-border-shine 5s linear infinite; pointer-events: none; transition: opacity 180ms ease; -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+@media (max-width: 640px) { .home-case-banner .home-case-slide { grid-template-columns: 1fr; } .home-case-thumbnail img { max-height: 240px; } }
+@media (prefers-reduced-motion: reduce) { .home-case-banner::before { animation: none; } }

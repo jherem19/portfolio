@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { RollText } from "@/components/motion";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Pause, Play } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -68,7 +69,7 @@ export function HomeCaseStudies({ projects }: { projects: CaseStudy[] }) {
             <p className="home-case-eyebrow">Case study <span> / {active.project_date.slice(0, 4)}</span></p>
             <h2>{displayTitle}</h2>
             <p className="home-case-description">{active.short_description}</p>
-            <Link className="hero-cta hero-cta-primary" href={`/work/${active.slug}`} aria-label={`Read the case study: ${active.title}`}>Read the case study <ArrowRight aria-hidden="true" /></Link>
+            <Link className="hero-cta hero-cta-primary" href={`/work/${active.slug}`} aria-label={`Read the case study: ${active.title}`}><RollText text="Read the case study" /> <ArrowRight aria-hidden="true" /></Link>
         {multiple ? (
           <div className="home-case-controls" aria-label="Case study navigation">
             <span className="home-case-counter" aria-live={rotating ? "off" : "polite"}>{String(activeIndex + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}</span>
