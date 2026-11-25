@@ -2052,3 +2052,8 @@ body.has-custom-cursor, body.has-custom-cursor * { cursor: none; }
 .home-case-banner .home-case-slide { isolation: auto; }
 @keyframes case-violet-horizon { from { transform: translate(-4%, 10%) scale(1); } to { transform: translate(5%, 3%) scale(1.08); } }
 @media (prefers-reduced-motion: reduce) { .home-case-banner::after { animation: none; } }
+
+/* Feather the mosaic around the copy, without a straight vertical cutoff. */
+@media (min-width: 901px) {
+ .showcase-rows { left: 30%; -webkit-mask-image: radial-gradient(ellipse 70% 85% at 0% 50%, transparent 0%, rgb(0 0 0 / 2%) 20%, rgb(0 0 0 / 10%) 35%, rgb(0 0 0 / 30%) 48%, rgb(0 0 0 / 60%) 62%, rgb(0 0 0 / 85%) 77%, #000 100%); mask-image: radial-gradient(ellipse 70% 85% at 0% 50%, transparent 0%, rgb(0 0 0 / 2%) 20%, rgb(0 0 0 / 10%) 35%, rgb(0 0 0 / 30%) 48%, rgb(0 0 0 / 60%) 62%, rgb(0 0 0 / 85%) 77%, #000 100%); }
+}
