@@ -144,6 +144,7 @@ export async function saveProjectAction(input: ProjectInput): Promise<AdminActio
     revalidatePath("/sitemap.xml");
     revalidatePath("/llms.txt");
     revalidatePath("/admin/projects");
+    revalidatePath("/admin/case-studies");
     return { ok: true, id: String(data) };
   } catch (error) {
     return { ok: false, error: error instanceof Error ? error.message : "Unable to save the project." };
@@ -164,9 +165,11 @@ export async function setProjectStatusAction(
     if (error) throw error;
     revalidatePath("/");
     revalidatePath("/3d");
+    revalidatePath("/work", "layout");
     revalidatePath("/sitemap.xml");
     revalidatePath("/llms.txt");
     revalidatePath("/admin/projects");
+    revalidatePath("/admin/case-studies");
     return { ok: true, id };
   } catch (error) {
     return { ok: false, error: error instanceof Error ? error.message : "Unable to change the status." };
@@ -184,6 +187,7 @@ export async function setProjectFeaturedAction(id: string, featured: boolean): P
     revalidatePath("/sitemap.xml");
     revalidatePath("/llms.txt");
     revalidatePath("/admin/projects");
+    revalidatePath("/admin/case-studies");
     return { ok: true, id };
   } catch (error) {
     return { ok: false, error: error instanceof Error ? error.message : "Unable to change Featured Work." };
@@ -220,9 +224,11 @@ export async function deleteProjectAction(id: string): Promise<AdminActionResult
 
     revalidatePath("/");
     revalidatePath("/3d");
+    revalidatePath("/work", "layout");
     revalidatePath("/sitemap.xml");
     revalidatePath("/llms.txt");
     revalidatePath("/admin/projects");
+    revalidatePath("/admin/case-studies");
     return { ok: true };
   } catch (error) {
     return { ok: false, error: error instanceof Error ? error.message : "Unable to delete the project." };

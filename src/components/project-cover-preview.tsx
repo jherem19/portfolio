@@ -4,6 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import { type CSSProperties, type PointerEvent, useRef, useState } from "react";
 
+import { isCaseStudy } from "@/lib/case-studies";
 import type { ProjectSummary } from "@/types/cms";
 
 const COVER_SIZES = "(max-width: 760px) calc(100vw - 40px), (max-width: 1050px) calc((100vw - 346px) / 2), calc((100vw - 300px - 14vw - 28px) / 2)";
@@ -86,6 +87,7 @@ export function ProjectCoverPreview({ project }: { project: ProjectSummary }) {
           onPlaying={() => pointerIsInside.current && setIsPlaying(true)}
         />
       ) : null}
+      {isCaseStudy(project) ? <span className="case-study-badge work-case-study-badge">Case study</span> : null}
       <span className="work-open"><ArrowUpRight aria-hidden="true" /></span>
     </div>
   );

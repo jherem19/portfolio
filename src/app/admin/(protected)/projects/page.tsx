@@ -28,6 +28,7 @@ function ProjectRow({ project }: { project: ProjectSummary }) {
           ) : null}
         </Link>
         <div>
+        {isCaseStudy(project) ? <span className="case-study-badge admin-case-study-badge">Case study</span> : null}
         <span className={`admin-status admin-status-${project.status}`}>{project.status}</span>
         <h2><Link href={`/admin/projects/${project.id}`}>{project.title}</Link></h2>
         <p>{project.category || "Uncategorized"} · {project.project_date}{isCaseStudy(project) ? " · Case study" : ""}{project.featured ? " · Featured Work" : ""}{project.show_in_3d_archive ? " · 3D Archive" : ""}</p>
@@ -42,9 +43,10 @@ function ProjectRow({ project }: { project: ProjectSummary }) {
   );
 }
 
-export default async function AdminProjectsPage({ searchParams }: { searchParams: Promise<SearchParams> }) {
+export default async function AdminProjectsPage({ searchParams, caseStudiesOnly = false }: { searchParams: Promise<SearchParams>; caseStudiesOnly?: boolean }) {
+  const basePath = caseStudiesOnly ? "/admin/case-studies" : "/admin/projects";
   const { year = "", month = "", order = "newest" } = await searchParams;
-  const all = await getAdminProjects();
+  const all = (await getAdminProjects()).filter((project) => !caseStudiesOnly || isCaseStudy(project));
 
   const years = [...new Set(all.map((project) => project.project_date.slice(0, 4)))].sort((a, b) => b.localeCompare(a));
   const direction = order === "oldest" ? 1 : -1;
@@ -59,8 +61,8 @@ export default async function AdminProjectsPage({ searchParams }: { searchParams
   return (
     <div>
       <header className="admin-page-heading">
-        <div><p className="section-kicker">Portfolio CMS</p><h1>Projects</h1><p>{filtering ? `${filtered.length} of ${all.length}` : all.length} projects across drafts and published work.</p></div>
-        <Link className="admin-button admin-button-primary" href="/admin/projects/new"><Plus aria-hidden="true" /> New project</Link>
+        <div><p className="section-kicker">Portfolio CMS</p><h1>{caseStudiesOnly ? "Case studies" : "Projects"}</h1><p>{filtering ? `${filtered.length} of ${all.length}` : all.length} {caseStudiesOnly ? "case studies" : "projects"} across drafts and published work.</p></div>
+        <Link className="admin-button admin-button-primary" href={caseStudiesOnly ? "/admin/case-studies/new" : "/admin/projects/new"}><Plus aria-hidden="true" /> {caseStudiesOnly ? "New case study" : "New project"}</Link>
       </header>
 
       <form className="admin-filter-bar" method="get">
@@ -74,7 +76,7 @@ export default async function AdminProjectsPage({ searchParams }: { searchParams
           <select defaultValue={order} name="order"><option value="newest">Newest first</option><option value="oldest">Oldest first</option></select>
         </label>
         <button className="admin-button admin-button-primary" type="submit">Filter</button>
-        {filtering ? <Link className="admin-button" href="/admin/projects">Clear</Link> : null}
+        {filtering ? <Link className="admin-button" href={basePath}>Clear</Link> : null}
       </form>
 
       {featured.length ? (
@@ -87,8 +89,8 @@ export default async function AdminProjectsPage({ searchParams }: { searchParams
       <section className="admin-project-group">
         <h2 className="admin-group-title">{featured.length ? "Other projects" : "All projects"} <span>{others.length}</span></h2>
         <div className="admin-project-table">
-          {others.length ? others.map((project) => <ProjectRow key={project.id} project={project} />) : filtered.length ? <div className="admin-empty-state"><p>Every matching project is featured.</p></div> : (
-            <div className="admin-empty-state"><p>{all.length ? "No projects match these filters." : "No projects yet."}</p>{all.length ? <Link className="admin-button" href="/admin/projects">Clear filters</Link> : <Link className="admin-button admin-button-primary" href="/admin/projects/new">Create the first project</Link>}</div>
+          {others.length ? others.map((project) => <ProjectRow key={project.id} project={project} />) : filtered.length ? <div className="admin-empty-state"><p>Every matching item is featured.</p></div> : (
+            <div className="admin-empty-state"><p>{all.length ? "No projects match these filters." : "No projects yet."}</p>{all.length ? <Link className="admin-button" href={basePath}>Clear filters</Link> : <Link className="admin-button admin-button-primary" href={caseStudiesOnly ? "/admin/case-studies/new" : "/admin/projects/new"}>Create the first project</Link>}</div>
           )}
         </div>
       </section>

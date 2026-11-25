@@ -70,9 +70,12 @@ function emptyBlock(type: BlockType, position: number): ProjectBlock {
   return { type, position, data: {} };
 }
 
-export function ProjectEditor({ project }: { project?: CMSProject | null }) {
+export function ProjectEditor({ project, defaultCaseStudy = false }: { project?: CMSProject | null; defaultCaseStudy?: boolean }) {
   const router = useRouter();
-  const [form, setForm] = useState<ProjectInput>(() => emptyProject(project));
+  const [form, setForm] = useState<ProjectInput>(() => {
+    const initial = emptyProject(project);
+    return !project && defaultCaseStudy ? { ...initial, tags: setCaseStudy(initial.tags, true) } : initial;
+  });
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [pending, startTransition] = useTransition();
@@ -199,7 +202,7 @@ export function ProjectEditor({ project }: { project?: CMSProject | null }) {
           </label>
           <label className="admin-check admin-field-wide">
             <input checked={isCaseStudy(form)} onChange={(event) => update("tags", setCaseStudy(form.tags, event.target.checked))} type="checkbox" />
-            <span><strong>Case study</strong> · Show this project in the case studies hero on the Work page</span>
+            <span><strong>Case study</strong> · Include this project in the case study banners, recommendations and CMS tab</span>
           </label>
           <label className="admin-check admin-field-wide">
             <input checked={form.featured} onChange={(event) => update("featured", event.target.checked)} type="checkbox" />

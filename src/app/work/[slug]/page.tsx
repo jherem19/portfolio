@@ -6,6 +6,8 @@ import { notFound } from "next/navigation";
 
 import { SiteFooter } from "@/components/site-footer";
 import { SiteSidebar } from "@/components/site-sidebar";
+import { FeaturedProjects } from "@/components/featured-projects";
+import { isCaseStudy } from "@/lib/case-studies";
 import { ProjectBlocks } from "@/components/project-blocks";
 import { site } from "@/data/site";
 import { getPublishedProject, getPublishedProjects } from "@/lib/cms/projects";
@@ -56,6 +58,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
   const projectIndex = projects.findIndex((item) => item.slug === project.slug);
   const nextProject = projects[(projectIndex + 1) % projects.length];
+  const relatedCases = isCaseStudy(project) ? projects.filter((item) => item.slug !== project.slug && isCaseStudy(item)) : [];
   const projectUrl = `${site.url}/work/${project.slug}`;
 
   return (
@@ -134,7 +137,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
         {project.external_url ? <a className="hero-cta project-external-link" href={project.external_url} rel="noreferrer" target="_blank">Visit project <ArrowUpRight aria-hidden="true" /></a> : null}
 
-        {nextProject ? <Link className="next-project" href={`/work/${nextProject.slug}`}><span>Next project</span><strong>{nextProject.title}</strong><ArrowRight aria-hidden="true" /></Link> : null}
+        {relatedCases.length ? (
+          <section className="related-case-studies" aria-labelledby="related-cases-title">
+            <div className="related-case-heading"><p className="section-kicker">More case studies</p><h2 id="related-cases-title">Explore the thinking behind other projects.</h2></div>
+            <FeaturedProjects projects={relatedCases} pageSize={3} />
+          </section>
+        ) : null}
+        {!isCaseStudy(project) && nextProject ? <Link className="next-project" href={`/work/${nextProject.slug}`}><span>Next project</span><strong>{nextProject.title}</strong><ArrowRight aria-hidden="true" /></Link> : null}
         <footer className="project-footer"><span>Want to discuss a similar project?</span><Link href="/contact">Let&apos;s talk <ArrowUpRight aria-hidden="true" /></Link></footer>
       </article>
       <SiteFooter />
