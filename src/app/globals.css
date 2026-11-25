@@ -2013,3 +2013,12 @@ body.has-custom-cursor, body.has-custom-cursor * { cursor: none; }
   .portfolio-home .portfolio-paths { width: calc(100% - 24px); margin-top: 32px; }
   .portfolio-home .about-panel { padding-top: 32px; }
 }
+
+/* Slowly moving violet/blue field, with a brief warm accent. */
+.bento-card.bento-accent { isolation: isolate; background: #30205f; color: #fff; }
+.bento-accent p { color: rgb(255 255 255 / 86%); }
+.bento-accent::before { content: ''; position: absolute; z-index: -1; inset: -45%; background: radial-gradient(ellipse at 25% 30%, #9860ed, transparent 55%), radial-gradient(ellipse at 75% 70%, #2865d8, transparent 60%), #483080; animation: bento-gradient-drift 18s ease-in-out infinite alternate; }
+.bento-accent::after { content: ''; position: absolute; z-index: -1; inset: -20%; background: radial-gradient(ellipse at 85% 80%, #e98b56, transparent 58%); opacity: 0; animation: bento-gradient-warmth 24s ease-in-out infinite; pointer-events: none; }
+@keyframes bento-gradient-drift { from { transform: translate(-6%, -4%) rotate(-12deg); } to { transform: translate(6%, 4%) rotate(16deg); } }
+@keyframes bento-gradient-warmth { 0%, 45%, 100% { opacity: 0; } 65%, 75% { opacity: .7; } }
+@media (prefers-reduced-motion: reduce) { .bento-accent::before, .bento-accent::after { animation: none; } }
