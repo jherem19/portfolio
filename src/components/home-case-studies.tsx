@@ -75,7 +75,7 @@ export function HomeCaseStudies({ projects }: { projects: CaseStudy[] }) {
         {(multiple ? [...projects, projects[0]] : projects).map((project, slideIndex) => {
           const displayTitle = project.title.split(/\s+[—–]\s+/)[0];
           return (
-      <div className="home-case-banner" key={`${project.slug}-${slideIndex}`} inert={slideIndex !== activeIndex} aria-hidden={slideIndex !== activeIndex}>
+      <div className="home-case-banner" data-active={slideIndex === activeIndex} key={`${project.slug}-${slideIndex}`} inert={slideIndex !== activeIndex} aria-hidden={slideIndex !== activeIndex}>
         <div className="home-case-slide" role="group" aria-roledescription="slide" aria-label={`${slideIndex + 1} of ${projects.length}`}>
           <div className="home-case-copy">
             <p className="home-case-eyebrow">Case study <span> / {project.project_date.slice(0, 4)}</span></p>

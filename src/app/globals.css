@@ -2226,3 +2226,12 @@ button, input, select, textarea, code, pre, kbd { font-family: var(--font-geist)
 @media (max-width: 900px) { .home-case-frame.has-multiple { --case-card-width: 92%; } }
 @media (max-width: 640px) { .home-case-frame { --case-card-gap: 16px; } .home-case-frame.has-multiple { --case-card-width: 94%; } .home-case-track .home-case-thumbnail img { max-height: 240px; } }
 @media (prefers-reduced-motion: reduce) { .home-case-track { transition: none; } }
+
+/* Only the current story carries the violet atmosphere. */
+.home-case-track > .home-case-banner { background: #101010; }
+.home-case-track > .home-case-banner::after { opacity: 0; transition: opacity 650ms ease; animation-play-state: paused; }
+.home-case-track > .home-case-banner::before { opacity: 0; animation-play-state: paused; }
+.home-case-track > .home-case-banner[data-active="true"] { background: #060619; }
+.home-case-track > .home-case-banner[data-active="true"]::after { opacity: 1; animation-play-state: running; }
+.home-case-track > .home-case-banner[data-active="true"]::before { opacity: 1; animation-play-state: running; }
+@media (prefers-reduced-motion: reduce) { .home-case-track > .home-case-banner::after { transition: none; } }
