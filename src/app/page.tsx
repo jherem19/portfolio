@@ -88,16 +88,17 @@ export default async function Home() {
 
           <div className="services-list">
             {[
-              { title: "Launch & redesign", summary: "UI, websites and brand systems, ready to launch." },
-              { title: "Ongoing design", summary: "A creative partner for your next releases." },
-              { title: "3D & motion", summary: "Interactive experiences and visuals in motion." },
+              { icon: PenTool, href: "/services#project-fit", title: "Launch & redesign", summary: "UI, websites and brand systems, ready to launch." },
+              { icon: Clapperboard, href: "/services#engagement-options", title: "Ongoing design", summary: "A creative partner for your next releases." },
+              { icon: Box, href: "/services#relevant-work", title: "3D & motion", summary: "Interactive experiences and visuals in motion." },
             ].map((service) => (
-              <article className="service-brief" key={service.title}>
+              <Link className="service-brief service-option" href={service.href} key={service.title}>
+                <div className="service-option-top"><service.icon aria-hidden="true" /><span className="service-option-indicator"><ArrowUpRight aria-hidden="true" /></span></div>
                 <div className="service-brief-title">
                   <h3>{service.title}</h3>
                 </div>
                 <p className="service-description">{service.summary}</p>
-              </article>
+              </Link>
             ))}
           </div>
 
