@@ -2276,3 +2276,15 @@ button, input, select, textarea, code, pre, kbd { font-family: var(--font-geist)
 
 /* Equal-size editorial cards with continuous motion and manual arrow navigation. */
 .featured-editorial-rail { scroll-snap-type: none; }
+
+/* Fade the next case into the page instead of cutting it off at the rail edge. */
+.home-case-frame.has-multiple .home-case-track {
+  -webkit-mask-image: linear-gradient(to right, #000 0%, #000 84%, rgb(0 0 0 / 94%) 88%, rgb(0 0 0 / 65%) 93%, rgb(0 0 0 / 20%) 97%, transparent 100%);
+  mask-image: linear-gradient(to right, #000 0%, #000 84%, rgb(0 0 0 / 94%) 88%, rgb(0 0 0 / 65%) 93%, rgb(0 0 0 / 20%) 97%, transparent 100%);
+}
+@media (max-width: 900px) {
+  .home-case-frame.has-multiple .home-case-track {
+    -webkit-mask-image: linear-gradient(to right, #000 0%, #000 94%, transparent 100%);
+    mask-image: linear-gradient(to right, #000 0%, #000 94%, transparent 100%);
+  }
+}
