@@ -1,12 +1,13 @@
+import { ArticleRecommendations } from "@/components/article-recommendations";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { notFound } from "next/navigation";
 
 import { SiteFooter } from "@/components/site-footer";
 import { SiteSidebar } from "@/components/site-sidebar";
-import { isCaseStudy, compareCaseStudies, visibleProjectTags } from "@/lib/case-studies";
+import { isCaseStudy, visibleProjectTags } from "@/lib/case-studies";
 import { ProjectBlocks } from "@/components/project-blocks";
 import { site } from "@/data/site";
 import { getPublishedProject, getPublishedProjects } from "@/lib/cms/projects";
@@ -49,15 +50,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const [project, projects] = await Promise.all([
-    getPublishedProject(slug),
-    getPublishedProjects(),
-  ]);
+  const project = await getPublishedProject(slug);
   if (!project) notFound();
 
-  const projectIndex = projects.findIndex((item) => item.slug === project.slug);
-  const nextProject = projects[(projectIndex + 1) % projects.length];
-  const relatedCases = isCaseStudy(project) ? projects.filter((item) => item.slug !== project.slug && isCaseStudy(item)).sort(compareCaseStudies) : [];
   const projectUrl = `${site.url}/work/${project.slug}`;
 
   return (
@@ -136,13 +131,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
         {project.external_url ? <a className="hero-cta project-external-link" href={project.external_url} rel="noreferrer" target="_blank">Visit project <ArrowUpRight aria-hidden="true" /></a> : null}
 
-        {relatedCases.length ? (
-          <section className="related-case-studies" aria-labelledby="related-cases-title">
-            <div className="related-case-heading"><p className="section-kicker">More case studies</p><h2 id="related-cases-title">Keep exploring.</h2></div>
-            <div className="compact-case-links">{relatedCases.slice(0, 3).map((item) => <Link key={item.slug} href={`/work/${item.slug}`}><div className="compact-case-image"><Image src={item.cover_image} alt="" fill sizes="96px" /></div><strong>{item.title.split(/\s+[—–]\s+/)[0]}</strong><ArrowUpRight aria-hidden="true" /></Link>)}</div>
-          </section>
-        ) : null}
-        {!isCaseStudy(project) && nextProject ? <Link className="next-project" href={`/work/${nextProject.slug}`}><span>Next project</span><strong>{nextProject.title}</strong><ArrowRight aria-hidden="true" /></Link> : null}
+        <ArticleRecommendations currentSlug={project.slug} caseStudiesOnly={isCaseStudy(project)} />
         <footer className="project-footer"><span>Want to discuss a similar project?</span><Link href="/contact">Let&apos;s talk <ArrowUpRight aria-hidden="true" /></Link></footer>
       </article>
       <SiteFooter />

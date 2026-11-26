@@ -1,3 +1,4 @@
+import { ArticleRecommendations } from "@/components/article-recommendations";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
@@ -44,6 +45,7 @@ export default function AEBridgePage() {
         </section>
         <section className="resource-detail-section" aria-labelledby="bridge-beta"><h2 id="bridge-beta">A beta, with clear limits.</h2><p>Conversion has been tested in After Effects 26.5 on Windows. This release adds layers with each transfer; it does not sync or replace existing layers. Gradients simplify to solid fills, and unsupported effects or geometry may be simplified or rasterized. Review the import report and your result.</p><p>Imported PNGs stay on disk so AE can reference them. Keep the assets folder when moving projects. The installer is currently unsigned.</p></section>
         <section className="resource-detail-section" id="privacy" aria-labelledby="bridge-privacy"><h2 id="bridge-privacy">Privacy and support.</h2><p>AE Bridge does not require a plugin account and has no telemetry. Connection codes are stored in Figma plugin storage on this device; keep yours private. The local companion stores generated PNGs and transfer scripts on your computer. Clearing Figma&apos;s local storage may require pairing again.</p><a className="resource-text-link" href="mailto:hectorheredia19@gmail.com"><Mail aria-hidden="true" /> hectorheredia19@gmail.com</a></section>
+        <ArticleRecommendations />
       </div>
       <SiteFooter />
     </main>

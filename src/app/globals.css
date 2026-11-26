@@ -2109,3 +2109,24 @@ button, input, select, textarea, code, pre, kbd { font-family: var(--font-geist)
 @media (max-width: 640px) {
   .portfolio-home { --home-section-gap: 64px; --home-heading-gap: 32px; --home-gutter: 20px; }
 }
+
+/* Editorial recommendations shared by articles, projects and case studies. */
+.article-recommendations { width: min(100%, 1040px); margin: clamp(56px, 7vw, 96px) auto 0; padding: 0 0 32px; }
+.article-recommendations > h2 { margin: 0 0 36px; font-family: var(--font-geist), sans-serif; font-size: clamp(26px, 3vw, 36px); line-height: 1.15; font-weight: 650; letter-spacing: -.035em; }
+.article-recommendation { display: grid; grid-template-columns: minmax(160px, 240px) minmax(0, 1fr); gap: 32px; align-items: center; padding: 28px 0; }
+.article-recommendation + .article-recommendation { border-top: 1px solid var(--line); }
+.article-recommendation-image { position: relative; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 14px; background: var(--panel); }
+.article-recommendation-image img { object-fit: cover; transition: transform 450ms ease; }
+.article-recommendation:hover img { transform: scale(1.025); }
+.article-recommendation-copy > span { display: block; margin-bottom: 8px; color: var(--muted); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+.article-recommendation-copy h3 { margin: 0 0 12px; font-size: clamp(21px, 2.4vw, 29px); line-height: 1.2; letter-spacing: -.025em; font-weight: 600; text-wrap: pretty; }
+.article-recommendation-copy time { color: var(--muted); font-size: 15px; }
+@media (max-width: 600px) {
+ .article-recommendations > h2 { margin-bottom: 16px; }
+ .article-recommendation { grid-template-columns: 100px minmax(0, 1fr); gap: 18px; padding: 24px 0; align-items: start; }
+ .article-recommendation-copy h3 { font-size: 18px; margin-bottom: 8px; }
+ .article-recommendation-copy > span { font-size: 10px; margin-bottom: 5px; }
+ .article-recommendation-copy time { font-size: 12px; }
+ .article-recommendation-image { border-radius: 10px; }
+}
+@media (prefers-reduced-motion: reduce) { .article-recommendation-image img { transition: none; } }
