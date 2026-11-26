@@ -26,7 +26,7 @@
   --tracking-display: -.045em;
   --tracking-heading: -.025em;
   --background: light-dark(#f3f4f4, #0b0c0c);
-  --foreground: light-dark(#10110d, #f1f2ee);
+  --foreground: light-dark(#10110d, #ffffff);
   --panel: light-dark(#edefee, #101211);
   --panel-soft: light-dark(#e7eae9, #151817);
   --muted: light-dark(#6b6f69, #929690);
@@ -2195,3 +2195,7 @@ button, input, select, textarea, code, pre, kbd { font-family: var(--font-geist)
 .home-case-frame > .home-case-controls button:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
 .home-case-banner .home-case-copy h2 { font-size: var(--type-feature); line-height: var(--leading-heading); letter-spacing: var(--tracking-display); font-weight: 500; }
 @media (max-width: 640px) { .home-case-banner .home-case-copy h2 { font-size: var(--type-feature); line-height: var(--leading-heading); letter-spacing: var(--tracking-display); font-weight: 500; } }
+
+/* Pure white headlines on dark surfaces; retain dark text in light mode. */
+:root:not([data-theme="light"]) .site-shell :is(h1, h2, h3, h4, h5, h6) { color: #ffffff; }
+.home-case-banner :is(h2, h3), .work-story :is(h2, h3), .site-footer-invite h2 { color: #ffffff; }
