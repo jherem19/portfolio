@@ -3,8 +3,8 @@
 import Image from "next/image";
 import { RollText } from "@/components/motion";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Pause, Play } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { ArrowRight, Pause, Play } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { ProjectSummary } from "@/types/cms";
 
 type CaseStudy = Pick<ProjectSummary, "slug" | "title" | "short_description" | "cover_image" | "project_date">;
@@ -18,6 +18,7 @@ export function HomeCaseStudies({ projects }: { projects: CaseStudy[] }) {
   const [visible, setVisible] = useState(false);
   const [pageVisible, setPageVisible] = useState(true);
   const sectionRef = useRef<HTMLElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
   const multiple = projects.length > 1;
   const activeIndex = index % Math.max(projects.length, 1);
   const active = projects[activeIndex];
@@ -39,15 +40,21 @@ export function HomeCaseStudies({ projects }: { projects: CaseStudy[] }) {
     };
   }, []);
 
+  const moveTo = useCallback((next: number) => {
+    const track = trackRef.current;
+    const card = track?.children[next] as HTMLElement | undefined;
+    const first = track?.children[0] as HTMLElement | undefined;
+    if (track && card && first) track.scrollTo({ left: card.offsetLeft - first.offsetLeft, behavior: reducedMotion ? "instant" : "smooth" });
+  }, [reducedMotion]);
+
   const rotating = multiple && !paused && !hovered && !focused && !reducedMotion && visible && pageVisible;
   useEffect(() => {
     if (!rotating) return;
-    const timer = window.setTimeout(() => setIndex((current) => (current + 1) % projects.length), 6500);
+    const timer = window.setTimeout(() => moveTo((activeIndex + 1) % projects.length), 6500);
     return () => window.clearTimeout(timer);
-  }, [rotating, index, projects.length]);
+  }, [rotating, activeIndex, projects.length, moveTo]);
 
   if (!active) return null;
-  const move = (direction: number) => setIndex((activeIndex + direction + projects.length) % projects.length);
 
   return (
     <section
@@ -65,14 +72,24 @@ export function HomeCaseStudies({ projects }: { projects: CaseStudy[] }) {
       <div className={`home-case-frame${multiple ? " has-multiple" : ""}`}>
         {multiple ? (
           <div className="home-case-controls" aria-label="Case study navigation">
-            <span className="home-case-counter" aria-live={rotating ? "off" : "polite"}>{String(activeIndex + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}</span>
-            <button type="button" aria-label="Previous case study" onClick={() => move(-1)}><ArrowLeft aria-hidden="true" /></button>
-            <button type="button" aria-label="Next case study" onClick={() => move(1)}><ArrowRight aria-hidden="true" /></button>
+            {projects.map((project, dotIndex) => <button className="home-case-dot" key={project.slug} type="button" aria-label={`Show case study: ${project.title}`} aria-current={dotIndex === activeIndex ? "true" : undefined} onClick={() => moveTo(dotIndex)}><span /></button>)}
             {!reducedMotion ? <button type="button" aria-label={paused ? "Resume automatic rotation" : "Pause automatic rotation"} aria-pressed={paused} onClick={() => setPaused(!paused)}>{paused ? <Play aria-hidden="true" /> : <Pause aria-hidden="true" />}</button> : null}
           </div>
         ) : null}
-      <div className="home-case-track" style={{ transform: `translateX(calc(-${activeIndex} * (var(--case-card-width) + var(--case-card-gap))))` }}>
-        {(multiple ? [...projects, projects[0]] : projects).map((project, slideIndex) => {
+      <div className="home-case-track" ref={trackRef} tabIndex={0} aria-label="Scroll case studies horizontally" onScroll={() => {
+        const track = trackRef.current;
+        if (!track) return;
+        const first = track.children[0] as HTMLElement;
+        let nearest = 0;
+        let distance = Infinity;
+        projects.forEach((_, candidate) => {
+          const card = track.children[candidate] as HTMLElement;
+          const delta = Math.abs(card.offsetLeft - first.offsetLeft - track.scrollLeft);
+          if (delta < distance) { distance = delta; nearest = candidate; }
+        });
+        setIndex(nearest);
+      }}>
+        {projects.map((project, slideIndex) => {
           const displayTitle = project.title.split(/\s+[—–]\s+/)[0];
           return (
       <div className="home-case-banner" data-active={slideIndex === activeIndex} key={`${project.slug}-${slideIndex}`} inert={slideIndex !== activeIndex} aria-hidden={slideIndex !== activeIndex}>

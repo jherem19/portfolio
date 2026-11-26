@@ -2235,3 +2235,13 @@ button, input, select, textarea, code, pre, kbd { font-family: var(--font-geist)
 .home-case-track > .home-case-banner[data-active="true"]::after { opacity: 1; animation-play-state: running; }
 .home-case-track > .home-case-banner[data-active="true"]::before { opacity: 1; animation-play-state: running; }
 @media (prefers-reduced-motion: reduce) { .home-case-track > .home-case-banner::after { transition: none; } }
+
+/* Native horizontal scrolling keeps touch, trackpad and keyboard navigation aligned. */
+.home-case-track { position: relative; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; transition: none; padding-bottom: 2px; }
+.home-case-track::-webkit-scrollbar { display: none; }
+.home-case-track > .home-case-banner { scroll-snap-align: start; }
+.home-case-frame.has-multiple .home-case-track::after { content: ""; flex: 0 0 calc(100% - var(--case-card-width) - var(--case-card-gap)); }
+.home-case-frame > .home-case-controls { gap: 0; }
+.home-case-frame > .home-case-controls .home-case-dot { width: 26px; height: 32px; }
+.home-case-dot span { width: 5px; height: 5px; border-radius: 50%; background: currentColor; opacity: .35; transition: opacity 180ms ease, transform 180ms ease; }
+.home-case-dot[aria-current="true"] span { opacity: 1; transform: scale(1.4); }
