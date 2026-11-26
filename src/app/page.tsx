@@ -18,7 +18,7 @@ export const revalidate = 60;
 
 export default async function Home() {
   const projects = await getPublishedProjects();
-  const featuredProjects = projects.filter((project) => project.featured).slice(0, 6);
+  const featuredProjects = projects.filter((project) => project.featured);
   const rotatorSource = featuredProjects.length ? featuredProjects : projects.slice(0, 1);
   const rotatorProjects = rotatorSource.map(({ slug, title, cover_image, cover_position_x, cover_position_y }) => ({ slug, title, cover_image, cover_position_x, cover_position_y }));
   return (
@@ -117,7 +117,7 @@ export default async function Home() {
                 <Link className="hero-cta" href="/contact"><RollText text="Start a project" /></Link>
               </div>
             </div>
-            <FeaturedShowcase projects={[...featuredProjects, ...projects.filter((project) => !featuredProjects.some((item) => item.slug === project.slug))].slice(0, 24)} />
+            <FeaturedShowcase projects={featuredProjects} />
           </div>
         </section>
 
