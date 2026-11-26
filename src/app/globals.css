@@ -2147,3 +2147,7 @@ button, input, select, textarea, code, pre, kbd { font-family: var(--font-geist)
 .nav-work-submenu a:is(:hover, :focus-visible) { background: var(--surface-raised); color: var(--foreground); }
 @media (max-width: 760px) { .nav-work-submenu { position: static; width: auto; margin: 0 12px 8px; background: var(--surface); box-shadow: none; } }
 @media (prefers-reduced-motion: reduce) { .nav-work-chevron { transition: none; } }
+
+/* Keep the pointer inside the disclosure while crossing the visual gap. */
+.nav-work-submenu::before { content: ''; position: absolute; inset: -12px 0 100%; }
+@media (max-width: 760px) { .nav-work-submenu::before { display: none; } }

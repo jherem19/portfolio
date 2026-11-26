@@ -116,8 +116,8 @@ export function SiteSidebar({ active = "home", horizontal = false }: { active?: 
         {items.map((item) => {
           const Icon = item.icon;
           if (item.key === "work") return (
-            <div className="nav-work-group" key={item.key} ref={workRef} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setWorkOpen(false); }}>
-              <button className={`sidebar-link nav-work-trigger${current === "work" || current === "3d" ? " is-active" : ""}`} ref={workButtonRef} type="button" aria-expanded={workOpen} aria-controls="work-subnavigation" onClick={() => setWorkOpen(!workOpen)}>
+            <div className="nav-work-group" key={item.key} ref={workRef} onPointerEnter={(event) => { if (event.pointerType === "mouse") setWorkOpen(true); }} onPointerLeave={(event) => { if (event.pointerType === "mouse" && !event.currentTarget.contains(document.activeElement)) setWorkOpen(false); }} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setWorkOpen(false); }}>
+              <button className={`sidebar-link nav-work-trigger${current === "work" || current === "3d" ? " is-active" : ""}`} ref={workButtonRef} type="button" aria-expanded={workOpen} aria-controls="work-subnavigation" onClick={() => setWorkOpen((open) => window.matchMedia("(hover: hover) and (pointer: fine)").matches ? true : !open)}>
                 <Icon aria-hidden="true" /><RollText text="Work" /><ChevronDown className="nav-work-chevron" aria-hidden="true" />
               </button>
               <div className="nav-work-submenu" id="work-subnavigation" hidden={!workOpen}>
