@@ -34,10 +34,6 @@ export default async function Home() {
               <Link className="hero-cta hero-cta-primary" href="/contact"><Mail aria-hidden="true" /> <RollText text="Discuss a project" /></Link>
               <a className="hero-cta" href="#services"><RollText text="Explore services" /> <ArrowRight aria-hidden="true" /></a>
             </div>
-            <nav className="hero-paths" aria-label="Explore more work">
-              <Link href="/3d"><RollText text="Explore the 3D archive" /><ArrowUpRight aria-hidden="true" /></Link>
-              <Link href="/experiments"><RollText text="Browse experiments" /><ArrowUpRight aria-hidden="true" /></Link>
-            </nav>
           </div>
 
           <ScrollCue />

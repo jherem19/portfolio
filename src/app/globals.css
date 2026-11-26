@@ -2135,3 +2135,15 @@ button, input, select, textarea, code, pre, kbd { font-family: var(--font-geist)
 .home-case-thumbnail { width: min(100%, 440px); justify-self: end; }
 .home-case-thumbnail img { width: 100%; height: auto; }
 @media (max-width: 640px) { .home-case-thumbnail { justify-self: center; width: min(100%, 360px); } }
+
+/* Work disclosure shares the primary nav treatment and supports touch and keyboard. */
+.nav-work-group { position: relative; }
+.nav-work-trigger { background: transparent; font-family: inherit; cursor: pointer; text-align: left; }
+.sidebar-horizontal .nav-work-trigger .nav-work-chevron { display: block; width: 12px; height: 12px; transition: transform 180ms ease; }
+.nav-work-trigger[aria-expanded="true"] .nav-work-chevron { transform: rotate(180deg); }
+.nav-work-submenu { position: absolute; top: calc(100% + 12px); left: 0; z-index: 60; width: 190px; padding: 8px; border: 1px solid var(--surface-edge); border-radius: 14px; background: light-dark(#fafafa, #151515); box-shadow: 0 12px 30px rgb(0 0 0 / 20%); }
+.nav-work-submenu[hidden] { display: none; }
+.nav-work-submenu a { display: flex; align-items: center; min-height: 44px; padding: 10px 12px; border-radius: 8px; font-size: 13px; color: var(--muted); }
+.nav-work-submenu a:is(:hover, :focus-visible) { background: var(--surface-raised); color: var(--foreground); }
+@media (max-width: 760px) { .nav-work-submenu { position: static; width: auto; margin: 0 12px 8px; background: var(--surface); box-shadow: none; } }
+@media (prefers-reduced-motion: reduce) { .nav-work-chevron { transition: none; } }
