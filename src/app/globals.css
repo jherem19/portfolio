@@ -2086,3 +2086,26 @@ button, input, select, textarea, code, pre, kbd { font-family: var(--font-geist)
 .portfolio-home .service-brief h3 { font-size: clamp(23px, 2.2vw, 30px); line-height: 1.15; margin: 0; }
 .portfolio-home .service-description { margin: 0; max-width: 32ch; font-size: 15px; line-height: 1.55; }
 .portfolio-home .services-detail-cta { margin-top: 24px; }
+
+/* One spacing scale for the home: adjacent half-gaps form a full section gap. */
+.portfolio-home {
+  --home-section-gap: clamp(80px, 8vw, 120px);
+  --home-section-half-gap: calc(var(--home-section-gap) / 2);
+  --home-heading-gap: clamp(32px, 3.5vw, 48px);
+  --home-gutter: clamp(24px, 6vw, 96px);
+}
+.portfolio-home .page-content > :is(.services-section, .home-case-studies, .featured-section, .about-panel, .contact-panel) {
+  margin-block: 0;
+  padding-block: var(--home-section-half-gap);
+  padding-inline: var(--home-gutter);
+}
+.portfolio-home .page-content > .hero-bento-section {
+  padding-inline: var(--home-gutter);
+  padding-bottom: var(--home-section-half-gap);
+}
+.portfolio-home .hero-bento-top { margin-bottom: var(--home-heading-gap); }
+.portfolio-home :is(.services-heading, .content-heading, .side-projects-heading) { margin-bottom: var(--home-heading-gap); }
+.portfolio-home .page-content > .site-footer { margin-top: var(--home-section-half-gap); }
+@media (max-width: 640px) {
+  .portfolio-home { --home-section-gap: 64px; --home-heading-gap: 32px; --home-gutter: 20px; }
+}
