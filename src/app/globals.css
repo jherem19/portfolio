@@ -2077,3 +2077,12 @@ button, input, select, textarea, code, pre, kbd { font-family: var(--font-geist)
 :root { --green: light-dark(#565656, #d1d1d1); --ring: light-dark(#565656, #d1d1d1); }
 ::selection { background: var(--green); color: light-dark(#fff, #111); }
 .hero-cta-primary:hover { background: light-dark(#292929, #dedede); color: light-dark(#fff, #111); border-color: light-dark(#565656, #dedede); }
+
+/* A concise service overview; full engagement details live on Services. */
+.portfolio-home .services-heading { margin-bottom: 32px; }
+.portfolio-home .services-heading h2 { font-size: clamp(32px, 4.2vw, 56px); line-height: 1.08; letter-spacing: -.045em; }
+.portfolio-home .services-heading .section-kicker { margin-bottom: 14px; }
+:root:root:root .portfolio-home .service-brief { min-height: 0; gap: 14px; padding: clamp(24px, 2.8vw, 36px); }
+.portfolio-home .service-brief h3 { font-size: clamp(23px, 2.2vw, 30px); line-height: 1.15; margin: 0; }
+.portfolio-home .service-description { margin: 0; max-width: 32ch; font-size: 15px; line-height: 1.55; }
+.portfolio-home .services-detail-cta { margin-top: 24px; }

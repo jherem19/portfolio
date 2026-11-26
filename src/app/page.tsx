@@ -13,7 +13,6 @@ import { ScrollCue } from "@/components/scroll-cue";
 import { SiteSidebar } from "@/components/site-sidebar";
 import { SiteFooter } from "@/components/site-footer";
 import { getPublishedProjects } from "@/lib/cms/projects";
-import { services } from "@/data/site";
 
 export const revalidate = 60;
 
@@ -87,25 +86,26 @@ export default async function Home() {
           <header className="services-heading">
             <div>
               <p className="section-kicker">Ways to work together</p>
-              <h2 id="services-title">Three ways I can help.</h2>
+              <h2 id="services-title">Design support, your way.</h2>
             </div>
-            <p>Choose the outcome closest to what your product needs now.</p>
           </header>
 
           <div className="services-list">
-            {services.map((service) => (
+            {[
+              { title: "Launch & redesign", summary: "UI, websites and brand systems, ready to launch." },
+              { title: "Ongoing design", summary: "A creative partner for your next releases." },
+              { title: "3D & motion", summary: "Interactive experiences and visuals in motion." },
+            ].map((service) => (
               <article className="service-brief" key={service.title}>
                 <div className="service-brief-title">
-                  <p>{service.format}</p>
                   <h3>{service.title}</h3>
                 </div>
                 <p className="service-description">{service.summary}</p>
-                <Link className="service-brief-link" href="/services">See engagement details <ArrowRight aria-hidden="true" /></Link>
               </article>
             ))}
           </div>
 
-          <div className="services-detail-cta"><Link className="hero-cta hero-cta-primary" href="/services">Explore freelance services <ArrowRight aria-hidden="true" /></Link></div>
+          <div className="services-detail-cta"><Link className="hero-cta hero-cta-primary" href="/services"><RollText text="Explore services" /> <ArrowRight aria-hidden="true" /></Link></div>
         </section>
 
         <HomeCaseStudies projects={projects.filter(isCaseStudy).sort(compareCaseStudies).map(({ slug, title, short_description, cover_image, project_date }) => ({ slug, title, short_description, cover_image, project_date }))} />
