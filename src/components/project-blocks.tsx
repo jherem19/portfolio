@@ -25,7 +25,14 @@ function RichText({ children }: { children: string }) {
   return <div className="rich-text-content"><ReactMarkdown remarkPlugins={[remarkGfm]}>{children}</ReactMarkdown></div>;
 }
 
-export function ProjectBlocks({ blocks }: { blocks: ProjectBlock[] }) {
+function mediaIdentity(url: string) {
+  const parsed = new URL(url, "https://portfolio.local");
+  // Supabase can serve the same asset through original and transformed URLs.
+  return `${parsed.origin}${parsed.pathname.replace("/storage/v1/render/image/", "/storage/v1/object/")}`;
+}
+
+export function ProjectBlocks({ blocks, coverImage }: { blocks: ProjectBlock[]; coverImage?: string }) {
+  const isCover = (url: string) => Boolean(coverImage && mediaIdentity(url) === mediaIdentity(coverImage));
   return (
     <div className="case-study-blocks">
       {blocks.map((block, index) => {
@@ -38,11 +45,13 @@ export function ProjectBlocks({ blocks }: { blocks: ProjectBlock[] }) {
         }
 
         if (block.type === "image" && block.data.url) {
+          if (isCover(block.data.url)) return null;
           return <figure className="case-image" key={block.id ?? index}><Image alt={block.data.alt || "Project image"} height={1350} sizes="(max-width: 900px) 100vw, 78vw" src={block.data.url} width={2400} />{block.data.caption ? <figcaption>{block.data.caption}</figcaption> : null}</figure>;
         }
 
         if (block.type === "gallery") {
-          const items = block.data.items ?? [];
+          const items = (block.data.items ?? []).filter((item) => !isCover(item.url));
+          if (!items.length) return null;
           return <section className="case-gallery" key={block.id ?? index}>{items.map((item, itemIndex) => <figure key={`${item.url}-${itemIndex}`}><Image alt={item.alt || `Project gallery image ${itemIndex + 1}`} height={1200} sizes="(max-width: 900px) 100vw, 39vw" src={item.url} width={1600} />{item.caption ? <figcaption>{item.caption}</figcaption> : null}</figure>)}</section>;
         }
 

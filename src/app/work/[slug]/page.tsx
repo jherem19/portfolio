@@ -127,7 +127,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           {project.cover_video ? <video autoPlay loop muted playsInline poster={project.cover_image} src={project.cover_video} style={{ objectPosition: `${project.cover_position_x}% ${project.cover_position_y}%`, transform: `scale(${project.cover_zoom / 100})` }} /> : <Image src={project.cover_image} alt={`${project.title} project cover`} fill priority sizes="(max-width: 900px) 100vw, 78vw" style={{ objectPosition: `${project.cover_position_x}% ${project.cover_position_y}%`, transform: `scale(${project.cover_zoom / 100})` }} />}
         </div>
 
-        <ProjectBlocks blocks={project.blocks} />
+        <ProjectBlocks blocks={project.blocks} coverImage={project.cover_image} />
 
         {project.external_url ? <a className="hero-cta project-external-link" href={project.external_url} rel="noreferrer" target="_blank">Visit project <ArrowUpRight aria-hidden="true" /></a> : null}
 
