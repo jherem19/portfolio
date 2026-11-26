@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
-import { Archivo, Fraunces, Geist } from "next/font/google";
+import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { jsonLd } from "@/lib/json-ld";
 import { site } from "@/data/site";
@@ -12,12 +12,6 @@ import { SiteCursor } from "@/components/site-cursor";
 const googleSiteVerification = process.env.GOOGLE_SITE_VERIFICATION;
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
-const archivo = Archivo({ subsets: ["latin"], variable: "--font-archivo" });
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  variable: "--font-fraunces",
-  style: ["normal", "italic"],
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -79,7 +73,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={cn("font-sans", geist.variable, archivo.variable, fraunces.variable)}>
+    <html lang="en" suppressHydrationWarning className={cn("font-sans", geist.variable)}>
       <body>
         <script
           dangerouslySetInnerHTML={{
