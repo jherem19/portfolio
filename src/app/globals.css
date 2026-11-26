@@ -2111,16 +2111,16 @@ button, input, select, textarea, code, pre, kbd { font-family: var(--font-geist)
 }
 
 /* Editorial recommendations shared by articles, projects and case studies. */
-.article-recommendations { width: min(100%, 1040px); margin: clamp(56px, 7vw, 96px) auto 0; padding: 0 0 32px; }
-.article-recommendations > h2 { margin: 0 0 36px; font-family: var(--font-geist), sans-serif; font-size: clamp(26px, 3vw, 36px); line-height: 1.15; font-weight: 650; letter-spacing: -.035em; }
-.article-recommendation { display: grid; grid-template-columns: minmax(160px, 240px) minmax(0, 1fr); gap: 32px; align-items: center; padding: 28px 0; }
+.article-recommendations { width: min(100%, 760px); margin: clamp(56px, 7vw, 96px) auto 0; padding: 0 0 32px; }
+.article-recommendations > h2 { margin: 0 0 36px; font-family: var(--font-geist), sans-serif; font-size: clamp(24px, 2.2vw, 28px); line-height: 1.15; font-weight: 650; letter-spacing: -.035em; }
+.article-recommendation { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 28px; align-items: center; padding: 28px 0; }
 .article-recommendation + .article-recommendation { border-top: 1px solid var(--line); }
 .article-recommendation-image { position: relative; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 14px; background: var(--panel); }
 .article-recommendation-image img { object-fit: cover; transition: transform 450ms ease; }
 .article-recommendation:hover img { transform: scale(1.025); }
 .article-recommendation-copy > span { display: block; margin-bottom: 8px; color: var(--muted); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
-.article-recommendation-copy h3 { margin: 0 0 12px; font-size: clamp(21px, 2.4vw, 29px); line-height: 1.2; letter-spacing: -.025em; font-weight: 600; text-wrap: pretty; }
-.article-recommendation-copy time { color: var(--muted); font-size: 15px; }
+.article-recommendation-copy h3 { margin: 0 0 12px; font-size: 21px; line-height: 1.2; letter-spacing: -.025em; font-weight: 600; text-wrap: pretty; }
+.article-recommendation-copy time { color: var(--muted); font-size: 14px; }
 @media (max-width: 600px) {
  .article-recommendations > h2 { margin-bottom: 16px; }
  .article-recommendation { grid-template-columns: 100px minmax(0, 1fr); gap: 18px; padding: 24px 0; align-items: start; }

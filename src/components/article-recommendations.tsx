@@ -15,7 +15,7 @@ export async function ArticleRecommendations({ currentSlug, caseStudiesOnly = fa
       <div className="article-recommendation-list">
         {suggestions.map((project) => (
           <Link className="article-recommendation" href={`/work/${project.slug}`} key={project.id}>
-            <div className="article-recommendation-image"><Image src={project.cover_image} alt="" fill sizes="(max-width: 600px) 100px, 240px" style={{ objectPosition: `${project.cover_position_x}% ${project.cover_position_y}%` }} /></div>
+            <div className="article-recommendation-image"><Image src={project.cover_image} alt="" fill sizes="(max-width: 600px) 100px, 190px" style={{ objectPosition: `${project.cover_position_x}% ${project.cover_position_y}%` }} /></div>
             <div className="article-recommendation-copy">
               <span>{isCaseStudy(project) ? "Case study" : project.category || "Selected work"}</span>
               <h3>{project.title}</h3>
