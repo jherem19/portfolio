@@ -2273,3 +2273,12 @@ button, input, select, textarea, code, pre, kbd { font-family: var(--font-geist)
 @media (max-width: 900px) { .featured-editorial-caption { grid-template-columns: 1fr auto; } .featured-editorial-caption p { display: none; } }
 @media (max-width: 760px) { .portfolio-home .featured-showcase .showcase-copy { grid-template-columns: 1fr; } .featured-showcase .showcase-copy h2 { grid-row: auto; } .featured-editorial-rail { padding-inline: 7%; gap: 14px; } .featured-editorial-card { aspect-ratio: 4 / 5; border-radius: 18px; } .featured-editorial-caption { padding: 20px; gap: 12px; } }
 @media (prefers-reduced-motion: reduce) { .featured-editorial-card > img { transition: none; } }
+
+/* Quiet continuous motion, with smaller asymmetric neighboring cards. */
+.featured-editorial-rail { scroll-snap-type: none; }
+.featured-editorial-card { transform: scale(.8); transition: transform 900ms cubic-bezier(.22,.68,.18,1); transform-origin: left bottom; }
+.featured-editorial-card[data-position="previous"] { transform-origin: right top; }
+.featured-editorial-card[data-position="active"] { transform: scale(1); transform-origin: center; }
+.featured-editorial-card:not([data-position="active"]) .featured-editorial-caption { opacity: 0; }
+.featured-editorial-caption { transition: opacity 350ms ease; }
+@media (prefers-reduced-motion: reduce) { .featured-editorial-card, .featured-editorial-caption { transition: none; } }
