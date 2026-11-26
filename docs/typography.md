@@ -19,7 +19,7 @@ Geist is the single family, loaded through next/font. All sizes are rooted in re
 | Hero | 40–74px | Home headline |
 | Page | 40–80px | Interior page title |
 
-Headings use 500 weight (550 in editorial sections), 1.06 display / 1.16 heading line height and restrained negative tracking. Body uses 400 weight and 1.6 line height; long-form reading uses 1.75. Metadata never falls below 12px. Inputs use 16px to avoid automatic zoom on mobile Safari. Numeric/stat artwork has its own role.
+Headings use 500 weight (550 in editorial sections), 1.06 display / 1.16 heading line height and restrained negative tracking. Body uses 400 weight and 1.6 line height; long-form reading uses 1.5. Metadata never falls below 12px. Inputs use 16px to avoid automatic zoom on mobile Safari. Numeric/stat artwork has its own role.
 
 Keep article measure around 60–70 characters and recommendations at their existing centered 760px width. Preserve generous separation between headings and body. Use semantic heading order; a card's h3 can use the feature role without changing its document level. Do not encode hierarchy only with color.
 
