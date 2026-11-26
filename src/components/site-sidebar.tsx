@@ -10,7 +10,6 @@ type NavigationKey = "home" | "services" | "work" | "3d" | "resources" | "about"
 
 export function SiteSidebar({ active = "home", horizontal = false }: { active?: NavigationKey; horizontal?: boolean }) {
   const [current, setCurrent] = useState<NavigationKey>(active);
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [workOpen, setWorkOpen] = useState(false);
   const workButtonRef = useRef<HTMLButtonElement>(null);
@@ -23,14 +22,6 @@ export function SiteSidebar({ active = "home", horizontal = false }: { active?: 
     const frame = requestAnimationFrame(() => setLightTheme(document.documentElement.dataset.theme === "light"));
     return () => cancelAnimationFrame(frame);
   }, []);
-
-  useEffect(() => {
-    if (!horizontal) return;
-    const updateScroll = () => setScrolled(window.scrollY > 4);
-    updateScroll();
-    window.addEventListener("scroll", updateScroll, { passive: true });
-    return () => window.removeEventListener("scroll", updateScroll);
-  }, [horizontal]);
 
   const toggleTheme = () => {
     const next = document.documentElement.dataset.theme === "light" ? "dark" : "light";
@@ -105,8 +96,6 @@ export function SiteSidebar({ active = "home", horizontal = false }: { active?: 
   }, [menuOpen, workOpen]);
 
   return (
-    <>
-      {horizontal ? <div className={`navbar-backdrop${scrolled ? " is-scrolled" : ""}`} aria-hidden="true" /> : null}
     <aside className={horizontal ? "sidebar sidebar-horizontal" : "sidebar"} ref={sidebarRef}>
       <Link className="sidebar-brand" href="/" onClick={() => setMenuOpen(false)}>
         <strong>{horizontal ? "@JHEREM" : "Hector Heredia"}</strong>
@@ -173,6 +162,5 @@ export function SiteSidebar({ active = "home", horizontal = false }: { active?: 
       ) : null}
       <p className="sidebar-foot">Based in Chile · Working worldwide</p>
     </aside>
-    </>
   );
 }
