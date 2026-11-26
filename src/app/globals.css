@@ -2213,3 +2213,16 @@ button, input, select, textarea, code, pre, kbd { font-family: var(--font-geist)
  .portfolio-home .about-layout h2 { grid-column: auto; }
  .portfolio-home .about-portrait { width: 104px; }
 }
+
+/* Horizontal case-study rail with a glimpse of the next story. */
+.home-case-studies { overflow: clip; }
+.home-case-frame { --case-card-width: 100%; --case-card-gap: 32px; }
+.home-case-frame.has-multiple { --case-card-width: 82%; }
+.home-case-track { display: flex; gap: var(--case-card-gap); width: 100%; transition: transform 850ms cubic-bezier(.22,.68,.18,1); }
+.home-case-track > .home-case-banner { flex: 0 0 var(--case-card-width); min-width: 0; margin: 0; }
+.home-case-track .home-case-slide { height: 100%; animation: none; }
+.home-case-track .home-case-thumbnail img { max-height: 360px; }
+.home-case-frame.has-multiple > .home-case-controls { width: var(--case-card-width); margin-left: 0; }
+@media (max-width: 900px) { .home-case-frame.has-multiple { --case-card-width: 92%; } }
+@media (max-width: 640px) { .home-case-frame { --case-card-gap: 16px; } .home-case-frame.has-multiple { --case-card-width: 94%; } .home-case-track .home-case-thumbnail img { max-height: 240px; } }
+@media (prefers-reduced-motion: reduce) { .home-case-track { transition: none; } }
