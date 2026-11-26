@@ -2162,3 +2162,13 @@ button, input, select, textarea, code, pre, kbd { font-family: var(--font-geist)
 .navbar-backdrop.is-scrolled { opacity: 1; visibility: visible; }
 @media (max-width: 760px) { .navbar-backdrop { height: 170px; } }
 @media (prefers-reduced-motion: reduce) { .navbar-backdrop { transition: none; } }
+
+/* Keep carousel playback outside the artwork, quietly aligned above its right edge. */
+.home-case-frame { max-width: 1440px; margin-inline: auto; }
+.home-case-frame > .home-case-controls { position: static; justify-content: flex-end; gap: 6px; margin: 0 4px 12px; padding: 0; }
+.home-case-frame > .home-case-controls .home-case-counter { color: var(--muted); }
+.home-case-frame > .home-case-controls button { width: 30px; height: 30px; border-color: transparent; background: transparent; color: var(--muted); transition: color 180ms ease, background 180ms ease; }
+.home-case-frame > .home-case-controls button:hover { background: light-dark(rgb(0 0 0 / 6%), rgb(255 255 255 / 8%)); color: light-dark(#171717, #f5f5f5); }
+.home-case-frame > .home-case-controls button:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+.home-case-banner .home-case-copy h2 { font-size: clamp(36px, 3.6vw, 52px); line-height: 1.08; }
+@media (max-width: 640px) { .home-case-banner .home-case-copy h2 { font-size: clamp(32px, 8vw, 40px); } }
