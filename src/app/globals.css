@@ -2288,3 +2288,11 @@ button, input, select, textarea, code, pre, kbd { font-family: var(--font-geist)
     mask-image: linear-gradient(to right, #000 0%, #000 94%, transparent 100%);
   }
 }
+
+/* Explicitly clip composited backdrop layers to all four card corners. */
+.featured-editorial-card { clip-path: inset(0 round 22px); }
+.featured-editorial-blur, .featured-editorial-blur span { border-bottom-left-radius: 22px; border-bottom-right-radius: 22px; }
+@media (max-width: 760px) {
+  .featured-editorial-card { clip-path: inset(0 round 18px); }
+  .featured-editorial-blur, .featured-editorial-blur span { border-bottom-left-radius: 18px; border-bottom-right-radius: 18px; }
+}
