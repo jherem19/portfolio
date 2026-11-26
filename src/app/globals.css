@@ -2193,3 +2193,23 @@ button, input, select, textarea, code, pre, kbd { font-family: var(--font-geist)
 .service-option:is(:hover, :focus-visible) .service-option-indicator { background: #fff; }
 .service-option:is(:hover, :focus-visible) .service-option-indicator svg { opacity: 1; }
 @media (max-width: 760px) { :root:root:root .portfolio-home .service-option { min-height: 154px; padding: 20px; } }
+
+/* About: an editorial headline paired with a small portrait and biography. */
+.portfolio-home .about-layout { grid-template-columns: minmax(0, 1.8fr) 128px minmax(0, 1fr); gap: clamp(28px, 3vw, 44px); align-items: start; }
+.portfolio-home .about-layout h2 { grid-column: auto; align-self: center; max-width: 21ch; }
+.portfolio-home .about-portrait { width: 128px; aspect-ratio: 1; border: 0; border-radius: 14px; box-shadow: none; }
+.portfolio-home .about-portrait::after { display: none; }
+.portfolio-home .about-text { font-size: var(--type-body); line-height: 1.6; }
+.portfolio-home .about-text p { margin-bottom: 22px; }
+.portfolio-home .about-links { gap: 14px 24px; margin-top: 24px; }
+.portfolio-home .about-links a { font-size: var(--type-small); }
+@media (max-width: 1050px) {
+ .portfolio-home .about-layout { grid-template-columns: 112px minmax(0, 1fr); gap: 28px; }
+ .portfolio-home .about-layout h2 { grid-column: 1 / -1; max-width: 22ch; margin-bottom: 12px; }
+ .portfolio-home .about-portrait { width: 112px; }
+}
+@media (max-width: 600px) {
+ .portfolio-home .about-layout { grid-template-columns: 1fr; gap: 24px; }
+ .portfolio-home .about-layout h2 { grid-column: auto; }
+ .portfolio-home .about-portrait { width: 104px; }
+}

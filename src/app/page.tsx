@@ -130,7 +130,7 @@ export default async function Home() {
                 src="/hector-heredia-about.png"
                 alt="Hector Heredia, Senior Product and Motion Designer"
                 fill
-                sizes="(max-width: 760px) 100vw, (max-width: 1050px) 38vw, 24vw"
+                sizes="(max-width: 600px) 104px, (max-width: 1050px) 112px, 128px"
               />
             </figure>
             <div className="about-text">
