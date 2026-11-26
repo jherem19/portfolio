@@ -80,7 +80,7 @@ export function HomeCaseStudies({ projects }: { projects: CaseStudy[] }) {
         ) : null}
           </div>
           <Link className="home-case-thumbnail" href={`/work/${active.slug}`} aria-label={`View ${displayTitle}`}>
-            <Image src={active.cover_image} alt={`${displayTitle} project preview`} width={720} height={480} sizes="(max-width: 640px) 85vw, 36vw" style={{ width: "auto", height: "auto" }} />
+            <Image src={active.cover_image} alt={`${displayTitle} project preview`} width={720} height={480} sizes="(max-width: 640px) 85vw, 36vw" style={{ width: "100%", height: "auto" }} />
           </Link>
         </div>
 

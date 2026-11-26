@@ -2130,3 +2130,8 @@ button, input, select, textarea, code, pre, kbd { font-family: var(--font-geist)
  .article-recommendation-image { border-radius: 10px; }
 }
 @media (prefers-reduced-motion: reduce) { .article-recommendation-image img { transition: none; } }
+
+/* Fill the thumbnail column even when the source image has a smaller native width. */
+.home-case-thumbnail { width: min(100%, 440px); justify-self: end; }
+.home-case-thumbnail img { width: 100%; height: auto; }
+@media (max-width: 640px) { .home-case-thumbnail { justify-self: center; width: min(100%, 360px); } }
