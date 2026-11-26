@@ -17,7 +17,7 @@ const DEPTH = 0.62;
 const TAPER = 0.2;
 const PRESS_TRAVEL = 0.2;
 const VARIANTS: Variant[] = ["black", "white", "black", "glass", "blue", "black", "white", "green", "black", "glass", "white", "black", "blue"];
-const ICON_COLOR: Record<Variant, string> = { black: "#f4f6f3", white: "#1f6fff", glass: "#bfe3ff", blue: "#04142e", green: "#062017" };
+const ICON_COLOR: Record<Variant, string> = { black: "#f4f6f3", white: "#1f6fff", glass: "#bfe3ff", blue: "#04142e", green: "#202020" };
 
 // Latitude rings sized so every key keeps roughly the same spacing: [latitude in degrees, key count].
 const RINGS: [number, number][] = [[90, 1], [60, 6], [30, 10], [0, 12], [-30, 10], [-60, 6], [-90, 1]];
@@ -101,7 +101,7 @@ function Cluster({ takeDrag, still, onKey }: { takeDrag: () => DragState; still:
     white: new THREE.MeshPhysicalMaterial({ color: "#e6e8e5", roughness: 0.42, clearcoat: 0.5, clearcoatRoughness: 0.3 }),
     glass: new THREE.MeshPhysicalMaterial({ color: "#a9d4ff", roughness: 0.06, clearcoat: 1, transparent: true, opacity: 0.42, envMapIntensity: 1.6 }),
     blue: new THREE.MeshPhysicalMaterial({ color: "#2378ff", roughness: 0.36, clearcoat: 0.7, clearcoatRoughness: 0.2 }),
-    green: new THREE.MeshPhysicalMaterial({ color: "#66ddb3", roughness: 0.4, clearcoat: 0.6, clearcoatRoughness: 0.25 }),
+    green: new THREE.MeshPhysicalMaterial({ color: "#d1d1d1", roughness: 0.4, clearcoat: 0.6, clearcoatRoughness: 0.25 }),
   }), []);
   const legends = useMemo(() => {
     const fontFamily = getComputedStyle(document.body).fontFamily || "sans-serif";
