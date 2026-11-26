@@ -9,6 +9,7 @@ import type { ProjectSummary } from "@/types/cms";
 export function FeaturedShowcase({ projects }: { projects: ProjectSummary[] }) {
   const railRef = useRef<HTMLDivElement>(null);
   const hoveredRef = useRef(false);
+  const manualUntilRef = useRef(0);
   const [active, setActive] = useState(0);
   const cards = projects.length > 1 ? [...projects, ...projects, ...projects] : projects;
 
@@ -29,7 +30,7 @@ export function FeaturedShowcase({ projects }: { projects: ProjectSummary[] }) {
     const tick = (now: number) => {
       const elapsed = previous ? Math.min(now - previous, 40) : 0;
       previous = now;
-      if (!motion.matches && inView && !document.hidden && !hoveredRef.current && !rail.contains(document.activeElement)) {
+      if (!motion.matches && inView && !document.hidden && !hoveredRef.current && now > manualUntilRef.current && !rail.contains(document.activeElement)) {
         rail.scrollLeft += elapsed * .035;
         if (rail.scrollLeft >= position(projects.length * 2)) rail.scrollLeft -= position(projects.length * 2) - position(projects.length);
         if (rail.scrollLeft < position(0)) rail.scrollLeft += position(projects.length) - position(0);
@@ -43,6 +44,7 @@ export function FeaturedShowcase({ projects }: { projects: ProjectSummary[] }) {
   if (!projects.length) return null;
 
   const move = (direction: number) => {
+    manualUntilRef.current = performance.now() + 1500;
     const rail = railRef.current;
     if (!rail) return;
     const cards = Array.from(rail.children) as HTMLElement[];
